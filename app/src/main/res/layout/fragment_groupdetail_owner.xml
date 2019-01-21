@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:id="@+id/rootlayout"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+            app:layout_constraintTop_toTopOf="@+id/rootlayout"
+            android:id="@+id/titleview"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorpagetitle"
+            android:paddingBottom="4dp">
+        <TextView
+                android:text="$groupname"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/settings_title"/>
+        <TextView
+                android:text="@string/taptorename"
+                app:layout_constraintTop_toBottomOf="@id/settings_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/settings_subtitle"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/titleview"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/eventheader"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:id="@+id/listheader"/>
+
+    <android.support.v7.widget.RecyclerView
+            app:layout_constraintTop_toBottomOf="@id/listheader"
+            app:layout_constraintBottom_toTopOf="@id/addeventbutton"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+    <Button
+            android:text="@string/addevent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/event_member_split"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addeventbutton"/>
+
+    <android.support.constraint.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent=".4"
+            android:id="@+id/event_member_split"/>
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/members"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:id="@+id/memberheader"/>
+
+    <android.support.v7.widget.RecyclerView
+            app:layout_constraintTop_toBottomOf="@id/memberheader"
+            app:layout_constraintBottom_toTopOf="@id/leavebutton"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+    <Button
+            android:text="@string/addmember"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/leavebutton"/>
+
+    <View
+            android:id="@+id/divider"
+            app:layout_constraintTop_toTopOf="@id/event_member_split"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"/>
+
+
+</android.support.constraint.ConstraintLayout>

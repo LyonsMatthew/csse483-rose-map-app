@@ -62,6 +62,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_settings -> {
 
             }
+            R.id.nav_map -> {
+
+            }
+            R.id.nav_locshare -> {
+
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)

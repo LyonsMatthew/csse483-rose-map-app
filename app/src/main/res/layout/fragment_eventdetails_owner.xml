@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:id="@+id/rootlayout"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+            app:layout_constraintTop_toTopOf="@+id/rootlayout"
+            android:id="@+id/titleview"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorpagetitle"
+            android:paddingBottom="4dp">
+        <TextView
+                android:text="$eventname"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/settings_title"/>
+        <TextView
+                android:text="@string/taptorename"
+                app:layout_constraintTop_toBottomOf="@id/settings_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/settings_subtitle"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+            app:layout_constraintTop_toTopOf="@id/loctext"
+            app:layout_constraintBottom_toBottomOf="@id/loctext"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="8dp"
+            android:text="Location: "
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:id="@+id/loctitle"/>
+
+    <AutoCompleteTextView
+            app:layout_constraintTop_toBottomOf="@id/titleview"
+            app:layout_constraintLeft_toRightOf="@id/loctitle"
+            android:text="$location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/loctext"/>
+
+    <TextView
+            app:layout_constraintTop_toTopOf="@id/ttext"
+            app:layout_constraintBottom_toBottomOf="@id/ttext"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="8dp"
+            android:text="Time: "
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:id="@+id/ttitle"/>
+
+    <EditText
+            android:inputType="datetime"
+            app:layout_constraintTop_toBottomOf="@id/loctitle"
+            app:layout_constraintLeft_toRightOf="@id/ttitle"
+            android:text="$time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/ttext"/>
+
+
+    <TextView
+            app:layout_constraintTop_toTopOf="@id/datetext"
+            app:layout_constraintBottom_toBottomOf="@id/datetext"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="8dp"
+            android:text="Access: "
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:id="@+id/datetitle"/>
+
+    <EditText
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/ttitle"
+            app:layout_constraintLeft_toRightOf="@id/datetitle"
+            android:text="$groups"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/datetext"/>
+
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/datetitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="8dp"
+            android:text="Description: "
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:id="@+id/dtitle"/>
+
+    <EditText
+            app:layout_constraintTop_toBottomOf="@id/dtitle"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            app:layout_constraintLeft_toLeftOf="@id/dtitle"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="20dp"
+            android:text="$description"
+            android:inputType="textMultiLine"
+            android:textSize="14sp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_default="wrap"
+            app:layout_constraintVertical_bias="0"
+
+            android:id="@+id/dtext"/>
+
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/guideline2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="8dp"
+            android:textSize="24dp"
+            android:text="@string/mapheading"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/mtitle"/>
+
+    <FrameLayout
+            app:layout_constraintTop_toBottomOf="@id/mtitle"
+            app:layout_constraintBottom_toTopOf="@id/delbutton"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@id/appBar">
+        <include layout="@layout/fragment_map"/>
+    </FrameLayout>
+
+    <Button
+            android:layout_margin="8dp"
+            android:text="@string/deleteevent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/delbutton"/>
+
+    <android.support.constraint.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent=".5"
+            android:id="@+id/guideline2"/>
+
+</android.support.constraint.ConstraintLayout>

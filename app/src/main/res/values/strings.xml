@@ -13,4 +13,24 @@
     <string name="action_groups">Groups</string>
     <string name="action_events">Events</string>
     <string name="action_map">Map</string>
+    <string name="qshareloc">Share Location?</string>
+    <string name="locpeople">People who can view your location:</string>
+    <string name="locshareexp">Sharing your location allows the users you select below to see your location on their map
+        while you have this app open.
+    </string>
+    <string name="locaddperson">Add Someone</string>
+    <string name="locclearpeople">Remove Everyone</string>
+    <string name="groupexp">Groups provide an easy way to invite multiple people to events. Group organizers can create
+        and edit group events and add or remove people from the group.
+    </string>
+    <string name="groupheader">Groups you are part of</string>
+    <string name="eventheader">Upcoming Events</string>
+    <string name="searchhint">Search here</string>
+    <string name="members">Members</string>
+    <string name="leavegroup">Leave Group</string>
+    <string name="addmember">Add Member</string>
+    <string name="addevent">Add Event</string>
+    <string name="taptorename">(tap to rename)</string>
+    <string name="mapheading">Map:</string>
+    <string name="deleteevent">Delete Event</string>
 </resources>

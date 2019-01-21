@@ -26,7 +26,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
             <MultiAutoCompleteTextView
-                    android:text="@string/search"
+                    android:hint="@string/searchhint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/multiAutoCompleteTextView"/>
             </LinearLayout>
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/appBar">
-        <include layout="@layout/fragment_settings"/>
+        <include layout="@layout/fragment_eventdetails_owner"/>
     </FrameLayout>
 
 </RelativeLayout>

@@ -13,62 +13,71 @@
             android:background="@color/colorpagetitle"
             android:paddingBottom="4dp">
         <TextView
-                android:text="@string/action_location_sharing"
+                android:text="$groupname"
                 android:layout_centerHorizontal="true"
                 android:textSize="32dp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/settings_title"/>
     </RelativeLayout>
-    <TextView
-            app:layout_constraintTop_toBottomOf="@id/explainText"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="6dp"
-            android:text="@string/qshareloc"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/switchText"/>
-    <Switch
-            app:layout_constraintTop_toBottomOf="@id/switchText"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textSize="24sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/locswitch"/>
-    <TextView
-            app:layout_constraintTop_toBottomOf="@id/locswitch"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:text="@string/locpeople"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/listheader"/>
+
     <TextView
             app:layout_constraintTop_toBottomOf="@id/titleview"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="4dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="@string/locshareexp"
+            android:text="@string/eventheader"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/explainText"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:id="@+id/listheader"/>
+
     <android.support.v7.widget.RecyclerView
             app:layout_constraintTop_toBottomOf="@id/listheader"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/event_member_split"
             android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 
-    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+    <android.support.constraint.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent=".4"
+            android:id="@+id/event_member_split"/>
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/members"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:id="@+id/memberheader"/>
+
+    <android.support.v7.widget.RecyclerView
+            app:layout_constraintTop_toBottomOf="@id/memberheader"
+            app:layout_constraintBottom_toTopOf="@id/leavebutton"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+    <Button
+            android:text="@string/leavegroup"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_add"
-            android:layout_margin="16dp" />
+            android:id="@+id/leavebutton"/>
+    <View
+            android:id="@+id/divider"
+            app:layout_constraintTop_toTopOf="@id/event_member_split"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"/>
+
 
 </android.support.constraint.ConstraintLayout>

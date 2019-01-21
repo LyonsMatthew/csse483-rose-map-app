@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:id="@+id/rootlayout"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+            app:layout_constraintTop_toTopOf="@+id/rootlayout"
+            android:id="@+id/titleview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorpagetitle"
+            android:paddingBottom="4dp">
+        <TextView
+                android:text="$eventname"
+                android:layout_centerHorizontal="true"
+                android:textSize="32dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/settings_title"/>
+    </RelativeLayout>
+
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/titleview"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="8dp"
+            android:text="Location: "
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:id="@+id/loctitle"/>
+
+    <TextView
+            app:layout_constraintTop_toTopOf="@id/loctitle"
+            app:layout_constraintLeft_toRightOf="@id/loctitle"
+            android:text="$location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/loctext"/>
+
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/loctitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="8dp"
+            android:text="Time: "
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:id="@+id/ttitle"/>
+
+    <TextView
+            app:layout_constraintTop_toTopOf="@id/ttitle"
+            app:layout_constraintLeft_toRightOf="@id/ttitle"
+            android:text="$timeanddate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/ttext"/>
+
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/ttitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="8dp"
+            android:text="Description: "
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:id="@+id/dtitle"/>
+
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/dtitle"
+            app:layout_constraintLeft_toLeftOf="@id/dtitle"
+            android:layout_marginLeft="20dp"
+            android:text="$description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/dtext"/>
+
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/dtext"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="8dp"
+            android:text="@string/mapheading"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/mtitle"/>
+
+    <FrameLayout
+            app:layout_constraintTop_toBottomOf="@id/mtitle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@id/appBar">
+    <include layout="@layout/fragment_map"/>
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

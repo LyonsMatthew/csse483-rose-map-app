@@ -6,13 +6,13 @@
     <RelativeLayout
             android:id="@+id/titleview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:background="@color/colorpagetitle"
             android:paddingBottom="4dp">
     <TextView
             android:text="@string/action_settings"
             android:layout_centerHorizontal="true"
-            android:textSize="32sp"
+            android:textSize="32dp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/settings_title"/>
