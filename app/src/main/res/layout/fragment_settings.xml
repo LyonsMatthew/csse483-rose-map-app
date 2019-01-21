@@ -3,23 +3,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <RelativeLayout
+            android:id="@+id/titleview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorpagetitle"
+            android:paddingBottom="4dp">
     <TextView
-            android:text="Settings"
+            android:text="@string/action_settings"
+            android:layout_centerHorizontal="true"
             android:textSize="32sp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/settings_title"/>
+    </RelativeLayout>
     <Button
             android:layout_below="@id/accountName"
-            android:text="Sign Out"
+            android:text="@string/sign_out"
             android:layout_marginLeft="22dp"
             android:layout_marginRight="22dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/button"/>
     <TextView
             android:text="Currrently loged in as user_email@rose-hulman.edu"
+            android:layout_marginTop="6dp"
             android:layout_marginLeft="24dp"
-            android:layout_below="@id/settings_title"
+            android:layout_below="@id/titleview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/accountName"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/accountName"
+            android:layout_marginStart="24dp"/>
 </RelativeLayout>

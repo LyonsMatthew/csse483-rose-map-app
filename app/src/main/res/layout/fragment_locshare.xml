@@ -3,4 +3,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <RelativeLayout
+            android:id="@+id/titleview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorpagetitle"
+            android:paddingBottom="4dp">
+        <TextView
+                android:text="@string/action_location_sharing"
+                android:layout_centerHorizontal="true"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/settings_title"/>
+    </RelativeLayout>
+
+    <Switch
+            android:layout_below="@id/explainText"
+            android:text="Share Location?"
+            android:textSize="24sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/switch1"/>
+    <TextView
+            android:layout_below="@id/titleview"
+            android:text="Sharing your location allows the users you select below to see your location on their map while $appTitle is running."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/explainText"/>
+
 </RelativeLayout>
