@@ -7,6 +7,9 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.example.csse483finalproject.event.EventsFragment
+import com.example.csse483finalproject.group.GroupsFragment
+import com.example.csse483finalproject.map.MapFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -24,6 +27,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        setFragmentToStartup()
     }
 
     override fun onBackPressed() {
@@ -54,23 +59,59 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_events -> {
-                // Handle the camera action
+                setFragmentToEvents()
             }
             R.id.nav_groups -> {
-
+                setFragmentToGroups()
             }
             R.id.nav_settings -> {
-
+                setFragmentToSettings()
             }
             R.id.nav_map -> {
-
+                setFragmentToMap()
             }
             R.id.nav_locshare -> {
-
+                setFragmentToLocationShare()
             }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun setFragmentToStartup() {
+        val currentFragment = supportFragmentManager.beginTransaction()
+        currentFragment.replace(R.id.container, StartupFragment())
+        currentFragment.commit()
+    }
+
+    fun setFragmentToEvents() {
+        val currentFragment = supportFragmentManager.beginTransaction()
+        currentFragment.replace(R.id.container, EventsFragment())
+        currentFragment.commit()
+    }
+
+    fun setFragmentToGroups() {
+        val currentFragment = supportFragmentManager.beginTransaction()
+        currentFragment.replace(R.id.container, GroupsFragment())
+        currentFragment.commit()
+    }
+
+    fun setFragmentToSettings() {
+        val currentFragment = supportFragmentManager.beginTransaction()
+        currentFragment.replace(R.id.container, SettingsFragment())
+        currentFragment.commit()
+    }
+
+    fun setFragmentToMap() {
+        val currentFragment = supportFragmentManager.beginTransaction()
+        currentFragment.replace(R.id.container, MapFragment())
+        currentFragment.commit()
+    }
+
+    fun setFragmentToLocationShare() {
+        val currentFragment = supportFragmentManager.beginTransaction()
+        currentFragment.replace(R.id.container, LocationShareFragment())
+        currentFragment.commit()
     }
 }

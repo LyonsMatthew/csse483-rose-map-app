@@ -35,8 +35,8 @@
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/container"
             android:layout_below="@id/appBar">
-        <include layout="@layout/fragment_eventdetails_owner"/>
     </FrameLayout>
 
 </RelativeLayout>
