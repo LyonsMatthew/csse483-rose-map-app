@@ -5,6 +5,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.csse483finalproject.event.EventsFragment
@@ -12,6 +13,10 @@ import com.example.csse483finalproject.group.GroupsFragment
 import com.example.csse483finalproject.map.MapFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import java.io.BufferedReader
+import java.io.File
+import java.io.InputStream
+import java.io.InputStreamReader
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -68,7 +73,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 setFragmentToSettings()
             }
             R.id.nav_map -> {
-                setFragmentToMap()
+                setFragmentToMap("Crapo 2", "crapo2")
             }
             R.id.nav_locshare -> {
                 setFragmentToLocationShare()
@@ -103,9 +108,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         currentFragment.commit()
     }
 
-    fun setFragmentToMap() {
+    fun setFragmentToMap(name: String, fileName: String) {
+        var bundle: Bundle = Bundle()
+        val newFragment = MapFragment()
+        bundle.putString("name", name)
+        bundle.putString("fileName", fileName)
+        newFragment.arguments = bundle
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, MapFragment())
+        currentFragment.replace(R.id.container, newFragment)
         currentFragment.commit()
     }
 
