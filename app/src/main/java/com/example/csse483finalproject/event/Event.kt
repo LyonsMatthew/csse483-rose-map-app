@@ -2,7 +2,7 @@ package com.example.csse483finalproject.event
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.example.csse483finalproject.groupspec.Groupspec
+import com.example.csse483finalproject.group.Groupspec
 import java.util.Date
 
 data class Event(var eventName:String, var eventStart: Date, var eventEnd: Date, var eventOwners: Groupspec, var eventViewers: Groupspec, val id: Long ) :Parcelable {
