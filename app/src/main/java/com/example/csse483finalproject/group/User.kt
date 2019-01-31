@@ -3,10 +3,9 @@ package com.example.csse483finalproject.group
 import android.os.Parcel
 import android.os.Parcelable
 
-data class User(val userId:Long, var username: String, var roseEmail: String) :Parcelable {
+data class User(val userId:Long, var username: String) :Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
-        parcel.readString(),
         parcel.readString()
     ) {
     }
@@ -14,7 +13,6 @@ data class User(val userId:Long, var username: String, var roseEmail: String) :P
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(userId)
         parcel.writeString(username)
-        parcel.writeString(roseEmail)
     }
 
     override fun describeContents(): Int {

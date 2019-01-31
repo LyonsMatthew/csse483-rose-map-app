@@ -2,7 +2,6 @@ package com.example.csse483finalproject.group
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.example.csse483finalproject.group.User
 
 enum class Membertype {
     OWNER, VIEWER, BOTH
@@ -36,9 +35,9 @@ private fun mtArrayFromIntArray(ia:ArrayList<Int>): ArrayList<Membertype> {
     return mta
 }
 
-data class Groupspec(var groups:ArrayList<User>, var memberType: ArrayList<Membertype>) : Parcelable {
+data class Groupspec(var groups:ArrayList<Group>, var memberType: ArrayList<Membertype>) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.createTypedArrayList(User.CREATOR)!!,
+        parcel.createTypedArrayList(Group.CREATOR)!!,
         mtArrayFromIntArray(parcel.createIntArray().toCollection(ArrayList()))
     ) {
     }

@@ -2,74 +2,89 @@
 <android.support.v7.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/pic_card_view"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="96dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:id="@+id/eventCardView"
         card_view:cardCornerRadius="4dp">
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp">
         <TextView
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintLeft_toRightOf="@id/imageView"
                 card_view:layout_constraintRight_toLeftOf="@id/g75"
-                android:id="@+id/picCaption"
-                android:text="Title"
+                android:id="@+id/eventTitle"
+                android:text="Event "
                 android:layout_marginTop="22dp"
                 android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"/>
         <TextView
-                card_view:layout_constraintTop_toBottomOf="@id/picCaption"
+                card_view:layout_constraintTop_toBottomOf="@id/eventTitle"
                 card_view:layout_constraintLeft_toRightOf="@id/imageView"
                 card_view:layout_constraintRight_toLeftOf="@id/g75"
-                android:id="@+id/picURL"
+                android:id="@+id/eventLocation"
                 android:text="Location"
                 android:layout_marginLeft="8dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/picCaption"
+                android:layout_below="@id/eventTitle"
                 android:textSize="14sp"/>
         <ImageView
                 android:adjustViewBounds="true"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/ic_event"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintLeft_toLeftOf="parent"
+                card_view:layout_constraintRight_toRightOf="@id/g25"
                 android:id="@+id/imageView"/>
         <TextView
                 android:text="Date"
                 card_view:layout_constraintLeft_toLeftOf="@id/g75"
                 card_view:layout_constraintRight_toRightOf="parent"
-                card_view:layout_constraintTop_toTopOf="@id/picCaption"
+                card_view:layout_constraintTop_toTopOf="@id/eventTitle"
                 android:textSize="24sp"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" tools:layout_editor_absoluteY="16dp"
-                tools:layout_editor_absoluteX="444dp" android:id="@+id/dateTv"/>
+                tools:layout_editor_absoluteX="444dp" android:id="@+id/eventDate"/>
         <TextView
                 android:text="Time"
-                card_view:layout_constraintTop_toTopOf="@id/picURL"
+                card_view:layout_constraintTop_toTopOf="@id/eventLocation"
                 card_view:layout_constraintRight_toRightOf="parent"
                 android:textSize="14sp"
                 android:layout_marginBottom="12dp"
                 card_view:layout_constraintLeft_toLeftOf="@id/g75"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView4"/>
+                android:id="@+id/eventTime"/>
         <android.support.constraint.Guideline
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" card_view:layout_constraintGuide_percent=".75"
                 android:id="@+id/g75"/>
+        <android.support.constraint.Guideline
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" card_view:layout_constraintGuide_percent=".15"
+                android:id="@+id/g25"/>
+        <Space
+                android:layout_width="0dp"
+                android:layout_height="22dp"
+                card_view:layout_constraintTop_toBottomOf="@id/eventLocation"
+                card_view:layout_constraintLeft_toLeftOf="parent"
+                card_view:layout_constraintRight_toRightOf="parent"
+                />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
