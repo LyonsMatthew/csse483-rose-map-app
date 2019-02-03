@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.csse483finalproject.R
 
-class EventAdapter(var context: Context) : RecyclerView.Adapter<EventViewHolder>() {
+class EventAdapter(var context: Context, var parentFragment: EventsFragment) : RecyclerView.Adapter<EventViewHolder>() {
     private val events = ArrayList<Event>()
 
     override fun onCreateViewHolder(parent: ViewGroup, index: Int): EventViewHolder {
@@ -26,4 +26,5 @@ class EventAdapter(var context: Context) : RecyclerView.Adapter<EventViewHolder>
         events.add(0, event)
         notifyItemInserted(0)
     }
+
 }

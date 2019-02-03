@@ -33,6 +33,7 @@
     <string name="taptorename">(tap to rename)</string>
     <string name="mapheading">Map:</string>
     <string name="deleteevent">Delete Event</string>
+    <string name="date_seperator">%1$s until %2$s</string>
     <string-array name="month_abbrev">
         <item>Jan</item>
         <item>Feb</item>

@@ -15,7 +15,7 @@
             android:textSize="32dp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/settings_title"/>
+            android:layout_height="wrap_content" android:id="@+id/event_title"/>
     </RelativeLayout>
     <Button
             android:layout_below="@id/accountName"

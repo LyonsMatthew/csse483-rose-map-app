@@ -5,20 +5,29 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.example.csse483finalproject.event.Event
+import com.example.csse483finalproject.event.EventDetailsFragment
 import com.example.csse483finalproject.event.EventsFragment
-import com.example.csse483finalproject.group.GroupsFragment
+import com.example.csse483finalproject.event.Location
+import com.example.csse483finalproject.group.*
 import com.example.csse483finalproject.map.MapFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import java.io.BufferedReader
-import java.io.File
-import java.io.InputStream
-import java.io.InputStreamReader
+import java.util.*
+import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, EventsFragment.EventListListener {
+
+    override fun onEventClicked(e: Event) {
+        val currentFragment = supportFragmentManager.beginTransaction()
+        currentFragment.replace(R.id.container, EventDetailsFragment.newInstance(e))
+        currentFragment.commit()
+    }
+
+    lateinit var testEvents:ArrayList<Event>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +41,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        testEvents = ArrayList<Event>()
+        var testUser = User(0,"crenshch@rose-hulman.edu")
+        var testMembers = ArrayList<User>()
+        testMembers.add(testUser)
+        var testOwnerSpec = Memberspec(testMembers)
+        var testViewerSpec = Memberspec(ArrayList<User>())
+        var testGroup = Group(testOwnerSpec,testViewerSpec,0)
+        var testgArr=ArrayList<Group>()
+        testgArr.add(testGroup)
+        var testgMTarr = ArrayList<Membertype>()
+        testgMTarr.add(Membertype.OWNER)
+        var testgVTarr = ArrayList<Membertype>()
+        testgVTarr.add(Membertype.VIEWER)
+        var testOwner = Groupspec(testgArr,testgMTarr)
+        var testViewer = Groupspec(testgArr,testgMTarr)
+        testEvents.add(Event("Test RoseMaps", Location(null,false,0F,0F, "Lakeside 402"),"Rose maps is great", Date(119,0,31,8,30), Date(119,0,31,9,30),testOwner, testViewer,0))
+        testEvents.add(Event("Making events manually is a real pain...", Location(null,false,0F,0F, "Speed Beach"),"Manual event", Date(119,0,31,8,30), Date(119,0,31,9,30),testOwner, testViewer,1))
 
         setFragmentToStartup()
     }
@@ -92,7 +119,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun setFragmentToEvents() {
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, EventsFragment())
+        currentFragment.replace(R.id.container, EventsFragment.newInstance(testEvents))
         currentFragment.commit()
     }
 

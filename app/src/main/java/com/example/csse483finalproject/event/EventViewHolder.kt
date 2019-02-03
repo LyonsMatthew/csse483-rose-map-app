@@ -27,6 +27,9 @@ class EventViewHolder : RecyclerView.ViewHolder {
         val monthStrings = adapter.context.resources.getStringArray(R.array.month_abbrev)
         eventDate.text = monthStrings[event.eventStart.month] + " " + event.eventStart.date.toString()
         eventTime.text = event.eventStart.hours.toString() + ":" + event.eventStart.minutes.toString() +" to " + event.eventEnd.hours.toString() + ":" + event.eventEnd.minutes.toString()
+        cardView.setOnClickListener {
+            adapter.parentFragment.onEventClicked(event)
+        }
     }
 }
 
