@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/button"/>
     <TextView
-            android:text="Currrently logged in as user_email@rose-hulman.edu"
+            android:text="@string/loginText"
             android:layout_marginTop="6dp"
             android:layout_marginLeft="24dp"
             android:layout_below="@id/titleview"

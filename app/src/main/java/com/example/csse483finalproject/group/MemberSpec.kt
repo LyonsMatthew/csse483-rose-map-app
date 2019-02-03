@@ -3,7 +3,7 @@ package com.example.csse483finalproject.group
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Memberspec(var members:ArrayList<User>) :Parcelable {
+data class MemberSpec(var members:ArrayList<User>) :Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.createTypedArrayList(User.CREATOR)!!
     ) {
@@ -17,12 +17,12 @@ data class Memberspec(var members:ArrayList<User>) :Parcelable {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Memberspec> {
-        override fun createFromParcel(parcel: Parcel): Memberspec {
-            return Memberspec(parcel)
+    companion object CREATOR : Parcelable.Creator<MemberSpec> {
+        override fun createFromParcel(parcel: Parcel): MemberSpec {
+            return MemberSpec(parcel)
         }
 
-        override fun newArray(size: Int): Array<Memberspec?> {
+        override fun newArray(size: Int): Array<MemberSpec?> {
             return arrayOfNulls(size)
         }
     }

@@ -18,7 +18,7 @@
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintLeft_toRightOf="@id/imageView"
                 card_view:layout_constraintRight_toLeftOf="@id/g75"
-                android:id="@+id/eventTitle"
+                android:id="@+id/eventName"
                 android:text="Event "
                 android:layout_marginTop="22dp"
                 android:layout_marginLeft="8dp"
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="24sp"/>
         <TextView
-                card_view:layout_constraintTop_toBottomOf="@id/eventTitle"
+                card_view:layout_constraintTop_toBottomOf="@id/eventName"
                 card_view:layout_constraintLeft_toRightOf="@id/imageView"
                 card_view:layout_constraintRight_toLeftOf="@id/g75"
                 android:id="@+id/eventLocation"
@@ -35,7 +35,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/eventTitle"
+                android:layout_below="@id/eventName"
                 android:textSize="14sp"/>
         <ImageView
                 android:adjustViewBounds="true"
@@ -53,7 +53,7 @@
                 android:text="Date"
                 card_view:layout_constraintLeft_toLeftOf="@id/g75"
                 card_view:layout_constraintRight_toRightOf="parent"
-                card_view:layout_constraintTop_toTopOf="@id/eventTitle"
+                card_view:layout_constraintTop_toTopOf="@id/eventName"
                 android:textSize="24sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" tools:layout_editor_absoluteY="16dp"

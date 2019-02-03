@@ -10,11 +10,11 @@ import android.view.ViewGroup
 import com.example.csse483finalproject.R
 import kotlinx.android.synthetic.main.fragment_events.view.*
 
-class EventsFragment : Fragment() {
+class EventsFragment : Fragment(), EventAdapter.EventListListener {
 
     lateinit var adapter: EventAdapter
     lateinit var events: ArrayList<Event>
-    lateinit var listener: EventListListener
+    lateinit var listener: EventAdapter.EventListListener
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class EventsFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is EventListListener) {
+        if (context is EventAdapter.EventListListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement EventListListener")
@@ -50,12 +50,8 @@ class EventsFragment : Fragment() {
         //use this to pass arguments if necessary
     }
 
-    fun onEventClicked(e: Event){
+    override fun onEventClicked(e: Event){
         listener.onEventClicked(e)
-    }
-
-    interface EventListListener {
-        fun onEventClicked(e: Event)
     }
 
     companion object {

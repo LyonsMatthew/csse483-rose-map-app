@@ -7,18 +7,29 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import com.example.csse483finalproject.event.Event
-import com.example.csse483finalproject.event.EventDetailsFragment
-import com.example.csse483finalproject.event.EventsFragment
-import com.example.csse483finalproject.event.Location
+import com.example.csse483finalproject.event.*
 import com.example.csse483finalproject.group.*
 import com.example.csse483finalproject.map.MapFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, EventsFragment.EventListListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    EventAdapter.EventListListener, GroupsFragment.GroupListListener {
+    override fun onGroupClicked(g: GroupWithMembershipType) {
+        if(g.membertype.mt == MT.OWNER || g.membertype.mt == MT.BOTH){
+            val currentFragment = supportFragmentManager.beginTransaction()
+            currentFragment.replace(R.id.container, GroupDetailOwnerFragment.newInstance(g.group))
+            currentFragment.commit()
+        }
+        else{
+            val currentFragment = supportFragmentManager.beginTransaction()
+            currentFragment.replace(R.id.container, GroupDetailMemberFragment.newInstance(g.group))
+            currentFragment.commit()
+        }
+    }
 
     override fun onEventClicked(e: Event) {
         val currentFragment = supportFragmentManager.beginTransaction()
@@ -27,6 +38,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     lateinit var testEvents:ArrayList<Event>
+    lateinit var testUser: User
+    lateinit var testMembers: ArrayList<User>
+    lateinit var testOwnerSpec: MemberSpec
+    lateinit var testViewerSpec: MemberSpec
+    lateinit var testGroup: Group
+    lateinit var gwmto: GroupWithMembershipType
+    lateinit var gwmtv: GroupWithMembershipType
+    lateinit var gwmtoa: ArrayList<GroupWithMembershipType>
+    lateinit var gwmtov: ArrayList<GroupWithMembershipType>
+    lateinit var testOwner: GroupSpec
+    lateinit var testViewer: GroupSpec
+    lateinit var alou: ArrayList<User>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,23 +66,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
 
         testEvents = ArrayList<Event>()
-        var testUser = User(0,"crenshch@rose-hulman.edu")
-        var testMembers = ArrayList<User>()
+        testUser = User(0,"crenshch@rose-hulman.edu", "Connor Crenshaw")
+        testMembers = ArrayList<User>()
         testMembers.add(testUser)
-        var testOwnerSpec = Memberspec(testMembers)
-        var testViewerSpec = Memberspec(ArrayList<User>())
-        var testGroup = Group(testOwnerSpec,testViewerSpec,0)
-        var testgArr=ArrayList<Group>()
-        testgArr.add(testGroup)
-        var testgMTarr = ArrayList<Membertype>()
-        testgMTarr.add(Membertype.OWNER)
-        var testgVTarr = ArrayList<Membertype>()
-        testgVTarr.add(Membertype.VIEWER)
-        var testOwner = Groupspec(testgArr,testgMTarr)
-        var testViewer = Groupspec(testgArr,testgMTarr)
+        testOwnerSpec = MemberSpec(testMembers)
+        testViewerSpec = MemberSpec(ArrayList<User>())
+        testGroup = Group("Test Users",testOwnerSpec,testViewerSpec,0)
+        gwmto = GroupWithMembershipType(testGroup, MemberType(MT.OWNER))
+        gwmtv = GroupWithMembershipType(testGroup, MemberType(MT.VIEWER))
+        gwmtoa = ArrayList<GroupWithMembershipType>()
+        gwmtoa.add(gwmto)
+        gwmtov = ArrayList<GroupWithMembershipType>()
+        gwmtov.add(gwmtv)
+        testOwner = GroupSpec(gwmtoa)
+        testViewer = GroupSpec(gwmtov)
+        alou=ArrayList<User>()
+        alou.add(testUser)
         testEvents.add(Event("Test RoseMaps", Location(null,false,0F,0F, "Lakeside 402"),"Rose maps is great", Date(119,0,31,8,30), Date(119,0,31,9,30),testOwner, testViewer,0))
         testEvents.add(Event("Making events manually is a real pain...", Location(null,false,0F,0F, "Speed Beach"),"Manual event", Date(119,0,31,8,30), Date(119,0,31,9,30),testOwner, testViewer,1))
-
+        nav_view.getHeaderView(0).user_displayname.text = testUser.displayName
+        nav_view.getHeaderView(0).user_email.text = testUser.username
         setFragmentToStartup()
     }
 
@@ -125,13 +151,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun setFragmentToGroups() {
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, GroupsFragment())
+        currentFragment.replace(R.id.container, GroupsFragment.newInstance(gwmtov))
         currentFragment.commit()
     }
 
     fun setFragmentToSettings() {
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, SettingsFragment())
+        currentFragment.replace(R.id.container, SettingsFragment.newInstance(testUser))
         currentFragment.commit()
     }
 
@@ -148,7 +174,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun setFragmentToLocationShare() {
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, LocationShareFragment())
+        currentFragment.replace(R.id.container, LocationShareFragment.newInstance(alou))
         currentFragment.commit()
     }
 }

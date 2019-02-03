@@ -20,10 +20,10 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/event_title"/>
+                android:layout_height="wrap_content" android:id="@+id/group_title"/>
         <TextView
                 android:text="@string/taptorename"
-                app:layout_constraintTop_toBottomOf="@id/event_title"
+                app:layout_constraintTop_toBottomOf="@id/group_title"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:textSize="12dp"
@@ -49,7 +49,8 @@
             app:layout_constraintBottom_toTopOf="@id/addeventbutton"
             android:layout_margin="16dp"
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp"
+            android:id="@+id/event_recycler_view"/>
 
     <Button
             android:text="@string/addevent"
@@ -83,7 +84,8 @@
             app:layout_constraintBottom_toTopOf="@id/leavebutton"
             android:layout_margin="16dp"
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp"
+            android:id="@+id/member_recycler_view"/>
     <Button
             android:text="@string/addmember"
             android:layout_marginBottom="8dp"

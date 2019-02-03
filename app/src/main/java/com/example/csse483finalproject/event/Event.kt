@@ -2,18 +2,18 @@ package com.example.csse483finalproject.event
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.example.csse483finalproject.group.Groupspec
+import com.example.csse483finalproject.group.GroupSpec
 import java.util.*
 
-data class Event(var eventName:String, var eventLocation:Location, var eventDescription:String, var eventStart: Date, var eventEnd: Date, var eventOwners: Groupspec, var eventViewers: Groupspec, val id: Long ) :Parcelable {
+data class Event(var eventName:String, var eventLocation:Location, var eventDescription:String, var eventStart: Date, var eventEnd: Date, var eventOwners: GroupSpec, var eventViewers: GroupSpec, val id: Long ) :Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readParcelable(Location::class.java.classLoader)!!,
         parcel.readString(),
         parcel.readSerializable() as Date,
         parcel.readSerializable() as Date,
-        parcel.readParcelable(Groupspec::class.java.classLoader)!!,
-        parcel.readParcelable(Groupspec::class.java.classLoader)!!,
+        parcel.readParcelable(GroupSpec::class.java.classLoader)!!,
+        parcel.readParcelable(GroupSpec::class.java.classLoader)!!,
         parcel.readLong()
     ) {
     }
