@@ -4,6 +4,7 @@
     xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
   <metadata>
     <bounds minlat="39.4834307" minlon="-87.3256542" maxlat="39.4842597" maxlon="-87.3235473"/>
+    <padding bot="0.13425925925" top="0.03703703703" left="0.04686413572" right="0.23432067862"/>
   </metadata>
   <trk>
     <name>G202</name>

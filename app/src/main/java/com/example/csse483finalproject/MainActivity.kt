@@ -15,6 +15,10 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import java.util.*
 import kotlin.collections.ArrayList
+import android.R.attr.data
+import android.util.TypedValue
+
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     EventAdapter.EventListListener, GroupsFragment.GroupListListener {
@@ -64,6 +68,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        //Code to find actionbar height taken from the following StackOverflow post:
+        //https://stackoverflow.com/questions/12301510/how-to-get-the-actionbar-height
+        //Credit to Anthony
+        val tv = TypedValue()
+        if (theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            Constants.ACTIONBAR_HEIGHT = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics) + 60
+        }
 
         testEvents = ArrayList<Event>()
         testUser = User(0,"crenshch@rose-hulman.edu", "Connor Crenshaw")
