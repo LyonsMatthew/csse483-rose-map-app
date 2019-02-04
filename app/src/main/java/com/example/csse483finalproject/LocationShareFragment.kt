@@ -32,7 +32,7 @@ class LocationShareFragment : Fragment(), UserAdapter.DeletableUserInterface {
         unpackBundle(view)
         adapter = UserAdapter(this.context!!,this)
         view.recycler_view.layoutManager = LinearLayoutManager(this.context)
-        view.recycler_view.setHasFixedSize(true)
+        view.recycler_view.setHasFixedSize(false)
         view.recycler_view.adapter = adapter
         ItemTouchHelper(adapter.SwipeCallback()).attachToRecyclerView(view.recycler_view)
         for (i in 0 until users.size){

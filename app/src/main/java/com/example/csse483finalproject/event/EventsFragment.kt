@@ -38,7 +38,7 @@ class EventsFragment : Fragment(), EventAdapter.EventListListener {
         unpackBundle(view)
         adapter = EventAdapter(this.context!!,this)
         view.recycler_view.layoutManager = LinearLayoutManager(this.context)
-        view.recycler_view.setHasFixedSize(true)
+        view.recycler_view.setHasFixedSize(false)
         view.recycler_view.adapter = adapter
         for (i in 0 until events.size){
             adapter.add(events[i])

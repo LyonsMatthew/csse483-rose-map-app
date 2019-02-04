@@ -38,7 +38,7 @@ class GroupsFragment : Fragment() {
         unpackBundle(view)
         adapter = GroupAdapter(this.context!!,this)
         view.recycler_view.layoutManager = LinearLayoutManager(this.context)
-        view.recycler_view.setHasFixedSize(true)
+        view.recycler_view.setHasFixedSize(false)
         view.recycler_view.adapter = adapter
         for (i in 0 until groups.size){
             adapter.add(groups[i])
