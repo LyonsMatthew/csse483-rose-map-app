@@ -1,0 +1,745 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gpx version="1.1" creator="JOSM GPX export" xmlns="http://www.topografix.com/GPX/1/1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <bounds minlat="39.4828309" minlon="-87.3276874" maxlat="39.4862444" maxlon="-87.3237105"/>
+  </metadata>
+  <trk>
+    <name>&quot;HH253&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48286159769" lon="-87.32601452532">
+      </trkpt>
+      <trkpt lat="39.48290247852" lon="-87.32639853724">
+      </trkpt>
+      <trkpt lat="39.48297509677" lon="-87.32639345141">
+      </trkpt>
+      <trkpt lat="39.48302852759" lon="-87.32638970938">
+      </trkpt>
+      <trkpt lat="39.48302106507" lon="-87.32618249986">
+      </trkpt>
+      <trkpt lat="39.48301498049" lon="-87.32601355115">
+      </trkpt>
+      <trkpt lat="39.48286159769" lon="-87.32601452532">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH227&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48524286585" lon="-87.32465503484">
+      </trkpt>
+      <trkpt lat="39.48524286585" lon="-87.32469917414">
+      </trkpt>
+      <trkpt lat="39.48524286585" lon="-87.32489338707">
+      </trkpt>
+      <trkpt lat="39.48542341647" lon="-87.32490221493">
+      </trkpt>
+      <trkpt lat="39.48542341647" lon="-87.32468151842">
+      </trkpt>
+      <trkpt lat="39.48524286585" lon="-87.32469917414">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH229&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48524286585" lon="-87.3242975065">
+      </trkpt>
+      <trkpt lat="39.48538594374" lon="-87.32430192043">
+      </trkpt>
+      <trkpt lat="39.48539275696" lon="-87.32450054728">
+      </trkpt>
+      <trkpt lat="39.48532121806" lon="-87.32452261694">
+      </trkpt>
+      <trkpt lat="39.48531781145" lon="-87.32458882589">
+      </trkpt>
+      <trkpt lat="39.48524286585" lon="-87.32465503484">
+      </trkpt>
+      <trkpt lat="39.48524286585" lon="-87.3242975065">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH250&quot;</name>
+    <trkseg>
+      <trkpt lat="39.4835531618" lon="-87.32634557008">
+      </trkpt>
+      <trkpt lat="39.48354634839" lon="-87.3266722009">
+      </trkpt>
+      <trkpt lat="39.48315457643" lon="-87.32666778697">
+      </trkpt>
+      <trkpt lat="39.48315116971" lon="-87.32635881187">
+      </trkpt>
+      <trkpt lat="39.48326018474" lon="-87.32634998401">
+      </trkpt>
+      <trkpt lat="39.4835531618" lon="-87.32634557008">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH214&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48576748335" lon="-87.32632791435">
+      </trkpt>
+      <trkpt lat="39.48577088994" lon="-87.32607632034">
+      </trkpt>
+      <trkpt lat="39.48599913138" lon="-87.32607632034">
+      </trkpt>
+      <trkpt lat="39.48599231821" lon="-87.32634115615">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.32632791435">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH205&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48580836247" lon="-87.32732104863">
+      </trkpt>
+      <trkpt lat="39.48565582378" lon="-87.32741537898">
+      </trkpt>
+      <trkpt lat="39.4855085817" lon="-87.3275064337">
+      </trkpt>
+      <trkpt lat="39.48556308739" lon="-87.32768740483">
+      </trkpt>
+      <trkpt lat="39.48589012064" lon="-87.32756822872">
+      </trkpt>
+      <trkpt lat="39.48580836247" lon="-87.32732104863">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH240&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48507253464" lon="-87.32672516807">
+      </trkpt>
+      <trkpt lat="39.48508616115" lon="-87.32690172527">
+      </trkpt>
+      <trkpt lat="39.48495670918" lon="-87.3269061392">
+      </trkpt>
+      <trkpt lat="39.48495330254" lon="-87.32643826261">
+      </trkpt>
+      <trkpt lat="39.48506981573" lon="-87.32643394469">
+      </trkpt>
+      <trkpt lat="39.48507253464" lon="-87.32672516807">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH243&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48387339112" lon="-87.3252067761">
+      </trkpt>
+      <trkpt lat="39.48476934405" lon="-87.32520236217">
+      </trkpt>
+      <trkpt lat="39.48480341048" lon="-87.3253524358">
+      </trkpt>
+      <trkpt lat="39.48487154327" lon="-87.3253524358">
+      </trkpt>
+      <trkpt lat="39.48489538974" lon="-87.32559078802">
+      </trkpt>
+      <trkpt lat="39.484939676" lon="-87.32559520195">
+      </trkpt>
+      <trkpt lat="39.48496011581" lon="-87.32582914025">
+      </trkpt>
+      <trkpt lat="39.48506408549" lon="-87.32582017785">
+      </trkpt>
+      <trkpt lat="39.48506981573" lon="-87.32643394469">
+      </trkpt>
+      <trkpt lat="39.48495330254" lon="-87.32643826261">
+      </trkpt>
+      <trkpt lat="39.48495670918" lon="-87.3269061392">
+      </trkpt>
+      <trkpt lat="39.48508616115" lon="-87.32690172527">
+      </trkpt>
+      <trkpt lat="39.4852190195" lon="-87.32689289741">
+      </trkpt>
+      <trkpt lat="39.48523264599" lon="-87.32696793422">
+      </trkpt>
+      <trkpt lat="39.48502484182" lon="-87.32705621282">
+      </trkpt>
+      <trkpt lat="39.48474890419" lon="-87.32712683571">
+      </trkpt>
+      <trkpt lat="39.48431625903" lon="-87.3271400775">
+      </trkpt>
+      <trkpt lat="39.48404031859" lon="-87.32711359392">
+      </trkpt>
+      <trkpt lat="39.48354975509" lon="-87.32697234815">
+      </trkpt>
+      <trkpt lat="39.48357700871" lon="-87.32690172527">
+      </trkpt>
+      <trkpt lat="39.48370986995" lon="-87.32689289741">
+      </trkpt>
+      <trkpt lat="39.48370646325" lon="-87.32665454518">
+      </trkpt>
+      <trkpt lat="39.48359744892" lon="-87.32666337304">
+      </trkpt>
+      <trkpt lat="39.48354634839" lon="-87.3266722009">
+      </trkpt>
+      <trkpt lat="39.4835531618" lon="-87.32634557008">
+      </trkpt>
+      <trkpt lat="39.4835565685" lon="-87.32601011139">
+      </trkpt>
+      <trkpt lat="39.4835531618" lon="-87.32581148453">
+      </trkpt>
+      <trkpt lat="39.48370305656" lon="-87.3258070706">
+      </trkpt>
+      <trkpt lat="39.4837371235" lon="-87.32558196016">
+      </trkpt>
+      <trkpt lat="39.48377800382" lon="-87.32558196016">
+      </trkpt>
+      <trkpt lat="39.48380185065" lon="-87.32534360794">
+      </trkpt>
+      <trkpt lat="39.48385295099" lon="-87.32534360794">
+      </trkpt>
+      <trkpt lat="39.48387339112" lon="-87.3252067761">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH218&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48577088994" lon="-87.3258512099">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.32559520195">
+      </trkpt>
+      <trkpt lat="39.48599913138" lon="-87.32560844375">
+      </trkpt>
+      <trkpt lat="39.48599231821" lon="-87.32584238204">
+      </trkpt>
+      <trkpt lat="39.48577088994" lon="-87.3258512099">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH206&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48577088994" lon="-87.32680903274">
+      </trkpt>
+      <trkpt lat="39.48565165905" lon="-87.32680903274">
+      </trkpt>
+      <trkpt lat="39.4856527655" lon="-87.32686637799">
+      </trkpt>
+      <trkpt lat="39.48565506565" lon="-87.32698558994">
+      </trkpt>
+      <trkpt lat="39.48552561473" lon="-87.32721070038">
+      </trkpt>
+      <trkpt lat="39.48565582378" lon="-87.32741537898">
+      </trkpt>
+      <trkpt lat="39.48580836247" lon="-87.32732104863">
+      </trkpt>
+      <trkpt lat="39.48588739536" lon="-87.32726984704">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.32689731134">
+      </trkpt>
+      <trkpt lat="39.48577088994" lon="-87.32680903274">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH228&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48576067016" lon="-87.3246197234">
+      </trkpt>
+      <trkpt lat="39.48577088994" lon="-87.32426219506">
+      </trkpt>
+      <trkpt lat="39.48598891163" lon="-87.32427543685">
+      </trkpt>
+      <trkpt lat="39.48599231821" lon="-87.32463296519">
+      </trkpt>
+      <trkpt lat="39.48576067016" lon="-87.3246197234">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH254&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48357360201" lon="-87.3252067761">
+      </trkpt>
+      <trkpt lat="39.4835565685" lon="-87.32498166567">
+      </trkpt>
+      <trkpt lat="39.48283093706" lon="-87.3249860796">
+      </trkpt>
+      <trkpt lat="39.48286159769" lon="-87.32601452532">
+      </trkpt>
+      <trkpt lat="39.48301498049" lon="-87.32601355115">
+      </trkpt>
+      <trkpt lat="39.48325341199" lon="-87.32601203681">
+      </trkpt>
+      <trkpt lat="39.4835565685" lon="-87.32601011139">
+      </trkpt>
+      <trkpt lat="39.4835531618" lon="-87.32581148453">
+      </trkpt>
+      <trkpt lat="39.48357360201" lon="-87.3252067761">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH201&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48507253464" lon="-87.32672516807">
+      </trkpt>
+      <trkpt lat="39.48508616115" lon="-87.32690172527">
+      </trkpt>
+      <trkpt lat="39.4852190195" lon="-87.32689289741">
+      </trkpt>
+      <trkpt lat="39.48523264599" lon="-87.32696793422">
+      </trkpt>
+      <trkpt lat="39.48502484182" lon="-87.32705621282">
+      </trkpt>
+      <trkpt lat="39.48509978766" lon="-87.32734311828">
+      </trkpt>
+      <trkpt lat="39.48518154666" lon="-87.32730780684">
+      </trkpt>
+      <trkpt lat="39.48531440483" lon="-87.32732987649">
+      </trkpt>
+      <trkpt lat="39.48541319664" lon="-87.32741815509">
+      </trkpt>
+      <trkpt lat="39.48552561473" lon="-87.32721070038">
+      </trkpt>
+      <trkpt lat="39.48565506565" lon="-87.32698558994">
+      </trkpt>
+      <trkpt lat="39.4856527655" lon="-87.32686637799">
+      </trkpt>
+      <trkpt lat="39.48538253713" lon="-87.32687082776">
+      </trkpt>
+      <trkpt lat="39.4853757239" lon="-87.32639412331">
+      </trkpt>
+      <trkpt lat="39.48524560492" lon="-87.32639453316">
+      </trkpt>
+      <trkpt lat="39.48523264599" lon="-87.32672075414">
+      </trkpt>
+      <trkpt lat="39.48507253464" lon="-87.32672516807">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH241&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48370986995" lon="-87.32689289741">
+      </trkpt>
+      <trkpt lat="39.48370646325" lon="-87.32665454518">
+      </trkpt>
+      <trkpt lat="39.48359744892" lon="-87.32666337304">
+      </trkpt>
+      <trkpt lat="39.48357700871" lon="-87.32690172527">
+      </trkpt>
+      <trkpt lat="39.48370986995" lon="-87.32689289741">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH231&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48555627418" lon="-87.32431516222">
+      </trkpt>
+      <trkpt lat="39.48565506565" lon="-87.32431074829">
+      </trkpt>
+      <trkpt lat="39.48565165905" lon="-87.32452703087">
+      </trkpt>
+      <trkpt lat="39.48554946097" lon="-87.3245314448">
+      </trkpt>
+      <trkpt lat="39.48555286758" lon="-87.32444758012">
+      </trkpt>
+      <trkpt lat="39.48555627418" lon="-87.32431516222">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH221&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48542341647" lon="-87.32468151842">
+      </trkpt>
+      <trkpt lat="39.48565506565" lon="-87.32467710449">
+      </trkpt>
+      <trkpt lat="39.48565165905" lon="-87.32491545672">
+      </trkpt>
+      <trkpt lat="39.48542341647" lon="-87.32490221493">
+      </trkpt>
+      <trkpt lat="39.48542341647" lon="-87.32468151842">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH245&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48357360201" lon="-87.3252067761">
+      </trkpt>
+      <trkpt lat="39.48387339112" lon="-87.3252067761">
+      </trkpt>
+      <trkpt lat="39.48385295099" lon="-87.32534360794">
+      </trkpt>
+      <trkpt lat="39.48380185065" lon="-87.32534360794">
+      </trkpt>
+      <trkpt lat="39.48377800382" lon="-87.32558196016">
+      </trkpt>
+      <trkpt lat="39.4837371235" lon="-87.32558196016">
+      </trkpt>
+      <trkpt lat="39.48370305656" lon="-87.3258070706">
+      </trkpt>
+      <trkpt lat="39.4835531618" lon="-87.32581148453">
+      </trkpt>
+      <trkpt lat="39.48357360201" lon="-87.3252067761">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH251&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48315457643" lon="-87.32666778697">
+      </trkpt>
+      <trkpt lat="39.48298083337" lon="-87.32666778697">
+      </trkpt>
+      <trkpt lat="39.48297509677" lon="-87.32639345141">
+      </trkpt>
+      <trkpt lat="39.48302852759" lon="-87.32638970938">
+      </trkpt>
+      <trkpt lat="39.48302106507" lon="-87.32618249986">
+      </trkpt>
+      <trkpt lat="39.48325700466" lon="-87.32619130412">
+      </trkpt>
+      <trkpt lat="39.48326018474" lon="-87.32634998401">
+      </trkpt>
+      <trkpt lat="39.48315116971" lon="-87.32635881187">
+      </trkpt>
+      <trkpt lat="39.48315457643" lon="-87.32666778697">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH225&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48538594374" lon="-87.32430192043">
+      </trkpt>
+      <trkpt lat="39.48555627418" lon="-87.32431516222">
+      </trkpt>
+      <trkpt lat="39.48555286758" lon="-87.32444758012">
+      </trkpt>
+      <trkpt lat="39.48548814205" lon="-87.32454027266">
+      </trkpt>
+      <trkpt lat="39.48543704292" lon="-87.32453585873">
+      </trkpt>
+      <trkpt lat="39.48539275696" lon="-87.32450054728">
+      </trkpt>
+      <trkpt lat="39.48538594374" lon="-87.32430192043">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH226&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48576748335" lon="-87.32486690348">
+      </trkpt>
+      <trkpt lat="39.48576067016" lon="-87.3246197234">
+      </trkpt>
+      <trkpt lat="39.48599231821" lon="-87.32463296519">
+      </trkpt>
+      <trkpt lat="39.48599231821" lon="-87.32486248955">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.32486690348">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH216&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48577088994" lon="-87.32607632034">
+      </trkpt>
+      <trkpt lat="39.48577088994" lon="-87.3258512099">
+      </trkpt>
+      <trkpt lat="39.48599231821" lon="-87.32584238204">
+      </trkpt>
+      <trkpt lat="39.48599913138" lon="-87.32607632034">
+      </trkpt>
+      <trkpt lat="39.48577088994" lon="-87.32607632034">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH252&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48325341199" lon="-87.32601203681">
+      </trkpt>
+      <trkpt lat="39.48325700466" lon="-87.32619130412">
+      </trkpt>
+      <trkpt lat="39.48326018474" lon="-87.32634998401">
+      </trkpt>
+      <trkpt lat="39.4835531618" lon="-87.32634557008">
+      </trkpt>
+      <trkpt lat="39.4835565685" lon="-87.32601011139">
+      </trkpt>
+      <trkpt lat="39.48325341199" lon="-87.32601203681">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH230&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48577088994" lon="-87.32426219506">
+      </trkpt>
+      <trkpt lat="39.48576971706" lon="-87.32407223166">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.32371045379">
+      </trkpt>
+      <trkpt lat="39.48598550504" lon="-87.32372810951">
+      </trkpt>
+      <trkpt lat="39.48598891163" lon="-87.32427543685">
+      </trkpt>
+      <trkpt lat="39.48577088994" lon="-87.32426219506">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH219A&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48540979003" lon="-87.32612487357">
+      </trkpt>
+      <trkpt lat="39.48565506565" lon="-87.32613370143">
+      </trkpt>
+      <trkpt lat="39.48565165905" lon="-87.32588210741">
+      </trkpt>
+      <trkpt lat="39.48541318494" lon="-87.32587946647">
+      </trkpt>
+      <trkpt lat="39.48540979003" lon="-87.32612487357">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH204&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48577088994" lon="-87.32680903274">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.32689731134">
+      </trkpt>
+      <trkpt lat="39.48588739536" lon="-87.32726984704">
+      </trkpt>
+      <trkpt lat="39.48614220771" lon="-87.32710476606">
+      </trkpt>
+      <trkpt lat="39.48606385642" lon="-87.32683993025">
+      </trkpt>
+      <trkpt lat="39.48600253796" lon="-87.32686641383">
+      </trkpt>
+      <trkpt lat="39.48599572479" lon="-87.32681344667">
+      </trkpt>
+      <trkpt lat="39.48577088994" lon="-87.32680903274">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH213&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48565506565" lon="-87.32613370143">
+      </trkpt>
+      <trkpt lat="39.48565676724" lon="-87.32638087931">
+      </trkpt>
+      <trkpt lat="39.48541660155" lon="-87.32638529324">
+      </trkpt>
+      <trkpt lat="39.48540979003" lon="-87.32612487357">
+      </trkpt>
+      <trkpt lat="39.48565506565" lon="-87.32613370143">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH222&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48576748335" lon="-87.32535684973">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.3251184975">
+      </trkpt>
+      <trkpt lat="39.48599231821" lon="-87.3251184975">
+      </trkpt>
+      <trkpt lat="39.48599572479" lon="-87.32535684973">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.32535684973">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH210&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48599572479" lon="-87.32681344667">
+      </trkpt>
+      <trkpt lat="39.48577088994" lon="-87.32680903274">
+      </trkpt>
+      <trkpt lat="39.48577088994" lon="-87.32657068051">
+      </trkpt>
+      <trkpt lat="39.48599913138" lon="-87.3265839223">
+      </trkpt>
+      <trkpt lat="39.48599572479" lon="-87.32681344667">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH212&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48577088994" lon="-87.32657068051">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.32632791435">
+      </trkpt>
+      <trkpt lat="39.48599231821" lon="-87.32634115615">
+      </trkpt>
+      <trkpt lat="39.48599913138" lon="-87.3265839223">
+      </trkpt>
+      <trkpt lat="39.48577088994" lon="-87.32657068051">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH219B&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48525308571" lon="-87.32587769348">
+      </trkpt>
+      <trkpt lat="39.48525649232" lon="-87.32612045964">
+      </trkpt>
+      <trkpt lat="39.48540979003" lon="-87.32612487357">
+      </trkpt>
+      <trkpt lat="39.48541318494" lon="-87.32587946647">
+      </trkpt>
+      <trkpt lat="39.48525308571" lon="-87.32587769348">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH244&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48525056064" lon="-87.3256344963">
+      </trkpt>
+      <trkpt lat="39.48524593521" lon="-87.3251890075">
+      </trkpt>
+      <trkpt lat="39.48476934405" lon="-87.32520236217">
+      </trkpt>
+      <trkpt lat="39.48480341048" lon="-87.3253524358">
+      </trkpt>
+      <trkpt lat="39.48487154327" lon="-87.3253524358">
+      </trkpt>
+      <trkpt lat="39.48489538974" lon="-87.32559078802">
+      </trkpt>
+      <trkpt lat="39.484939676" lon="-87.32559520195">
+      </trkpt>
+      <trkpt lat="39.48496011581" lon="-87.32582914025">
+      </trkpt>
+      <trkpt lat="39.48506408549" lon="-87.32582017785">
+      </trkpt>
+      <trkpt lat="39.48506231475" lon="-87.3256305134">
+      </trkpt>
+      <trkpt lat="39.48525056064" lon="-87.3256344963">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH224&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48576748335" lon="-87.3251184975">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.32486690348">
+      </trkpt>
+      <trkpt lat="39.48599231821" lon="-87.32486248955">
+      </trkpt>
+      <trkpt lat="39.48599231821" lon="-87.3251184975">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.3251184975">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH242&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48523264599" lon="-87.32672075414">
+      </trkpt>
+      <trkpt lat="39.48507253464" lon="-87.32672516807">
+      </trkpt>
+      <trkpt lat="39.48506981573" lon="-87.32643394469">
+      </trkpt>
+      <trkpt lat="39.48506408549" lon="-87.32582017785">
+      </trkpt>
+      <trkpt lat="39.48506231475" lon="-87.3256305134">
+      </trkpt>
+      <trkpt lat="39.48525056064" lon="-87.3256344963">
+      </trkpt>
+      <trkpt lat="39.48525308571" lon="-87.32587769348">
+      </trkpt>
+      <trkpt lat="39.48525649232" lon="-87.32612045964">
+      </trkpt>
+      <trkpt lat="39.48524560492" lon="-87.32639453316">
+      </trkpt>
+      <trkpt lat="39.48523264599" lon="-87.32672075414">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH233&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48576748335" lon="-87.32371045379">
+      </trkpt>
+      <trkpt lat="39.48517132679" lon="-87.32372369558">
+      </trkpt>
+      <trkpt lat="39.48517473341" lon="-87.32417391646">
+      </trkpt>
+      <trkpt lat="39.48564825245" lon="-87.32417833039">
+      </trkpt>
+      <trkpt lat="39.48564825245" lon="-87.3240635682">
+      </trkpt>
+      <trkpt lat="39.48576971706" lon="-87.32407223166">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.32371045379">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH203&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48580836247" lon="-87.32732104863">
+      </trkpt>
+      <trkpt lat="39.48588739536" lon="-87.32726984704">
+      </trkpt>
+      <trkpt lat="39.48614220771" lon="-87.32710476606">
+      </trkpt>
+      <trkpt lat="39.48624440492" lon="-87.327360774">
+      </trkpt>
+      <trkpt lat="39.48589012064" lon="-87.32756822872">
+      </trkpt>
+      <trkpt lat="39.48580836247" lon="-87.32732104863">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH219&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48524286585" lon="-87.32489338707">
+      </trkpt>
+      <trkpt lat="39.48524593521" lon="-87.3251890075">
+      </trkpt>
+      <trkpt lat="39.48525056064" lon="-87.3256344963">
+      </trkpt>
+      <trkpt lat="39.48525308571" lon="-87.32587769348">
+      </trkpt>
+      <trkpt lat="39.48541318494" lon="-87.32587946647">
+      </trkpt>
+      <trkpt lat="39.48565165905" lon="-87.32588210741">
+      </trkpt>
+      <trkpt lat="39.48565165905" lon="-87.32491545672">
+      </trkpt>
+      <trkpt lat="39.48542341647" lon="-87.32490221493">
+      </trkpt>
+      <trkpt lat="39.48524286585" lon="-87.32489338707">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;HH220&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48576748335" lon="-87.32559520195">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.32535684973">
+      </trkpt>
+      <trkpt lat="39.48599572479" lon="-87.32535684973">
+      </trkpt>
+      <trkpt lat="39.48599913138" lon="-87.32560844375">
+      </trkpt>
+      <trkpt lat="39.48576748335" lon="-87.32559520195">
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

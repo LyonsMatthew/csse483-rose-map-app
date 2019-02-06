@@ -69,16 +69,18 @@ class MapData(val name: String) {
     }
 
     private fun scaleDataInitial(width: Double, height: Double, screenHeight: Double) {
-//        val paddingBottom = 145
-//        val paddingTop = 40
-//        val paddingLeft = 30
-//        val paddingRight = 150
+//        val paddingBottom = 80
+//        val paddingTop = 60
+//        val paddingLeft = 80
+//        val paddingRight = 80
+//        Log.d(Constants.TAG, "sf: " + paddingBottom/width + " " + paddingTop/width + " " + paddingLeft/height + " " + paddingRight/height)
+//        Log.d(Constants.TAG, "WIDTH HEIGHT " + width + " " + height)
+//        Log.d(Constants.TAG, "padding " + paddingBottom + " " + paddingTop + " " + paddingLeft + " " + paddingRight + " " + pBottomScal + " " + pTopScal + " " + pLeftScal + " " + pRightScal)
+
         val paddingBottom = width * pBottomScal
         val paddingTop = width * pTopScal
         val paddingLeft = height * pLeftScal
         val paddingRight = height * pRightScal
-//        Log.d(Constants.TAG, "WIDTH HEIGHT " + width + " " + height)
-//        Log.d(Constants.TAG, "padding " + paddingBottom + " " + paddingTop + " " + paddingLeft + " " + paddingRight + " " + pBottomScal + " " + pTopScal + " " + pLeftScal + " " + pRightScal)
         val paddedWidth = width - paddingLeft - paddingRight
         val paddedHeight = height - paddingTop - paddingBottom
 
@@ -87,7 +89,7 @@ class MapData(val name: String) {
             for (i in 0 until currentList.size) {
                 val newFirst = paddingLeft + (currentList[i].first - minLon) * paddedWidth / (maxLon - minLon)
 //                val newSecond = (currentList[i].second - minLat) * size / (maxLat - minLat)
-                val newSecond = height - (paddingBottom + (currentList[i].second - minLat) * paddedHeight / (maxLat - minLat)) + screenHeight/2 - Constants.ACTIONBAR_HEIGHT/2 + 38
+                val newSecond = height - (paddingBottom + (currentList[i].second - minLat) * paddedHeight / (maxLat - minLat)) + screenHeight/2
                 currentList[i] = Pair(newFirst, newSecond)
             }
         }

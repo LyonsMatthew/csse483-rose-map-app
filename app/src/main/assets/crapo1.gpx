@@ -1,0 +1,546 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gpx version="1.1" creator="JOSM GPX export" xmlns="http://www.topografix.com/GPX/1/1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <bounds minlat="39.4832946" minlon="-87.325572" maxlat="39.484423" maxlon="-87.3230504"/>
+    <padding bot="0.1388888" top="0.0555555" left="0.24647266" right="0.11598713"/>
+  </metadata>
+  <trk>
+    <name>&quot;G147&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48370358261" lon="-87.32520075998">
+      </trkpt>
+      <trkpt lat="39.4835423931" lon="-87.32519689245">
+      </trkpt>
+      <trkpt lat="39.4835423931" lon="-87.32496870766">
+      </trkpt>
+      <trkpt lat="39.48370358261" lon="-87.32497644274">
+      </trkpt>
+      <trkpt lat="39.48370358261" lon="-87.32520075998">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G139&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48329762312" lon="-87.32474825795">
+      </trkpt>
+      <trkpt lat="39.48329762312" lon="-87.32433056376">
+      </trkpt>
+      <trkpt lat="39.48347373819" lon="-87.3243344313">
+      </trkpt>
+      <trkpt lat="39.48347672319" lon="-87.32463996686">
+      </trkpt>
+      <trkpt lat="39.48342597821" lon="-87.32474825795">
+      </trkpt>
+      <trkpt lat="39.48329762312" lon="-87.32474825795">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G141&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48354537809" lon="-87.32474825795">
+      </trkpt>
+      <trkpt lat="39.48342597821" lon="-87.32474825795">
+      </trkpt>
+      <trkpt lat="39.48329762312" lon="-87.32474825795">
+      </trkpt>
+      <trkpt lat="39.48330060812" lon="-87.32498031027">
+      </trkpt>
+      <trkpt lat="39.4833809824" lon="-87.32497645333">
+      </trkpt>
+      <trkpt lat="39.4835423931" lon="-87.32496870766">
+      </trkpt>
+      <trkpt lat="39.48354537809" lon="-87.32474825795">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G113&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48361701792" lon="-87.32363440678">
+      </trkpt>
+      <trkpt lat="39.48376626732" lon="-87.32363053924">
+      </trkpt>
+      <trkpt lat="39.48376925231" lon="-87.32387806172">
+      </trkpt>
+      <trkpt lat="39.48362597289" lon="-87.32389353188">
+      </trkpt>
+      <trkpt lat="39.48361701792" lon="-87.32363440678">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G143&quot;</name>
+    <trkseg>
+      <trkpt lat="39.4835423931" lon="-87.32496870766">
+      </trkpt>
+      <trkpt lat="39.4835423931" lon="-87.32519689245">
+      </trkpt>
+      <trkpt lat="39.48338418821" lon="-87.32520462752">
+      </trkpt>
+      <trkpt lat="39.4833809824" lon="-87.32497645333">
+      </trkpt>
+      <trkpt lat="39.4835423931" lon="-87.32496870766">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G111&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48376925231" lon="-87.32387806172">
+      </trkpt>
+      <trkpt lat="39.48377223729" lon="-87.32406757112">
+      </trkpt>
+      <trkpt lat="39.48362895788" lon="-87.32407143866">
+      </trkpt>
+      <trkpt lat="39.48347075319" lon="-87.32407917374">
+      </trkpt>
+      <trkpt lat="39.48340806821" lon="-87.32398635281">
+      </trkpt>
+      <trkpt lat="39.48346776819" lon="-87.32389353188">
+      </trkpt>
+      <trkpt lat="39.48362597289" lon="-87.32389353188">
+      </trkpt>
+      <trkpt lat="39.48376925231" lon="-87.32387806172">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G131&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48363492787" lon="-87.32434216637">
+      </trkpt>
+      <trkpt lat="39.48377522228" lon="-87.32434216637">
+      </trkpt>
+      <trkpt lat="39.48383790693" lon="-87.32434216637">
+      </trkpt>
+      <trkpt lat="39.48383790693" lon="-87.32465543702">
+      </trkpt>
+      <trkpt lat="39.48363492787" lon="-87.3246438344">
+      </trkpt>
+      <trkpt lat="39.48363492787" lon="-87.32434216637">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G101&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48361701792" lon="-87.32329406336">
+      </trkpt>
+      <trkpt lat="39.48375731237" lon="-87.32330953352">
+      </trkpt>
+      <trkpt lat="39.48375731237" lon="-87.32345263245">
+      </trkpt>
+      <trkpt lat="39.48361701792" lon="-87.32346810261">
+      </trkpt>
+      <trkpt lat="39.48361701792" lon="-87.32329406336">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G106&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48411849465" lon="-87.32363053924">
+      </trkpt>
+      <trkpt lat="39.4844229609" lon="-87.3236266717">
+      </trkpt>
+      <trkpt lat="39.4844229609" lon="-87.3231084215">
+      </trkpt>
+      <trkpt lat="39.48394835116" lon="-87.32311228904">
+      </trkpt>
+      <trkpt lat="39.48395431963" lon="-87.32363053924">
+      </trkpt>
+      <trkpt lat="39.48411849465" lon="-87.32363053924">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G151&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48385880179" lon="-87.32519689245">
+      </trkpt>
+      <trkpt lat="39.48385581681" lon="-87.32498031027">
+      </trkpt>
+      <trkpt lat="39.48370358261" lon="-87.32497644274">
+      </trkpt>
+      <trkpt lat="39.48370358261" lon="-87.32520075998">
+      </trkpt>
+      <trkpt lat="39.48385880179" lon="-87.32519689245">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G135&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48347373819" lon="-87.3243344313">
+      </trkpt>
+      <trkpt lat="39.48363492787" lon="-87.32434216637">
+      </trkpt>
+      <trkpt lat="39.48363492787" lon="-87.3246438344">
+      </trkpt>
+      <trkpt lat="39.48347672319" lon="-87.32463996686">
+      </trkpt>
+      <trkpt lat="39.48347373819" lon="-87.3243344313">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G108&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48411849465" lon="-87.32363053924">
+      </trkpt>
+      <trkpt lat="39.48395431963" lon="-87.32363053924">
+      </trkpt>
+      <trkpt lat="39.48393641126" lon="-87.32363053924">
+      </trkpt>
+      <trkpt lat="39.48393342628" lon="-87.32378137325">
+      </trkpt>
+      <trkpt lat="39.48405879523" lon="-87.32378910833">
+      </trkpt>
+      <trkpt lat="39.48411849465" lon="-87.32363053924">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G136&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48411252471" lon="-87.32557204371">
+      </trkpt>
+      <trkpt lat="39.48394536619" lon="-87.32556817617">
+      </trkpt>
+      <trkpt lat="39.48394536619" lon="-87.32525103799">
+      </trkpt>
+      <trkpt lat="39.48411550968" lon="-87.3252317003">
+      </trkpt>
+      <trkpt lat="39.48411252471" lon="-87.32557204371">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G138&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48441997594" lon="-87.32556817617">
+      </trkpt>
+      <trkpt lat="39.48411252471" lon="-87.32557204371">
+      </trkpt>
+      <trkpt lat="39.48411550968" lon="-87.3252317003">
+      </trkpt>
+      <trkpt lat="39.48418989547" lon="-87.32523555548">
+      </trkpt>
+      <trkpt lat="39.48441400603" lon="-87.32524717045">
+      </trkpt>
+      <trkpt lat="39.48441997594" lon="-87.32556817617">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G130&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48441400603" lon="-87.32474825795">
+      </trkpt>
+      <trkpt lat="39.48441400603" lon="-87.32421840513">
+      </trkpt>
+      <trkpt lat="39.48405581026" lon="-87.32422227267">
+      </trkpt>
+      <trkpt lat="39.48403342147" lon="-87.32418166158">
+      </trkpt>
+      <trkpt lat="39.48393491727" lon="-87.32418359535">
+      </trkpt>
+      <trkpt lat="39.48392446985" lon="-87.32474825601">
+      </trkpt>
+      <trkpt lat="39.48441400603" lon="-87.32474825795">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G117&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48329762312" lon="-87.32398635281">
+      </trkpt>
+      <trkpt lat="39.48329762312" lon="-87.32363827432">
+      </trkpt>
+      <trkpt lat="39.48346776819" lon="-87.32363827432">
+      </trkpt>
+      <trkpt lat="39.48346776819" lon="-87.32389353188">
+      </trkpt>
+      <trkpt lat="39.48340806821" lon="-87.32398635281">
+      </trkpt>
+      <trkpt lat="39.48329762312" lon="-87.32398635281">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G123&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48363492787" lon="-87.32434216637">
+      </trkpt>
+      <trkpt lat="39.48362895788" lon="-87.32407143866">
+      </trkpt>
+      <trkpt lat="39.48377223729" lon="-87.32406757112">
+      </trkpt>
+      <trkpt lat="39.48377354093" lon="-87.32418749551">
+      </trkpt>
+      <trkpt lat="39.48377522228" lon="-87.32434216637">
+      </trkpt>
+      <trkpt lat="39.48363492787" lon="-87.32434216637">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G149&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48370358261" lon="-87.32556430863">
+      </trkpt>
+      <trkpt lat="39.48354836309" lon="-87.32556044109">
+      </trkpt>
+      <trkpt lat="39.48354537809" lon="-87.32528971338">
+      </trkpt>
+      <trkpt lat="39.48370059763" lon="-87.32528971338">
+      </trkpt>
+      <trkpt lat="39.48370358261" lon="-87.32556430863">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G133&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48385581681" lon="-87.32498031027">
+      </trkpt>
+      <trkpt lat="39.48385880179" lon="-87.32474052287">
+      </trkpt>
+      <trkpt lat="39.4837065676" lon="-87.32474052287">
+      </trkpt>
+      <trkpt lat="39.48370358261" lon="-87.32497644274">
+      </trkpt>
+      <trkpt lat="39.48385581681" lon="-87.32498031027">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G137&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48370358261" lon="-87.32497644274">
+      </trkpt>
+      <trkpt lat="39.4837065676" lon="-87.32474052287">
+      </trkpt>
+      <trkpt lat="39.48354537809" lon="-87.32474825795">
+      </trkpt>
+      <trkpt lat="39.4835423931" lon="-87.32496870766">
+      </trkpt>
+      <trkpt lat="39.48370358261" lon="-87.32497644274">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G134&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48441400603" lon="-87.32524717045">
+      </trkpt>
+      <trkpt lat="39.48441400603" lon="-87.32474825795">
+      </trkpt>
+      <trkpt lat="39.48411849465" lon="-87.32475212549">
+      </trkpt>
+      <trkpt lat="39.48411849465" lon="-87.32508086628">
+      </trkpt>
+      <trkpt lat="39.48419013389" lon="-87.32508473382">
+      </trkpt>
+      <trkpt lat="39.48418989547" lon="-87.32523555548">
+      </trkpt>
+      <trkpt lat="39.48441400603" lon="-87.32524717045">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G115&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48346776819" lon="-87.32363827432">
+      </trkpt>
+      <trkpt lat="39.48361701792" lon="-87.32363440678">
+      </trkpt>
+      <trkpt lat="39.48362597289" lon="-87.32389353188">
+      </trkpt>
+      <trkpt lat="39.48346776819" lon="-87.32389353188">
+      </trkpt>
+      <trkpt lat="39.48346776819" lon="-87.32363827432">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G100&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48393342628" lon="-87.32378137325">
+      </trkpt>
+      <trkpt lat="39.48405879523" lon="-87.32378910833">
+      </trkpt>
+      <trkpt lat="39.48411849465" lon="-87.32363053924">
+      </trkpt>
+      <trkpt lat="39.48412147962" lon="-87.32406757112">
+      </trkpt>
+      <trkpt lat="39.48404088539" lon="-87.32407143866">
+      </trkpt>
+      <trkpt lat="39.48403342147" lon="-87.32418166158">
+      </trkpt>
+      <trkpt lat="39.48393491727" lon="-87.32418359535">
+      </trkpt>
+      <trkpt lat="39.48377354093" lon="-87.32418749551">
+      </trkpt>
+      <trkpt lat="39.48377223729" lon="-87.32406757112">
+      </trkpt>
+      <trkpt lat="39.48376925231" lon="-87.32387806172">
+      </trkpt>
+      <trkpt lat="39.48376626732" lon="-87.32363053924">
+      </trkpt>
+      <trkpt lat="39.48393641126" lon="-87.32363053924">
+      </trkpt>
+      <trkpt lat="39.48393342628" lon="-87.32378137325">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G153&quot;</name>
+    <trkseg>
+      <trkpt lat="39.4838737267" lon="-87.32556430863">
+      </trkpt>
+      <trkpt lat="39.48387671019" lon="-87.32547341954">
+      </trkpt>
+      <trkpt lat="39.48385581532" lon="-87.32547728707">
+      </trkpt>
+      <trkpt lat="39.48385581532" lon="-87.32528971144">
+      </trkpt>
+      <trkpt lat="39.48370059763" lon="-87.32528971338">
+      </trkpt>
+      <trkpt lat="39.48370358261" lon="-87.32556430863">
+      </trkpt>
+      <trkpt lat="39.4838737267" lon="-87.32556430863">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G105&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48329762312" lon="-87.32334047383">
+      </trkpt>
+      <trkpt lat="39.48329463811" lon="-87.32305427596">
+      </trkpt>
+      <trkpt lat="39.48356925804" lon="-87.32305040842">
+      </trkpt>
+      <trkpt lat="39.48357328964" lon="-87.32331348864">
+      </trkpt>
+      <trkpt lat="39.48351254315" lon="-87.32334047383">
+      </trkpt>
+      <trkpt lat="39.48329762312" lon="-87.32334047383">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G103&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48361701792" lon="-87.32363440678">
+      </trkpt>
+      <trkpt lat="39.48361701792" lon="-87.32346810261">
+      </trkpt>
+      <trkpt lat="39.48361701792" lon="-87.32329406336">
+      </trkpt>
+      <trkpt lat="39.48357328964" lon="-87.32331348864">
+      </trkpt>
+      <trkpt lat="39.48351254315" lon="-87.32334047383">
+      </trkpt>
+      <trkpt lat="39.48329762312" lon="-87.32334047383">
+      </trkpt>
+      <trkpt lat="39.48329762312" lon="-87.32363827432">
+      </trkpt>
+      <trkpt lat="39.48346776819" lon="-87.32363827432">
+      </trkpt>
+      <trkpt lat="39.48361701792" lon="-87.32363440678">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G110&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48405581026" lon="-87.32422227267">
+      </trkpt>
+      <trkpt lat="39.48441400603" lon="-87.32421840513">
+      </trkpt>
+      <trkpt lat="39.4844229609" lon="-87.3236266717">
+      </trkpt>
+      <trkpt lat="39.48411849465" lon="-87.32363053924">
+      </trkpt>
+      <trkpt lat="39.48411849465" lon="-87.32407143866">
+      </trkpt>
+      <trkpt lat="39.48411849316" lon="-87.3240733705">
+      </trkpt>
+      <trkpt lat="39.48403640644" lon="-87.3240733705">
+      </trkpt>
+      <trkpt lat="39.48403640644" lon="-87.32422033697">
+      </trkpt>
+      <trkpt lat="39.48405581026" lon="-87.32422227267">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G121&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48347373819" lon="-87.3243344313">
+      </trkpt>
+      <trkpt lat="39.48347075319" lon="-87.32407917374">
+      </trkpt>
+      <trkpt lat="39.48362895788" lon="-87.32407143866">
+      </trkpt>
+      <trkpt lat="39.48363492787" lon="-87.32434216637">
+      </trkpt>
+      <trkpt lat="39.48347373819" lon="-87.3243344313">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G119&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48329762312" lon="-87.32433056376">
+      </trkpt>
+      <trkpt lat="39.48329762312" lon="-87.32398635281">
+      </trkpt>
+      <trkpt lat="39.48340806821" lon="-87.32398635281">
+      </trkpt>
+      <trkpt lat="39.48347075319" lon="-87.32407917374">
+      </trkpt>
+      <trkpt lat="39.48347373819" lon="-87.3243344313">
+      </trkpt>
+      <trkpt lat="39.48329762312" lon="-87.32433056376">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G132&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48411849465" lon="-87.32475212549">
+      </trkpt>
+      <trkpt lat="39.4839573061" lon="-87.32474825795">
+      </trkpt>
+      <trkpt lat="39.48395432112" lon="-87.32511954167">
+      </trkpt>
+      <trkpt lat="39.48411849465" lon="-87.32508086628">
+      </trkpt>
+      <trkpt lat="39.48411849465" lon="-87.32475212549">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;G145&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48354836309" lon="-87.32556044109">
+      </trkpt>
+      <trkpt lat="39.48330657813" lon="-87.32556430863">
+      </trkpt>
+      <trkpt lat="39.48330657813" lon="-87.32529358092">
+      </trkpt>
+      <trkpt lat="39.48354537809" lon="-87.32528971338">
+      </trkpt>
+      <trkpt lat="39.48354836309" lon="-87.32556044109">
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

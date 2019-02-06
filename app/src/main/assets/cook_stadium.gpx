@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gpx version="1.1" creator="JOSM GPX export" xmlns="http://www.topografix.com/GPX/1/1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <bounds minlat="39.4833725" minlon="-87.3262588" maxlat="39.48444" maxlon="-87.3233956"/>
+  </metadata>
+  <trk>
+    <name>&quot;COOK200D&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48443848595" lon="-87.32530635039">
+      </trkpt>
+      <trkpt lat="39.48443995622" lon="-87.32517490569">
+      </trkpt>
+      <trkpt lat="39.48427087491" lon="-87.32517681069">
+      </trkpt>
+      <trkpt lat="39.48427381546" lon="-87.32530444539">
+      </trkpt>
+      <trkpt lat="39.48443848595" lon="-87.32530635039">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;COOK101&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48392462014" lon="-87.32482437336">
+      </trkpt>
+      <trkpt lat="39.48378274221" lon="-87.3248224815">
+      </trkpt>
+      <trkpt lat="39.48377980164" lon="-87.32418240297">
+      </trkpt>
+      <trkpt lat="39.48392682993" lon="-87.32419002295">
+      </trkpt>
+      <trkpt lat="39.48392388937" lon="-87.3243443276">
+      </trkpt>
+      <trkpt lat="39.48392462014" lon="-87.32482437336">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;COOK200&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48443701568" lon="-87.32507394092">
+      </trkpt>
+      <trkpt lat="39.48443260487" lon="-87.32457864206">
+      </trkpt>
+      <trkpt lat="39.48434732912" lon="-87.32457673706">
+      </trkpt>
+      <trkpt lat="39.48434732912" lon="-87.32459959701">
+      </trkpt>
+      <trkpt lat="39.48426499381" lon="-87.32459959701">
+      </trkpt>
+      <trkpt lat="39.48426499381" lon="-87.32505108098">
+      </trkpt>
+      <trkpt lat="39.48435026966" lon="-87.32505108098">
+      </trkpt>
+      <trkpt lat="39.48435026966" lon="-87.32507394092">
+      </trkpt>
+      <trkpt lat="39.48443701568" lon="-87.32507394092">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;COOK103&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48392535965" lon="-87.32402428833">
+      </trkpt>
+      <trkpt lat="39.48392682993" lon="-87.32339754477">
+      </trkpt>
+      <trkpt lat="39.48379009363" lon="-87.32339563977">
+      </trkpt>
+      <trkpt lat="39.48378568278" lon="-87.32402428833">
+      </trkpt>
+      <trkpt lat="39.48392535965" lon="-87.32402428833">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;COOK105&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48392682993" lon="-87.325914044">
+      </trkpt>
+      <trkpt lat="39.48392830021" lon="-87.32625313322">
+      </trkpt>
+      <trkpt lat="39.48337253166" lon="-87.3262588482">
+      </trkpt>
+      <trkpt lat="39.48337547225" lon="-87.32600548379">
+      </trkpt>
+      <trkpt lat="39.48377833136" lon="-87.32600167379">
+      </trkpt>
+      <trkpt lat="39.48377980164" lon="-87.32591785399">
+      </trkpt>
+      <trkpt lat="39.48392682993" lon="-87.325914044">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;COOK101A&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48392682993" lon="-87.32419002295">
+      </trkpt>
+      <trkpt lat="39.48392535965" lon="-87.32402428833">
+      </trkpt>
+      <trkpt lat="39.48378568278" lon="-87.32402428833">
+      </trkpt>
+      <trkpt lat="39.48377980164" lon="-87.32418240297">
+      </trkpt>
+      <trkpt lat="39.48392682993" lon="-87.32419002295">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;COOK100&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48392388937" lon="-87.3243443276">
+      </trkpt>
+      <trkpt lat="39.48409591208" lon="-87.32434813759">
+      </trkpt>
+      <trkpt lat="39.48409885263" lon="-87.32530825539">
+      </trkpt>
+      <trkpt lat="39.48392535965" lon="-87.32531016038">
+      </trkpt>
+      <trkpt lat="39.48392462014" lon="-87.32482437336">
+      </trkpt>
+      <trkpt lat="39.48392388937" lon="-87.3243443276">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;COOK200C&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48443995622" lon="-87.32517490569">
+      </trkpt>
+      <trkpt lat="39.48443701568" lon="-87.32507394092">
+      </trkpt>
+      <trkpt lat="39.48435026966" lon="-87.32507394092">
+      </trkpt>
+      <trkpt lat="39.48435026966" lon="-87.32505108098">
+      </trkpt>
+      <trkpt lat="39.48426499381" lon="-87.32505108098">
+      </trkpt>
+      <trkpt lat="39.48427087491" lon="-87.32517681069">
+      </trkpt>
+      <trkpt lat="39.48443995622" lon="-87.32517490569">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;COOK104&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48392535965" lon="-87.32531016038">
+      </trkpt>
+      <trkpt lat="39.48392682993" lon="-87.325914044">
+      </trkpt>
+      <trkpt lat="39.48377980164" lon="-87.32591785399">
+      </trkpt>
+      <trkpt lat="39.48378274221" lon="-87.32530635039">
+      </trkpt>
+      <trkpt lat="39.48392535965" lon="-87.32531016038">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;COOK200B&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48443260487" lon="-87.3244719623">
+      </trkpt>
+      <trkpt lat="39.4844311346" lon="-87.32434813759">
+      </trkpt>
+      <trkpt lat="39.48427087491" lon="-87.32435385258">
+      </trkpt>
+      <trkpt lat="39.48426646409" lon="-87.32447005731">
+      </trkpt>
+      <trkpt lat="39.48443260487" lon="-87.3244719623">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;COOK102&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48379009363" lon="-87.32339563977">
+      </trkpt>
+      <trkpt lat="39.48337547225" lon="-87.32339754477">
+      </trkpt>
+      <trkpt lat="39.48337547225" lon="-87.32600548379">
+      </trkpt>
+      <trkpt lat="39.48377833136" lon="-87.32600167379">
+      </trkpt>
+      <trkpt lat="39.48377980164" lon="-87.32591785399">
+      </trkpt>
+      <trkpt lat="39.48378274221" lon="-87.32530635039">
+      </trkpt>
+      <trkpt lat="39.48378274221" lon="-87.3248224815">
+      </trkpt>
+      <trkpt lat="39.48377980164" lon="-87.32418240297">
+      </trkpt>
+      <trkpt lat="39.48378568278" lon="-87.32402428833">
+      </trkpt>
+      <trkpt lat="39.48379009363" lon="-87.32339563977">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;COOK200A&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48443260487" lon="-87.32457864206">
+      </trkpt>
+      <trkpt lat="39.48443260487" lon="-87.3244719623">
+      </trkpt>
+      <trkpt lat="39.48426646409" lon="-87.32447005731">
+      </trkpt>
+      <trkpt lat="39.48426499381" lon="-87.32459959701">
+      </trkpt>
+      <trkpt lat="39.48434732912" lon="-87.32459959701">
+      </trkpt>
+      <trkpt lat="39.48434732912" lon="-87.32457673706">
+      </trkpt>
+      <trkpt lat="39.48443260487" lon="-87.32457864206">
+      </trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>&quot;COOK100A&quot;</name>
+    <trkseg>
+      <trkpt lat="39.48378274221" lon="-87.3248224815">
+      </trkpt>
+      <trkpt lat="39.48378274221" lon="-87.32530635039">
+      </trkpt>
+      <trkpt lat="39.48392535965" lon="-87.32531016038">
+      </trkpt>
+      <trkpt lat="39.48392462014" lon="-87.32482437336">
+      </trkpt>
+      <trkpt lat="39.48378274221" lon="-87.3248224815">
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>
