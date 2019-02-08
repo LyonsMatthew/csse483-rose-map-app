@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_map -> {
 //                setFragmentToMap("Crapo 2", "facilities")
-                setFragmentToMap("Crapo 2", "crapo2")
+                setFragmentToMap("Crapo 2", "union1")
             }
             R.id.nav_locshare -> {
                 setFragmentToLocationShare()

@@ -69,18 +69,18 @@ class MapData(val name: String) {
     }
 
     private fun scaleDataInitial(width: Double, height: Double, screenHeight: Double) {
-//        val paddingBottom = 80
-//        val paddingTop = 60
-//        val paddingLeft = 80
-//        val paddingRight = 80
-//        Log.d(Constants.TAG, "sf: " + paddingBottom/width + " " + paddingTop/width + " " + paddingLeft/height + " " + paddingRight/height)
-//        Log.d(Constants.TAG, "WIDTH HEIGHT " + width + " " + height)
-//        Log.d(Constants.TAG, "padding " + paddingBottom + " " + paddingTop + " " + paddingLeft + " " + paddingRight + " " + pBottomScal + " " + pTopScal + " " + pLeftScal + " " + pRightScal)
+        val paddingBottom = 60
+        val paddingTop = 20
+        val paddingLeft = 30
+        val paddingRight = 30
+        Log.d(Constants.TAG, "sf: " + paddingBottom/width + " " + paddingTop/width + " " + paddingLeft/height + " " + paddingRight/height)
+        Log.d(Constants.TAG, "WIDTH HEIGHT " + width + " " + height)
+        Log.d(Constants.TAG, "padding " + paddingBottom + " " + paddingTop + " " + paddingLeft + " " + paddingRight + " " + pBottomScal + " " + pTopScal + " " + pLeftScal + " " + pRightScal)
 
-        val paddingBottom = width * pBottomScal
-        val paddingTop = width * pTopScal
-        val paddingLeft = height * pLeftScal
-        val paddingRight = height * pRightScal
+//        val paddingBottom = width * pBottomScal
+//        val paddingTop = width * pTopScal
+//        val paddingLeft = height * pLeftScal
+//        val paddingRight = height * pRightScal
         val paddedWidth = width - paddingLeft - paddingRight
         val paddedHeight = height - paddingTop - paddingBottom
 

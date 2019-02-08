@@ -36,9 +36,9 @@ class MapFragment : Fragment() {
 
     var initialMapScale: Float? = null
     var initialMapCenter: PointF? = null
-    var centerProjCoeff: PointF? = null
 
-    val lastTouch: Point = Point(0,0)
+    val lastTouch = PointF(0f,0f)
+    val trueImageDim = PointF(0f, 0f)
 
     var mapImageID = 0
 
@@ -68,34 +68,33 @@ class MapFragment : Fragment() {
 
     private fun setMapListener(imageView: SubsamplingScaleImageView) {
         imageView.setOnClickListener { _ ->
-
             val name = findTouchedRoom()
             if (!name.equals("")) {
                 showDialog(name)
+//                Log.d(Constants.TAG, name)
             }
-            Log.d(Constants.TAG, "current " + scaleImageView!!.scale.toString() + " " + scaleImageView!!.center.toString() + " initial " + initialMapScale + " " + initialMapCenter)
-            Log.d(Constants.TAG, "lasttouch " + lastTouch.x.toString() + " " + lastTouch.y)
         }
         imageView.setOnTouchListener { _, motionEvent: MotionEvent ->
-//            val mapScale = scaleImageView!!.scale
-//            val scaleMultiplier = 2 - 1/(mapScale/initialMapScale!!)
-//            Log.d(Constants.TAG, "scalemult " + scaleMultiplier)
-//            lastTouch.x = (motionEvent.x.toInt() * scaleMultiplier).toInt()
-//            lastTouch.y = (motionEvent.y.toInt() * scaleMultiplier).toInt()
-            val projectedCenter = PointF(scaleImageView!!.center!!.x * centerProjCoeff!!.x, scaleImageView!!.center!!.y * centerProjCoeff!!.y)
-            val mapScale = scaleImageView!!.scale
-            val scaleMultiplier = mapScale / initialMapScale!!
+            val scaleMultiplier = scaleImageView!!.scale / initialMapScale!!
             val trueViewSize = PointF(viewSize.x/scaleMultiplier, viewSize.y/scaleMultiplier)
-            val leftBound = projectedCenter.x - trueViewSize.x/2
-            val topBound = projectedCenter.y - trueViewSize.y/2
-            val projCoeff = PointF(motionEvent.x/viewSize.x, motionEvent.y/viewSize.y)
 
-            lastTouch.x = (leftBound + trueViewSize.x * projCoeff.x).toInt()
-            lastTouch.y = (topBound + trueViewSize.y * projCoeff.y).toInt()
-            Log.d(Constants.TAG, "true touch " + motionEvent.x + " " + motionEvent.y)
-            Log.d(Constants.TAG, "bounds: " + leftBound + " " + topBound + " " + trueViewSize + " " + projectedCenter)
-            Log.d(Constants.TAG, "projcoeff: " + projCoeff + " " + scaleMultiplier)
+            val topMargin = (viewSize.y - trueImageDim.y)/2
+            val topMarginHidden = if (trueViewSize.y <= trueImageDim.y) topMargin else topMargin - (trueViewSize.y - trueImageDim.y)/2
 
+            val leftMargin = (viewSize.x - trueImageDim.x)/2
+            val leftMarginHidden = if (trueViewSize.x <= trueImageDim.x) leftMargin else leftMargin - (trueViewSize.x - trueImageDim.x)/2
+
+            val panRemaining = RectF(0f,0f, 0f, 0f)
+            scaleImageView!!.getPanRemaining(panRemaining)
+
+            val imageHeightHiddenTop = panRemaining.top / scaleMultiplier
+            val imageWidthHiddenLeft = panRemaining.left / scaleMultiplier
+
+            val projTouchY = motionEvent.y / scaleMultiplier
+            val projTouchX = motionEvent.x / scaleMultiplier
+
+            lastTouch.x = leftMarginHidden + imageWidthHiddenLeft + projTouchX
+            lastTouch.y = topMarginHidden + imageHeightHiddenTop + projTouchY
             false
         }
     }
@@ -177,45 +176,31 @@ class MapFragment : Fragment() {
     private inner class CustomOnGlobalLayoutListener : ViewTreeObserver.OnGlobalLayoutListener {
 
         override fun onGlobalLayout() {
-            val display: Display = activity!!.windowManager.defaultDisplay
-            val screenSize: Point = Point(0, 0)
-            display.getSize(screenSize)
 
-            viewSize.x = view!!.width
-            viewSize.y = view!!.height
+            if (view != null) {
+                viewSize.x = view!!.width
+                viewSize.y = view!!.height
 
-            val options = BitmapFactory.Options()
-            BitmapFactory.decodeResource(resources, mapImageID, options)
+                val options = BitmapFactory.Options()
+                BitmapFactory.decodeResource(resources, mapImageID, options)
 
-            val scalingFactor = viewSize.x.toDouble() / (options.outWidth)
-            val trueImageWidth = options.outWidth*scalingFactor
-            val trueImageHeight = options.outHeight*scalingFactor
+                val scalingFactor = viewSize.x.toDouble() / (options.outWidth)
+                trueImageDim.x = options.outWidth*scalingFactor.toFloat()
+                trueImageDim.y = options.outHeight*scalingFactor.toFloat()
 
-            if (initialMapScale == null && scaleImageView!!.center != null) {
-                initialMapScale = scaleImageView!!.scale
-                initialMapCenter = scaleImageView!!.center!!
-                centerProjCoeff = PointF(viewSize.x/initialMapCenter!!.x/2, viewSize.y/initialMapCenter!!.y/2)
-                Log.d(Constants.TAG, "initial center " + initialMapCenter!!.x + " " + initialMapCenter!!.y)
-                Log.d(Constants.TAG, "projected center " + scaleImageView!!.center!!.x*centerProjCoeff!!.x + " " + scaleImageView!!.center!!.y*centerProjCoeff!!.y)
+                if (initialMapScale == null && scaleImageView!!.center != null) {
+                    initialMapScale = scaleImageView!!.scale
+                    initialMapCenter = scaleImageView!!.center!!
+                }
 
+                val inputStream: InputStream = context!!.assets.open(fileName)
+                data = MapData(name)
+                data!!.readFile(inputStream, trueImageDim.x.toDouble(), trueImageDim.y.toDouble(), viewSize.y-trueImageDim.y.toDouble())
+
+                val bitmap = Bitmap.createBitmap(viewSize.x, viewSize.y, Bitmap.Config.ARGB_8888)
+//            drawPaths(view!!.map_image, bitmap)
+                drawPaths(view!!.map_image_overlay, bitmap)
             }
-
-//            Log.d(Constants.TAG, screenSize.toString())
-            Log.d(Constants.TAG, viewSize.toString())
-            Log.d(Constants.TAG, Point(trueImageWidth.toInt(), trueImageHeight.toInt()).toString())
-//            Log.d(Constants.TAG, Point(view!!.map_image.width, view!!.map_image.height).toString())
-//            Log.d(Constants.TAG, scalingFactor.toString())
-
-//            Log.d(Constants.TAG, "current " + scaleImageView!!.scale.toString() + " " + scaleImageView!!.center.toString() + " initial " + initialMapScale + " " + initialMapCenter)
-            Log.d(Constants.TAG, "lasttouch " + lastTouch.x.toString() + " " + lastTouch.y)
-
-            val inputStream: InputStream = context!!.assets.open(fileName)
-            data = MapData(name)
-            data!!.readFile(inputStream, trueImageWidth, trueImageHeight, viewSize.y-trueImageHeight)
-
-            val bitmap = Bitmap.createBitmap(viewSize.x, viewSize.y, Bitmap.Config.ARGB_8888)
-            drawPaths(view!!.map_image, bitmap)
-//            drawPaths(view!!.map_image_overlay, bitmap)
         }
     }
 }
