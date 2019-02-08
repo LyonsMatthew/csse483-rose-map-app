@@ -6,8 +6,8 @@
 
     <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView android:layout_width="match_parent" android:layout_height="wrap_content"
     android:scaleType="centerInside"  android:layout_centerInParent="true" android:id="@+id/map_image"/>
-    <!--<com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView android:layout_width="match_parent" android:layout_height="wrap_content"-->
-    <!--android:scaleType="centerInside"  android:layout_centerInParent="true" android:id="@+id/map_image_overlay"/>-->
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:scaleType="centerInside"  android:layout_centerInParent="true" android:id="@+id/map_image_overlay"/>
 
 
 
