@@ -19,16 +19,15 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                android:elevation="4dp"
-        >
+                android:elevation="4dp">
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-            <MultiAutoCompleteTextView
+            <AutoCompleteTextView
                     android:hint="@string/searchhint"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/multiAutoCompleteTextView"/>
+                    android:layout_height="wrap_content" android:id="@+id/autoCompleteTextView"/>
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

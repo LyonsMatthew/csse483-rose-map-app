@@ -20,11 +20,12 @@ class MapData(val name: String) {
     var pLeftScal: Double = 0.0
     var pRightScal: Double = 0.0
 
+    var isScaled = false
 
+    var upwards_filename = ""
+    var downwards_filename = ""
 
-
-
-    fun readFile(inputStream: InputStream, width: Double, height: Double, screenHeight: Double) {
+    fun readFile(inputStream: InputStream) {
         val reader = BufferedReader(InputStreamReader(inputStream))
 
         var inTrk = false
@@ -57,30 +58,33 @@ class MapData(val name: String) {
                 pTopScal = lineArray[3].toDouble()
                 pLeftScal = lineArray[5].toDouble()
                 pRightScal = lineArray[7].toDouble()
+            } else if (line.length >= 11 && line.substring(4, 11).equals("<stairs")) {
+                val lineArray = line.split("\"")
+                upwards_filename = lineArray[1]
+                downwards_filename = lineArray[3]
             }
         }
         reader.close()
 
-        scaleDataInitial(width, height, screenHeight)
-//        for (s in roomMap.keys) {
-//            Log.d(Constants.TAG, s + " " + roomMap[s])
-//        }
 //        Log.d(Constants.TAG, minLat.toString() + " " + minLon + " " + maxLat + " " + maxLon)
+//        Log.d(Constants.TAG, upwards_filename + " " + downwards_filename)
     }
 
-    private fun scaleDataInitial(width: Double, height: Double, screenHeight: Double) {
-        val paddingBottom = 60
-        val paddingTop = 20
-        val paddingLeft = 30
-        val paddingRight = 30
-        Log.d(Constants.TAG, "sf: " + paddingBottom/width + " " + paddingTop/width + " " + paddingLeft/height + " " + paddingRight/height)
-        Log.d(Constants.TAG, "WIDTH HEIGHT " + width + " " + height)
-        Log.d(Constants.TAG, "padding " + paddingBottom + " " + paddingTop + " " + paddingLeft + " " + paddingRight + " " + pBottomScal + " " + pTopScal + " " + pLeftScal + " " + pRightScal)
+    fun scaleDataInitial(width: Double, height: Double, screenHeight: Double) {
+//        val paddingBottom = 260
+//        val paddingTop = 130
+//        val paddingLeft = 30
+//        val paddingRight = 770
+//        Log.d(Constants.TAG, "sf: " + paddingBottom/width + " " + paddingTop/width + " " + paddingLeft/height + " " + paddingRight/height)
+//        Log.d(Constants.TAG, "WIDTH HEIGHT " + width + " " + height)
+//        Log.d(Constants.TAG, "padding " + paddingBottom + " " + paddingTop + " " + paddingLeft + " " + paddingRight + " " + pBottomScal + " " + pTopScal + " " + pLeftScal + " " + pRightScal)
 
-//        val paddingBottom = width * pBottomScal
-//        val paddingTop = width * pTopScal
-//        val paddingLeft = height * pLeftScal
-//        val paddingRight = height * pRightScal
+        if (isScaled) return
+
+        val paddingBottom = width * pBottomScal
+        val paddingTop = width * pTopScal
+        val paddingLeft = height * pLeftScal
+        val paddingRight = height * pRightScal
         val paddedWidth = width - paddingLeft - paddingRight
         val paddedHeight = height - paddingTop - paddingBottom
 
@@ -88,10 +92,11 @@ class MapData(val name: String) {
             val currentList = roomMap[s]!!
             for (i in 0 until currentList.size) {
                 val newFirst = paddingLeft + (currentList[i].first - minLon) * paddedWidth / (maxLon - minLon)
-//                val newSecond = (currentList[i].second - minLat) * size / (maxLat - minLat)
                 val newSecond = height - (paddingBottom + (currentList[i].second - minLat) * paddedHeight / (maxLat - minLat)) + screenHeight/2
                 currentList[i] = Pair(newFirst, newSecond)
             }
         }
+
+        isScaled = true
     }
 }

@@ -4,10 +4,29 @@
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary">
 
+
+
     <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView android:layout_width="match_parent" android:layout_height="wrap_content"
     android:scaleType="centerInside"  android:layout_centerInParent="true" android:id="@+id/map_image"/>
-    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:scaleType="centerInside"  android:layout_centerInParent="true" android:id="@+id/map_image_overlay"/>
+    <!--<com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+    <!--android:scaleType="centerInside"  android:layout_centerInParent="true" android:id="@+id/map_image_overlay"/>-->
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical" android:padding="10dp">
+        <!--Thanks to icons8 for these three icons!-->
+        <ImageView android:layout_width="70dp" android:layout_height="20dp"
+                   android:layout_gravity="right"
+                   android:id="@+id/upwards"
+                   android:src="@drawable/chevron_up"/>
+        <ImageView android:layout_width="70dp" android:layout_height="70dp"
+                   android:layout_gravity="right"
+                   android:id="@+id/stairs"
+                   android:src="@drawable/stairs"/>
+        <ImageView android:layout_width="70dp" android:layout_height="20dp"
+                   android:layout_gravity="right"
+                   android:id="@+id/downwards"
+                   android:src="@drawable/chevron_down"/>
+    </LinearLayout>
 
 
 

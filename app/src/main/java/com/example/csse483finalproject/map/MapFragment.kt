@@ -40,7 +40,15 @@ class MapFragment : Fragment() {
     val lastTouch = PointF(0f,0f)
     val trueImageDim = PointF(0f, 0f)
 
+    var mapDataHolder: MapDataHolder? = null
+
+    var upwards_view: View? = null
+    var downwards_view: View? = null
+    var stairs_view: View? = null
+
     var mapImageID = 0
+
+    var isCampusMap = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +58,22 @@ class MapFragment : Fragment() {
         unpackBundle(view)
         mapImageID = activity!!.resources.getIdentifier(imageName, "drawable", context!!.packageName)
         view.map_image.setImage(ImageSource.resource(mapImageID))
+        upwards_view = view.upwards
+        downwards_view = view.downwards
+        stairs_view = view.stairs
+
+        upwards_view!!.setOnClickListener { _ ->
+            upwards()
+        }
+        downwards_view!!.setOnClickListener { _ ->
+            downwards()
+        }
+
+        upwards_view!!.visibility = View.INVISIBLE
+        downwards_view!!.visibility = View.INVISIBLE
+        stairs_view!!.visibility = View.INVISIBLE
+
+        mapDataHolder = context!! as MapDataHolder
 
         val viewTreeObserver: ViewTreeObserver = view.viewTreeObserver
         if (viewTreeObserver.isAlive()) {
@@ -58,10 +82,10 @@ class MapFragment : Fragment() {
 
         setMapListener(view.map_image)
 
-        Log.d(Constants.TAG, view.map_image.scale.toString())
+//        Log.d(Constants.TAG, view.map_image.scale.toString())
 
         scaleImageView = view.map_image
-        Log.d(Constants.TAG, scaleImageView!!.scale.toString() + " " + scaleImageView!!.center.toString())
+//        Log.d(Constants.TAG, scaleImageView!!.scale.toString() + " " + scaleImageView!!.center.toString())
 
         return view
     }
@@ -70,32 +94,55 @@ class MapFragment : Fragment() {
         imageView.setOnClickListener { _ ->
             val name = findTouchedRoom()
             if (!name.equals("")) {
-                showDialog(name)
-//                Log.d(Constants.TAG, name)
+                if(isCampusMap) {
+                    mapDataHolder!!.goToMap(name)
+                } else {
+                    showDialog(name)
+//                    Log.d(Constants.TAG, name)
+                }
             }
         }
         imageView.setOnTouchListener { _, motionEvent: MotionEvent ->
-            val scaleMultiplier = scaleImageView!!.scale / initialMapScale!!
-            val trueViewSize = PointF(viewSize.x/scaleMultiplier, viewSize.y/scaleMultiplier)
 
-            val topMargin = (viewSize.y - trueImageDim.y)/2
-            val topMarginHidden = if (trueViewSize.y <= trueImageDim.y) topMargin else topMargin - (trueViewSize.y - trueImageDim.y)/2
+            if (initialMapScale != null) {
+                val scaleMultiplier = scaleImageView!!.scale / initialMapScale!!
+                val trueViewSize = PointF(viewSize.x/scaleMultiplier, viewSize.y/scaleMultiplier)
 
-            val leftMargin = (viewSize.x - trueImageDim.x)/2
-            val leftMarginHidden = if (trueViewSize.x <= trueImageDim.x) leftMargin else leftMargin - (trueViewSize.x - trueImageDim.x)/2
+                val topMargin = (viewSize.y - trueImageDim.y)/2
+                val topMarginHidden = if (trueViewSize.y <= trueImageDim.y) topMargin else topMargin - (trueViewSize.y - trueImageDim.y)/2
 
-            val panRemaining = RectF(0f,0f, 0f, 0f)
-            scaleImageView!!.getPanRemaining(panRemaining)
+                val leftMargin = (viewSize.x - trueImageDim.x)/2
+                val leftMarginHidden = if (trueViewSize.x <= trueImageDim.x) leftMargin else leftMargin - (trueViewSize.x - trueImageDim.x)/2
 
-            val imageHeightHiddenTop = panRemaining.top / scaleMultiplier
-            val imageWidthHiddenLeft = panRemaining.left / scaleMultiplier
+                val panRemaining = RectF(0f,0f, 0f, 0f)
+                scaleImageView!!.getPanRemaining(panRemaining)
 
-            val projTouchY = motionEvent.y / scaleMultiplier
-            val projTouchX = motionEvent.x / scaleMultiplier
+                val imageHeightHiddenTop = panRemaining.top / scaleMultiplier
+                val imageWidthHiddenLeft = panRemaining.left / scaleMultiplier
 
-            lastTouch.x = leftMarginHidden + imageWidthHiddenLeft + projTouchX
-            lastTouch.y = topMarginHidden + imageHeightHiddenTop + projTouchY
+                val projTouchY = motionEvent.y / scaleMultiplier
+                val projTouchX = motionEvent.x / scaleMultiplier
+
+                lastTouch.x = leftMarginHidden + imageWidthHiddenLeft + projTouchX
+                lastTouch.y = topMarginHidden + imageHeightHiddenTop + projTouchY
+
+//            Log.d(Constants.TAG, "lasttouch " + lastTouch.x + " " + lastTouch.y)
+            }
             false
+        }
+    }
+
+    private fun upwards() {
+//        Log.d(Constants.TAG, data!!.upwards_filename)
+        if (data!!.upwards_filename != "") {
+            mapDataHolder!!.goToMap(data!!.upwards_filename)
+        }
+    }
+
+    private fun downwards() {
+//        Log.d(Constants.TAG, data!!.downwards_filename)
+        if (data!!.downwards_filename != "") {
+            mapDataHolder!!.goToMap(data!!.downwards_filename)
         }
     }
 
@@ -168,9 +215,9 @@ class MapFragment : Fragment() {
     }
 
     private fun unpackBundle(view: View) {
-        name = arguments!!.getString("name")!!
         fileName = arguments!!.getString("fileName")!! + ".gpx"
         imageName = arguments!!.getString("fileName")!!
+        isCampusMap = arguments!!.getBoolean("isCampusMap")!!
     }
 
     private inner class CustomOnGlobalLayoutListener : ViewTreeObserver.OnGlobalLayoutListener {
@@ -193,14 +240,29 @@ class MapFragment : Fragment() {
                     initialMapCenter = scaleImageView!!.center!!
                 }
 
-                val inputStream: InputStream = context!!.assets.open(fileName)
-                data = MapData(name)
-                data!!.readFile(inputStream, trueImageDim.x.toDouble(), trueImageDim.y.toDouble(), viewSize.y-trueImageDim.y.toDouble())
+                if (data == null) {
+                    data = mapDataHolder!!.getMapData(imageName)
+                    data!!.scaleDataInitial(trueImageDim.x.toDouble(), trueImageDim.y.toDouble(), viewSize.y-trueImageDim.y.toDouble())
+                    name = data!!.name
+                    if (data!!.upwards_filename != "") {
+                        upwards_view!!.visibility = View.VISIBLE
+                        stairs_view!!.visibility = View.VISIBLE
+                    }
+                    if (data!!.downwards_filename != "") {
+                        downwards_view!!.visibility = View.VISIBLE
+                        stairs_view!!.visibility = View.VISIBLE
+                    }
+                }
 
                 val bitmap = Bitmap.createBitmap(viewSize.x, viewSize.y, Bitmap.Config.ARGB_8888)
-//            drawPaths(view!!.map_image, bitmap)
-                drawPaths(view!!.map_image_overlay, bitmap)
+            drawPaths(view!!.map_image, bitmap)
+//                drawPaths(view!!.map_image_overlay, bitmap)
             }
         }
+    }
+
+    interface MapDataHolder {
+        fun getMapData(filename: String) : MapData
+        fun goToMap(filename: String)
     }
 }
