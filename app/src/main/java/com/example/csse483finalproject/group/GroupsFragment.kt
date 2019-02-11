@@ -2,8 +2,8 @@ package com.example.csse483finalproject.group
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,11 +51,11 @@ class GroupsFragment : Fragment() {
     }
 
     fun onGroupClicked(g: GroupWithMembershipType){
-        listener.onGroupClicked(g)
+        listener.onGroupClicked(g.group)
     }
 
     interface GroupListListener {
-        fun onGroupClicked(g: GroupWithMembershipType)
+        fun onGroupClicked(g: Group)
     }
 
     companion object {
