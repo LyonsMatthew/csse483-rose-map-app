@@ -18,14 +18,14 @@ import java.util.*
 import kotlin.collections.ArrayList
 import android.R.attr.data
 import android.util.Log
-import android.util.TypedValue
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import com.example.csse483finalproject.map.data.MapData
 import java.io.InputStream
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    EventAdapter.EventListListener, GroupsFragment.GroupListListener {
+    EventAdapter.EventListListener, GroupsFragment.GroupListListener,
+    MapFragment.MapDataHolder{
     override fun onGroupClicked(g: Group) {
         if(g.groupOwners.containsUser(testUser)){
             val currentFragment = supportFragmentManager.beginTransaction()
