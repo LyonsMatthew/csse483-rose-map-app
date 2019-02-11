@@ -1,8 +1,8 @@
 package com.example.csse483finalproject.group
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +37,7 @@ class UserAdapter(var context: Context, val deleteCallback:DeletableUserInterfac
 
     fun delete(user: User) {
         for (i in 0 until users.size){
-            if (users[i].userId == user.userId){
+            if (users[i].id == user.id){
                 users.removeAt(i)
                 notifyItemRemoved(i)
             }

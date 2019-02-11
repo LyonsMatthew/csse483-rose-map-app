@@ -3,7 +3,7 @@ package com.example.csse483finalproject.group
 import android.os.Parcel
 import android.os.Parcelable
 
-data class User(val userId:Long, var username: String, var displayName:String) :Parcelable {
+data class User(val id:Long, var username: String, var displayName:String) :Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
         parcel.readString(),
@@ -12,7 +12,7 @@ data class User(val userId:Long, var username: String, var displayName:String) :
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeLong(userId)
+        parcel.writeLong(id)
         parcel.writeString(username)
         parcel.writeString(displayName)
     }

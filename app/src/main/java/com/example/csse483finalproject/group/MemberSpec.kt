@@ -17,6 +17,15 @@ data class MemberSpec(var members:ArrayList<User>) :Parcelable {
         return 0
     }
 
+    fun containsUser(u: User) :Boolean{
+        for (tu in members){
+            if (u.id==tu.id){
+                return true
+            }
+        }
+        return false
+    }
+
     companion object CREATOR : Parcelable.Creator<MemberSpec> {
         override fun createFromParcel(parcel: Parcel): MemberSpec {
             return MemberSpec(parcel)

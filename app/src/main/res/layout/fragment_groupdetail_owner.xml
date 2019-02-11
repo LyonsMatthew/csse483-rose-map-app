@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:id="@+id/rootlayout"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:id="@+id/rootlayout"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintTop_toTopOf="@+id/rootlayout"
             android:id="@+id/titleview"
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/settings_subtitle"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
             app:layout_constraintTop_toBottomOf="@id/titleview"
@@ -44,7 +44,7 @@
             android:layout_marginTop="6dp"
             android:id="@+id/listheader"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             app:layout_constraintTop_toBottomOf="@id/listheader"
             app:layout_constraintBottom_toTopOf="@id/addeventbutton"
             android:layout_margin="16dp"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/addeventbutton"/>
 
-    <android.support.constraint.Guideline
+    <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
             android:layout_marginTop="6dp"
             android:id="@+id/memberheader"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             app:layout_constraintTop_toBottomOf="@id/memberheader"
             app:layout_constraintBottom_toTopOf="@id/leavebutton"
             android:layout_margin="16dp"
@@ -105,4 +105,4 @@
             android:background="?android:attr/listDivider"/>
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

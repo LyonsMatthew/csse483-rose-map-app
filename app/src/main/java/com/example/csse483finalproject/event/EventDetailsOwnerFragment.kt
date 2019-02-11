@@ -1,7 +1,7 @@
 package com.example.csse483finalproject.event
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +20,8 @@ class EventDetailsOwnerFragment : Fragment() {
         view.dtext.text = event.eventDescription
         view.loctext.text = event.eventLocation.locString()
         view.tdtext.text = getString(R.string.date_seperator,event.eventStart.toLocaleString(), event.eventEnd.toLocaleString())
+        view.tdtext.setOnClickListener{
+        }
         return view
     }
     lateinit var event:Event

@@ -26,4 +26,16 @@ data class GroupSpec(var groups:ArrayList<GroupWithMembershipType>) : Parcelable
             return arrayOfNulls(size)
         }
     }
+
+    fun containsUser(u: User) : Boolean{
+        for (g in groups){
+            var groupUsers = g.group.getMembers(g.membertype)
+            for(tu in groupUsers){
+                if (u.id == tu.id){
+                    return true
+                }
+            }
+        }
+        return false
+    }
 }

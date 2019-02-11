@@ -1,15 +1,16 @@
 package com.example.csse483finalproject
 
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import com.example.csse483finalproject.event.*
 import com.example.csse483finalproject.group.*
 import com.example.csse483finalproject.map.MapFragment
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
@@ -23,26 +24,29 @@ import android.widget.AutoCompleteTextView
 import com.example.csse483finalproject.map.data.MapData
 import java.io.InputStream
 
-
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    EventAdapter.EventListListener, GroupsFragment.GroupListListener,
-    MapFragment.MapDataHolder {
-    override fun onGroupClicked(g: GroupWithMembershipType) {
-        if(g.membertype.mt == MT.OWNER || g.membertype.mt == MT.BOTH){
+    EventAdapter.EventListListener, GroupsFragment.GroupListListener {
+    override fun onGroupClicked(g: Group) {
+        if(g.groupOwners.containsUser(testUser)){
             val currentFragment = supportFragmentManager.beginTransaction()
-            currentFragment.replace(R.id.container, GroupDetailOwnerFragment.newInstance(g.group))
+            currentFragment.replace(R.id.container, GroupDetailOwnerFragment.newInstance(g))
             currentFragment.commit()
         }
         else{
             val currentFragment = supportFragmentManager.beginTransaction()
-            currentFragment.replace(R.id.container, GroupDetailMemberFragment.newInstance(g.group))
+            currentFragment.replace(R.id.container, GroupDetailMemberFragment.newInstance(g))
             currentFragment.commit()
         }
     }
 
     override fun onEventClicked(e: Event) {
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, EventDetailsFragment.newInstance(e))
+        if (e.eventOwners.containsUser(testUser)){
+            currentFragment.replace(R.id.container, EventDetailsOwnerFragment.newInstance(e))
+        }
+        else {
+            currentFragment.replace(R.id.container, EventDetailsFragment.newInstance(e))
+        }
         currentFragment.commit()
     }
 

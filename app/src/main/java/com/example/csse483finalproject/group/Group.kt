@@ -26,7 +26,7 @@ data class Group(var groupName: String, var groupOwners: MemberSpec, var groupVi
     fun getMembers(mt: MemberType): ArrayList<User>{
         var members = ArrayList<User>()
         if(mt.mt == MT.BOTH) {
-            members = groupOwners.members.clone() as ArrayList<User>
+            members.addAll(groupOwners.members)
             members.addAll(groupViewers.members)
         }
         if(mt.mt == MT.OWNER) {
