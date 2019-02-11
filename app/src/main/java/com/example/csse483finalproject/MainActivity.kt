@@ -4,24 +4,22 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.example.csse483finalproject.event.*
 import com.example.csse483finalproject.group.*
 import com.example.csse483finalproject.map.MapFragment
+import com.example.csse483finalproject.map.data.MapData
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
+import java.io.InputStream
 import java.util.*
 import kotlin.collections.ArrayList
-import android.R.attr.data
-import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import com.example.csse483finalproject.map.data.MapData
-import java.io.InputStream
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     EventAdapter.EventListListener, GroupsFragment.GroupListListener,
@@ -105,8 +103,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         testViewer = GroupSpec(gwmtov)
         alou=ArrayList<User>()
         alou.add(testUser)
-        testEvents.add(Event("Test RoseMaps", Location(null,false,0F,0F, "Lakeside 402"),"Rose maps is great", Date(119,0,31,8,30), Date(119,0,31,9,30),testOwner, testViewer,0))
-        testEvents.add(Event("Making events manually is a real pain...", Location(null,false,0F,0F, "Speed Beach"),"Manual event", Date(119,0,31,8,30), Date(119,0,31,9,30),testOwner, testViewer,1))
+        testEvents.add(Event("Test RoseMaps", Location(null,false,0F,0F, "Lakeside 402"),"Rose maps is great", Calendar.getInstance(), Calendar.getInstance(),testOwner, testViewer,0))
+        testEvents.add(Event("Making events manually is a real pain...", Location(null,false,0F,0F, "Speed Beach"),"Manual event", Calendar.getInstance(), Calendar.getInstance(),testOwner, testViewer,1))
         nav_view.getHeaderView(0).user_displayname.text = testUser.displayName
         nav_view.getHeaderView(0).user_email.text = testUser.username
 

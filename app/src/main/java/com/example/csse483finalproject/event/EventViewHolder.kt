@@ -1,9 +1,9 @@
 package com.example.csse483finalproject.event
 
-import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.csse483finalproject.R
 
 class EventViewHolder : RecyclerView.ViewHolder {
@@ -33,9 +33,9 @@ class EventViewHolder : RecyclerView.ViewHolder {
         if(!isMinimal) {
             eventLocation.text = event.eventLocation.locString()
             val monthStrings = adapter.context.resources.getStringArray(R.array.month_abbrev)
-            eventDate.text = monthStrings[event.eventStart.month] + " " + event.eventStart.date.toString()
+            eventDate.text = monthStrings[event.eventStart.time.month] + " " + event.eventStart.time.date.toString()
             eventTime.text =
-                event.eventStart.hours.toString() + ":" + event.eventStart.minutes.toString() + " to " + event.eventEnd.hours.toString() + ":" + event.eventEnd.minutes.toString()
+                event.eventStart.time.hours.toString() + ":" + event.eventStart.time.minutes.toString() + " to " + event.eventEnd.time.hours.toString() + ":" + event.eventEnd.time.minutes.toString()
         }
         cardView.setOnClickListener {
             adapter.eventCallback.onEventClicked(event)

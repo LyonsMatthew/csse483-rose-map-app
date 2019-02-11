@@ -2,18 +2,18 @@ package com.example.csse483finalproject.group
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ItemTouchHelper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.csse483finalproject.Constants
 import com.example.csse483finalproject.R
 import com.example.csse483finalproject.event.Event
 import com.example.csse483finalproject.event.EventAdapter
-import kotlinx.android.synthetic.main.fragment_groupdetail_member.view.*
+import kotlinx.android.synthetic.main.fragment_groupdetail_owner.view.*
 
 class GroupDetailOwnerFragment : Fragment(), UserAdapter.mtcInterface, UserAdapter.DeletableUserInterface, EventAdapter.EventListListener {
     override fun onEventClicked(e: Event) {

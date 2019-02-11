@@ -1,10 +1,10 @@
 package com.example.csse483finalproject.event
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.csse483finalproject.R
 import kotlinx.android.synthetic.main.fragment_eventdetail.view.*
 
@@ -19,7 +19,7 @@ class EventDetailsFragment : Fragment() {
         view.event_title.text = event.eventName
         view.dtext.text = event.eventDescription
         view.loctext.text = event.eventLocation.locString()
-        view.tdtext.text = getString(R.string.date_seperator,event.eventStart.toLocaleString(), event.eventEnd.toLocaleString())
+        view.tdtext.text = getString(R.string.date_seperator,event.eventStart.time.toLocaleString(), event.eventEnd.time.toLocaleString())
         return view
     }
     lateinit var event:Event

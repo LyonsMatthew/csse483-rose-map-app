@@ -36,6 +36,8 @@
     <string name="date_seperator">%1$s until %2$s</string>
     <string name="owner">Owner</string>
     <string name="loginText">Currrently logged in as %1$s</string>
+    <string name="saveevent">Save Event</string>
+    <string name="add_person">Add Person</string>
     <string-array name="month_abbrev">
         <item>Jan</item>
         <item>Feb</item>

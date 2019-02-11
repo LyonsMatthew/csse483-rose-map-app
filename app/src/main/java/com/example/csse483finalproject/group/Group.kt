@@ -54,8 +54,8 @@ data class Group(var groupName: String, var groupOwners: MemberSpec, var groupVi
         gwmtov.add(gwmtv)
         var testOwner = GroupSpec(gwmtoa)
         var testViewer = GroupSpec(gwmtov)
-        testEvents.add(Event("Test RoseMaps", Location(null,false,0F,0F, "Lakeside 402"),"Rose maps is great", Date(119,0,31,8,30), Date(119,0,31,9,30),testOwner, testViewer,0))
-        testEvents.add(Event("Making events manually is a real pain...", Location(null,false,0F,0F, "Speed Beach"),"Manual event", Date(119,0,31,8,30), Date(119,0,31,9,30),testOwner, testViewer,1))
+        testEvents.add(Event("Test RoseMaps", Location(null,false,0F,0F, "Lakeside 402"),"Rose maps is great", Calendar.getInstance(), Calendar.getInstance(),testOwner, testViewer,0))
+        testEvents.add(Event("Making events manually is a real pain...", Location(null,false,0F,0F, "Speed Beach"),"Manual event", Calendar.getInstance(), Calendar.getInstance(),testOwner, testViewer,1))
         return testEvents
     }
 

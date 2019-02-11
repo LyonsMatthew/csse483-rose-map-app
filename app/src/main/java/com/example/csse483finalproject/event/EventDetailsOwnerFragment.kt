@@ -1,12 +1,17 @@
 package com.example.csse483finalproject.event
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.csse483finalproject.R
-import kotlinx.android.synthetic.main.fragment_eventdetail.view.*
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
+import kotlinx.android.synthetic.main.fragment_eventdetails_owner.view.*
+import java.util.*
+
+
 
 class EventDetailsOwnerFragment : Fragment() {
 
@@ -16,14 +21,75 @@ class EventDetailsOwnerFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_eventdetails_owner, container, false)
         unpackBundle(view)
-        view.event_title.text = event.eventName
-        view.dtext.text = event.eventDescription
-        view.loctext.text = event.eventLocation.locString()
-        view.tdtext.text = getString(R.string.date_seperator,event.eventStart.toLocaleString(), event.eventEnd.toLocaleString())
-        view.tdtext.setOnClickListener{
+        updateView(view)
+        view.stdtext.setOnClickListener{
+            DatePickerDialog.newInstance(sDateSetListener,
+                event.eventStart.get(Calendar.YEAR),
+                event.eventStart.get(Calendar.MONTH),
+                event.eventStart.get(Calendar.DAY_OF_MONTH))
+                .show(getFragmentManager(), "Datepickerdialog");
+        }
+        view.etdtext.setOnClickListener{
+            DatePickerDialog.newInstance(eDateSetListener,
+                event.eventEnd.get(Calendar.YEAR),
+                event.eventEnd.get(Calendar.MONTH),
+                event.eventEnd.get(Calendar.DAY_OF_MONTH))
+                .show(getFragmentManager(), "Datepickerdialog");
         }
         return view
     }
+
+    fun updateView(v: View? = null){
+        lateinit var myView:View
+        if(v != null){
+            myView=v
+        }
+        else{
+            myView=this.view!!
+        }
+        myView.event_title.text = event.eventName
+        myView.dtext.setText(event.eventDescription)
+        myView.loctext.setText(event.eventLocation.locString())
+        myView.stdtext.setText(event.eventStart.time.toLocaleString())
+        myView.etdtext.setText(event.eventEnd.time.toLocaleString())
+    }
+
+    val sDateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        event.eventStart.set(Calendar.YEAR,year)
+        event.eventStart.set(Calendar.MONTH,monthOfYear)
+        event.eventStart.set(Calendar.DAY_OF_MONTH,dayOfMonth)
+        TimePickerDialog.newInstance(sTimeSetListener,
+            event.eventStart.get(Calendar.HOUR_OF_DAY),
+            event.eventStart.get(Calendar.MINUTE),false)
+            .show(getFragmentManager(), "Timepickerdialog");
+    }
+
+    val sTimeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute, _ ->
+        event.eventStart.set(Calendar.HOUR_OF_DAY,hour)
+        event.eventStart.set(Calendar.MINUTE,minute)
+        event.eventStart.set(Calendar.SECOND,0)
+        event.eventStart.set(Calendar.MILLISECOND,0)
+        updateView()
+    }
+
+    val eDateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        event.eventEnd.set(Calendar.YEAR,year)
+        event.eventEnd.set(Calendar.MONTH,monthOfYear)
+        event.eventEnd.set(Calendar.DAY_OF_MONTH,dayOfMonth)
+        TimePickerDialog.newInstance(eTimeSetListener,
+            event.eventEnd.get(Calendar.HOUR_OF_DAY),
+            event.eventEnd.get(Calendar.MINUTE),false)
+            .show(getFragmentManager(), "Timepickerdialog");
+    }
+
+    val eTimeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute, _ ->
+        event.eventEnd.set(Calendar.HOUR_OF_DAY,hour)
+        event.eventEnd.set(Calendar.MINUTE,minute)
+        event.eventEnd.set(Calendar.SECOND,0)
+        event.eventEnd.set(Calendar.MILLISECOND,0)
+        updateView()
+    }
+
     lateinit var event:Event
 
     override fun onCreate(savedInstanceState: Bundle?){

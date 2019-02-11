@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
-                                                   android:id="@+id/rootlayout"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto">
+                                                   android:id="@+id/rootlayout">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintTop_toTopOf="@+id/rootlayout"
@@ -59,22 +60,22 @@
             android:id="@+id/loctext"/>
 
     <TextView
-            app:layout_constraintTop_toTopOf="@id/tdtext"
-            app:layout_constraintBottom_toBottomOf="@id/tdtext"
+            app:layout_constraintTop_toTopOf="@id/stdtext"
+            app:layout_constraintBottom_toBottomOf="@id/stdtext"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="6dp"
-            android:text="Time: "
+            android:text="Start Time: "
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:id="@+id/tdtitle"/>
+            android:id="@+id/stdtitle"/>
 
     <EditText
             app:layout_constraintTop_toBottomOf="@id/loctext"
-            app:layout_constraintLeft_toRightOf="@id/tdtitle"
+            app:layout_constraintLeft_toRightOf="@id/stdtitle"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintHorizontal_bias="0"
 
@@ -85,8 +86,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:id="@+id/tdtext"/>
+            android:focusable="false"
+            android:longClickable="false"
+            android:clickable="true"
+            android:cursorVisible="false"
 
+            android:id="@+id/stdtext"/>
+
+    <TextView
+            app:layout_constraintTop_toTopOf="@id/etdtext"
+            app:layout_constraintBottom_toBottomOf="@id/etdtext"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="6dp"
+            android:text="End Time: "
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/etdtitle"/>
+
+    <EditText
+            app:layout_constraintTop_toBottomOf="@id/stdtext"
+            app:layout_constraintLeft_toRightOf="@id/etdtitle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:text="$time"
+            app:layout_constrainedWidth="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:focusable="false"
+            android:longClickable="false"
+            android:clickable="true"
+            android:cursorVisible="false"
+
+            android:id="@+id/etdtext"/>
 
     <TextView
             app:layout_constraintTop_toTopOf="@id/datetext"
@@ -101,9 +140,9 @@
             android:layout_marginTop="6dp"
             android:id="@+id/datetitle"/>
 
-    <EditText
+    <AutoCompleteTextView
             android:inputType="text"
-            app:layout_constraintTop_toBottomOf="@id/tdtext"
+            app:layout_constraintTop_toBottomOf="@id/etdtext"
             app:layout_constraintLeft_toRightOf="@id/datetitle"
             android:text="$groups"
             android:layout_width="wrap_content"
@@ -165,9 +204,17 @@
             android:layout_margin="8dp"
             android:text="@string/deleteevent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/delbutton"/>
+
+    <Button
+            android:layout_margin="8dp"
+            android:text="@string/saveevent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/savebutton"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
