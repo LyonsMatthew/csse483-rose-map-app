@@ -1,14 +1,14 @@
 package com.example.csse483finalproject.event
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.example.csse483finalproject.R
 
 class EventAdapter(var context: Context, var eventCallback: EventListListener, var isMinimal:Boolean = false) : RecyclerView.Adapter<EventViewHolder>() {
-    private val events = ArrayList<Event>()
+    private val events = ArrayList<EventWrapper>()
 
     override fun onCreateViewHolder(parent: ViewGroup, index: Int): EventViewHolder {
         lateinit var view: View
@@ -29,12 +29,12 @@ class EventAdapter(var context: Context, var eventCallback: EventListListener, v
 
     override fun getItemCount() = events.size
 
-    fun add(event: Event) {
+    fun add(event: EventWrapper) {
         events.add(0, event)
         notifyItemInserted(0)
     }
 
     interface EventListListener {
-        fun onEventClicked(e: Event)
+        fun onEventClicked(e: EventWrapper)
     }
 }

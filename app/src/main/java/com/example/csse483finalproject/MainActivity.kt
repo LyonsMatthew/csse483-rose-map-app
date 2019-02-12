@@ -1,6 +1,7 @@
 package com.example.csse483finalproject
 
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
@@ -14,6 +15,10 @@ import com.example.csse483finalproject.group.*
 import com.example.csse483finalproject.map.MapFragment
 import com.example.csse483finalproject.map.data.MapData
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
@@ -24,8 +29,8 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     EventAdapter.EventListListener, GroupsFragment.GroupListListener,
     MapFragment.MapDataHolder{
-    override fun onGroupClicked(g: Group) {
-        if(g.groupOwners.containsUser(testUser)){
+    override fun onGroupClicked(g: GroupWrapper) {
+        if(g.getGroupOwners().containsUser(currentUser)){
             val currentFragment = supportFragmentManager.beginTransaction()
             currentFragment.replace(R.id.container, GroupDetailOwnerFragment.newInstance(g))
             currentFragment.commit()
@@ -37,9 +42,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun onEventClicked(e: Event) {
+    override fun onEventClicked(e: EventWrapper) {
         val currentFragment = supportFragmentManager.beginTransaction()
-        if (e.eventOwners.containsUser(testUser)){
+        if (e.getEventOwners().containsUser(currentUser)){
             currentFragment.replace(R.id.container, EventDetailsOwnerFragment.newInstance(e))
         }
         else {
@@ -48,22 +53,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         currentFragment.commit()
     }
 
-    lateinit var testEvents:ArrayList<Event>
-    lateinit var testUser: User
-    lateinit var testMembers: ArrayList<User>
-    lateinit var testOwnerSpec: MemberSpec
-    lateinit var testViewerSpec: MemberSpec
-    lateinit var testGroup: Group
-    lateinit var gwmto: GroupWithMembershipType
-    lateinit var gwmtv: GroupWithMembershipType
-    lateinit var gwmtoa: ArrayList<GroupWithMembershipType>
-    lateinit var gwmtov: ArrayList<GroupWithMembershipType>
-    lateinit var testOwner: GroupSpec
-    lateinit var testViewer: GroupSpec
-    lateinit var alou: ArrayList<User>
+    lateinit var eventsRef: CollectionReference
+    lateinit var groupsRef: CollectionReference
+    lateinit var usersRef: CollectionReference
+
+
     lateinit var search: AutoCompleteTextView
     val mapDataMap: MutableMap<String, MapData> = HashMap<String, MapData>()
-
+    val masterEventsList = ArrayList<Event>()
+    var myEventsList = ArrayList<EventWrapper>()
+    val masterGroupsList = ArrayList<Group>()
+    val masterUsersList = ArrayList<User>()
+    var annotatedMasterGroupsList = ArrayList<GroupWithMembershipType>()
+    var currentUser = UserWrapper.fromUser(User()) // Todo: Add test users to database
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,29 +87,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             Constants.ACTIONBAR_HEIGHT = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics) + 60
         }
-
-        testEvents = ArrayList<Event>()
-        testUser = User(0,"crenshch@rose-hulman.edu", "Connor Crenshaw")
-        testMembers = ArrayList<User>()
-        testMembers.add(testUser)
-        testOwnerSpec = MemberSpec(testMembers)
-        testViewerSpec = MemberSpec(ArrayList<User>())
-        testGroup = Group("Test Users",testOwnerSpec,testViewerSpec,0)
-        gwmto = GroupWithMembershipType(testGroup, MemberType(MT.OWNER))
-        gwmtv = GroupWithMembershipType(testGroup, MemberType(MT.VIEWER))
-        gwmtoa = ArrayList<GroupWithMembershipType>()
-        gwmtoa.add(gwmto)
-        gwmtov = ArrayList<GroupWithMembershipType>()
-        gwmtov.add(gwmtv)
-        testOwner = GroupSpec(gwmtoa)
-        testViewer = GroupSpec(gwmtov)
-        alou=ArrayList<User>()
-        alou.add(testUser)
-        testEvents.add(Event("Test RoseMaps", Location(null,false,0F,0F, "Lakeside 402"),"Rose maps is great", Calendar.getInstance(), Calendar.getInstance(),testOwner, testViewer,0))
-        testEvents.add(Event("Making events manually is a real pain...", Location(null,false,0F,0F, "Speed Beach"),"Manual event", Calendar.getInstance(), Calendar.getInstance(),testOwner, testViewer,1))
-        nav_view.getHeaderView(0).user_displayname.text = testUser.displayName
-        nav_view.getHeaderView(0).user_email.text = testUser.username
-
         loadAllMapData()
         val autoCompleteList: ArrayList<String> = ArrayList<String>()
         for (filename in mapDataMap.keys) {
@@ -119,7 +98,163 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         search.threshold = 1
         search.setAdapter(ArrayAdapter<String>(this, android.R.layout.select_dialog_item, autoCompleteList))
 
+        eventsRef = FirebaseFirestore
+            .getInstance()
+            .collection("events")
+
+        eventsRef.addSnapshotListener { querySnapshot, e ->
+            if (e != null) {
+                Log.w(Constants.TAG, "listen error", e)
+                return@addSnapshotListener
+            }
+            processEventSnapshotChanges(querySnapshot!!)
+        }
+
+        groupsRef = FirebaseFirestore
+            .getInstance()
+            .collection("groups")
+
+        groupsRef.addSnapshotListener { querySnapshot, e ->
+            if (e != null) {
+                Log.w(Constants.TAG, "listen error", e)
+                return@addSnapshotListener
+            }
+            processGroupSnapshotChanges(querySnapshot!!)
+        }
+
+        usersRef = FirebaseFirestore
+            .getInstance()
+            .collection("users")
+
+        usersRef.addSnapshotListener { querySnapshot, e ->
+            if (e != null) {
+                Log.w(Constants.TAG, "listen error", e)
+                return@addSnapshotListener
+            }
+            processGroupSnapshotChanges(querySnapshot!!)
+        }
+
         setFragmentToStartup()
+    }
+
+    fun onUserLoaded(){
+        nav_view.getHeaderView(0).user_displayname.text = currentUser.getDisplayName()
+        nav_view.getHeaderView(0).user_email.text = currentUser.getUsername()
+        updateMyEventsList()
+        updateAnnotatedMasterGroups()
+        setFragmentToStartup()
+    }
+
+    private fun processEventSnapshotChanges(querySnapshot: QuerySnapshot) {
+        // Snapshots has documents and documentChanges which are flagged by type,
+        // so we can handle C,U,D differently.
+        for (documentChange in querySnapshot.documentChanges) {
+            val event = Event.fromSnapshot(documentChange.document)
+            when (documentChange.type) {
+                DocumentChange.Type.ADDED -> {
+                    Log.d(Constants.TAG, "Adding $event")
+                    masterEventsList.add(0, event)
+                }
+                DocumentChange.Type.REMOVED -> {
+                    Log.d(Constants.TAG, "Removing $event")
+                    for ((k, e) in masterEventsList.withIndex()) {
+                        if (e.id == event.id) {
+                            masterEventsList.removeAt(k)
+                            break
+                        }
+                    }
+                }
+                DocumentChange.Type.MODIFIED -> {
+                    Log.d(Constants.TAG, "Modifying $event")
+                    for ((k, e) in masterEventsList.withIndex()) {
+                        if (e.id == event.id) {
+                            masterEventsList[k] = event
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        updateMyEventsList()
+    }
+    fun updateMyEventsList(){
+        myEventsList.clear()
+        for(e in masterEventsList){
+            if (e.getAccessLevel(currentUser).mt != MT.NEITHER){
+                myEventsList.add(EventWrapper.fromEvent(e))
+            }
+        }
+    }
+
+
+    private fun processGroupSnapshotChanges(querySnapshot: QuerySnapshot) {
+        // Snapshots has documents and documentChanges which are flagged by type,
+        // so we can handle C,U,D differently.
+        for (documentChange in querySnapshot.documentChanges) {
+            val group = Group.fromSnapshot(documentChange.document)
+            when (documentChange.type) {
+                DocumentChange.Type.ADDED -> {
+                    Log.d(Constants.TAG, "Adding $group")
+                    masterGroupsList.add(0, group)
+                }
+                DocumentChange.Type.REMOVED -> {
+                    Log.d(Constants.TAG, "Removing $group")
+                    for ((k, g) in masterGroupsList.withIndex()) {
+                        if (g.id == group.id) {
+                            masterGroupsList.removeAt(k)
+                            break
+                        }
+                    }
+                }
+                DocumentChange.Type.MODIFIED -> {
+                    Log.d(Constants.TAG, "Modifying $group")
+                    for ((k, g) in masterGroupsList.withIndex()) {
+                        if (g.id == group.id) {
+                            masterGroupsList[k] = group
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        updateAnnotatedMasterGroups()
+    }
+    fun updateAnnotatedMasterGroups(){
+        annotatedMasterGroupsList.clear()
+        for (g in masterGroupsList){
+            annotatedMasterGroupsList.add(GroupWithMembershipType(GroupWrapper.fromGroup(g),g.getMemberType(currentUser)))
+        }
+    }
+    private fun processUserSnapshotChanges(querySnapshot: QuerySnapshot) {
+        // Snapshots has documents and documentChanges which are flagged by type,
+        // so we can handle C,U,D differently.
+        for (documentChange in querySnapshot.documentChanges) {
+            val user = User.fromSnapshot(documentChange.document)
+            when (documentChange.type) {
+                DocumentChange.Type.ADDED -> {
+                    Log.d(Constants.TAG, "Adding $user")
+                    masterUsersList.add(0, user)
+                }
+                DocumentChange.Type.REMOVED -> {
+                    Log.d(Constants.TAG, "Removing $user")
+                    for ((k, u) in masterUsersList.withIndex()) {
+                        if (u.id == user.id) {
+                            masterUsersList.removeAt(k)
+                            break
+                        }
+                    }
+                }
+                DocumentChange.Type.MODIFIED -> {
+                    Log.d(Constants.TAG, "Modifying $user")
+                    for ((k, u) in masterUsersList.withIndex()) {
+                        if (u.id == user.id) {
+                            masterUsersList[k] = user
+                            break
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun onBackPressed() {
@@ -175,25 +310,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun setFragmentToStartup() {
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, StartupFragment())
+        currentFragment.replace(R.id.container, StartupFragment.newInstance(currentUser))
         currentFragment.commit()
     }
 
     fun setFragmentToEvents() {
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, EventsFragment.newInstance(testEvents))
+        currentFragment.replace(R.id.container, EventsFragment.newInstance(myEventsList))
         currentFragment.commit()
     }
 
     fun setFragmentToGroups() {
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, GroupsFragment.newInstance(gwmtov))
+        currentFragment.replace(R.id.container, GroupsFragment.newInstance(annotatedMasterGroupsList))
         currentFragment.commit()
     }
 
     fun setFragmentToSettings() {
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, SettingsFragment.newInstance(testUser))
+        currentFragment.replace(R.id.container, SettingsFragment.newInstance(currentUser))
         currentFragment.commit()
     }
 
@@ -211,7 +346,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun setFragmentToLocationShare() {
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, LocationShareFragment.newInstance(alou))
+        currentFragment.replace(R.id.container, LocationShareFragment.newInstance(currentUser.getLocationShareGroup().getMembers(
+            MemberType(MT.BOTH)
+        )))
         currentFragment.commit()
     }
 

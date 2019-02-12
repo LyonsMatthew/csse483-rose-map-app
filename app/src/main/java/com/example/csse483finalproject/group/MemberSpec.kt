@@ -2,10 +2,11 @@ package com.example.csse483finalproject.group
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.firebase.firestore.DocumentSnapshot
 
-data class MemberSpec(var members:ArrayList<User>) :Parcelable {
+data class MemberSpec(var members:ArrayList<UserWrapper> = ArrayList<UserWrapper>()) :Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.createTypedArrayList(User.CREATOR)!!
+        parcel.createTypedArrayList(UserWrapper.CREATOR)!!
     ) {
     }
 
@@ -17,9 +18,9 @@ data class MemberSpec(var members:ArrayList<User>) :Parcelable {
         return 0
     }
 
-    fun containsUser(u: User) :Boolean{
+    fun containsUser(u: UserWrapper) :Boolean{
         for (tu in members){
-            if (u.id==tu.id){
+            if (u.userId==tu.userId){
                 return true
             }
         }
@@ -33,6 +34,11 @@ data class MemberSpec(var members:ArrayList<User>) :Parcelable {
 
         override fun newArray(size: Int): Array<MemberSpec?> {
             return arrayOfNulls(size)
+        }
+
+        fun fromSnapshot(snapshot: DocumentSnapshot): MemberSpec{
+            val ms=snapshot.toObject(MemberSpec::class.java)!!
+            return ms
         }
     }
 }

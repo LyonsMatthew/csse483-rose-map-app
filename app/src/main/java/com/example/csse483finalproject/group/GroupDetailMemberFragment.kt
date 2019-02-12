@@ -2,30 +2,30 @@ package com.example.csse483finalproject.group
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.csse483finalproject.R
-import com.example.csse483finalproject.event.Event
 import com.example.csse483finalproject.event.EventAdapter
+import com.example.csse483finalproject.event.EventWrapper
 import kotlinx.android.synthetic.main.fragment_groupdetail_member.view.*
 
 class GroupDetailMemberFragment : Fragment(), UserAdapter.mtcInterface, EventAdapter.EventListListener {
-    override fun onEventClicked(e: Event) {
+    override fun onEventClicked(e: EventWrapper) {
         listener.onEventClicked(e)
     }
 
-    override fun onMemberTypeChange(u: User, mt: MemberType) {
+    override fun onMemberTypeChange(u: UserWrapper, mt: MemberType) {
         group.setMemberType(u,mt)
     }
 
-    override fun isMemberTypeChangable(u: User): Boolean {
+    override fun isMemberTypeChangable(u: UserWrapper): Boolean {
         return false
     }
 
-    override fun getCurrentMt(u: User): MemberType {
+    override fun getCurrentMt(u: UserWrapper): MemberType {
         return group.getMemberType(u)
     }
 
@@ -33,7 +33,7 @@ class GroupDetailMemberFragment : Fragment(), UserAdapter.mtcInterface, EventAda
     lateinit var eventAdapter: EventAdapter
     lateinit var listener: EventAdapter.EventListListener
 
-    lateinit var group: Group
+    lateinit var group: GroupWrapper
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         group = arguments!!.getParcelable(ARG_GROUP)!!
@@ -53,7 +53,7 @@ class GroupDetailMemberFragment : Fragment(), UserAdapter.mtcInterface, EventAda
         view.event_recycler_view.layoutManager = LinearLayoutManager(this.context)
         view.event_recycler_view.setHasFixedSize(false)
         view.event_recycler_view.adapter = eventAdapter
-        view.group_title.text = group.groupName
+        view.group_title.text = group.getGroupName()
         val users = group.getMembers(MemberType(MT.BOTH))
         for (i in 0 until users.size){
             memberAdapter.add(users[i])
@@ -89,7 +89,7 @@ class GroupDetailMemberFragment : Fragment(), UserAdapter.mtcInterface, EventAda
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        fun newInstance(group: Group): GroupDetailMemberFragment {
+        fun newInstance(group: GroupWrapper): GroupDetailMemberFragment {
             val fragment = GroupDetailMemberFragment()
             val args = Bundle()
             args.putParcelable(ARG_GROUP, group)

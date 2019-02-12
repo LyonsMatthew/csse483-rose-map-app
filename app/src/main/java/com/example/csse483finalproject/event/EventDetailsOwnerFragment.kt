@@ -24,16 +24,16 @@ class EventDetailsOwnerFragment : Fragment() {
         updateView(view)
         view.stdtext.setOnClickListener{
             DatePickerDialog.newInstance(sDateSetListener,
-                event.eventStart.get(Calendar.YEAR),
-                event.eventStart.get(Calendar.MONTH),
-                event.eventStart.get(Calendar.DAY_OF_MONTH))
+                event.getEventStart().get(Calendar.YEAR),
+                event.getEventStart().get(Calendar.MONTH),
+                event.getEventStart().get(Calendar.DAY_OF_MONTH))
                 .show(getFragmentManager(), "Datepickerdialog");
         }
         view.etdtext.setOnClickListener{
             DatePickerDialog.newInstance(eDateSetListener,
-                event.eventEnd.get(Calendar.YEAR),
-                event.eventEnd.get(Calendar.MONTH),
-                event.eventEnd.get(Calendar.DAY_OF_MONTH))
+                event.getEventEnd().get(Calendar.YEAR),
+                event.getEventEnd().get(Calendar.MONTH),
+                event.getEventEnd().get(Calendar.DAY_OF_MONTH))
                 .show(getFragmentManager(), "Datepickerdialog");
         }
         return view
@@ -47,54 +47,54 @@ class EventDetailsOwnerFragment : Fragment() {
         else{
             myView=this.view!!
         }
-        myView.event_title.text = event.eventName
-        myView.dtext.setText(event.eventDescription)
-        myView.loctext.setText(event.eventLocation.locString())
-        myView.stdtext.setText(event.eventStart.time.toLocaleString())
-        myView.etdtext.setText(event.eventEnd.time.toLocaleString())
+        myView.event_title.text = event.getEventName()
+        myView.dtext.setText(event.getEventDescription())
+        myView.loctext.setText(event.getEventLocation().locString())
+        myView.stdtext.setText(event.getEventStart().time.toLocaleString())
+        myView.etdtext.setText(event.getEventEnd().time.toLocaleString())
     }
 
     val sDateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-        event.eventStart.set(Calendar.YEAR,year)
-        event.eventStart.set(Calendar.MONTH,monthOfYear)
-        event.eventStart.set(Calendar.DAY_OF_MONTH,dayOfMonth)
+        event.getEventStart().set(Calendar.YEAR,year)
+        event.getEventStart().set(Calendar.MONTH,monthOfYear)
+        event.getEventStart().set(Calendar.DAY_OF_MONTH,dayOfMonth)
         TimePickerDialog.newInstance(sTimeSetListener,
-            event.eventStart.get(Calendar.HOUR_OF_DAY),
-            event.eventStart.get(Calendar.MINUTE),false)
+            event.getEventStart().get(Calendar.HOUR_OF_DAY),
+            event.getEventStart().get(Calendar.MINUTE),false)
             .show(getFragmentManager(), "Timepickerdialog");
     }
 
     val sTimeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute, _ ->
-        event.eventStart.set(Calendar.HOUR_OF_DAY,hour)
-        event.eventStart.set(Calendar.MINUTE,minute)
-        event.eventStart.set(Calendar.SECOND,0)
-        event.eventStart.set(Calendar.MILLISECOND,0)
+        event.getEventStart().set(Calendar.HOUR_OF_DAY,hour)
+        event.getEventStart().set(Calendar.MINUTE,minute)
+        event.getEventStart().set(Calendar.SECOND,0)
+        event.getEventStart().set(Calendar.MILLISECOND,0)
         updateView()
     }
 
     val eDateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-        event.eventEnd.set(Calendar.YEAR,year)
-        event.eventEnd.set(Calendar.MONTH,monthOfYear)
-        event.eventEnd.set(Calendar.DAY_OF_MONTH,dayOfMonth)
+        event.getEventEnd().set(Calendar.YEAR,year)
+        event.getEventEnd().set(Calendar.MONTH,monthOfYear)
+        event.getEventEnd().set(Calendar.DAY_OF_MONTH,dayOfMonth)
         TimePickerDialog.newInstance(eTimeSetListener,
-            event.eventEnd.get(Calendar.HOUR_OF_DAY),
-            event.eventEnd.get(Calendar.MINUTE),false)
+            event.getEventEnd().get(Calendar.HOUR_OF_DAY),
+            event.getEventEnd().get(Calendar.MINUTE),false)
             .show(getFragmentManager(), "Timepickerdialog");
     }
 
     val eTimeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute, _ ->
-        event.eventEnd.set(Calendar.HOUR_OF_DAY,hour)
-        event.eventEnd.set(Calendar.MINUTE,minute)
-        event.eventEnd.set(Calendar.SECOND,0)
-        event.eventEnd.set(Calendar.MILLISECOND,0)
+        event.getEventEnd().set(Calendar.HOUR_OF_DAY,hour)
+        event.getEventEnd().set(Calendar.MINUTE,minute)
+        event.getEventEnd().set(Calendar.SECOND,0)
+        event.getEventEnd().set(Calendar.MILLISECOND,0)
         updateView()
     }
 
-    lateinit var event:Event
+    lateinit var event:EventWrapper
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        event = arguments!!.getParcelable<Event>(EventDetailsFragment.ARG_EVENT)!!
+        event = arguments!!.getParcelable<EventWrapper>(EventDetailsFragment.ARG_EVENT)!!
     }
 
     private fun unpackBundle(view: View) {
@@ -112,7 +112,7 @@ class EventDetailsOwnerFragment : Fragment() {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        fun newInstance(event: Event): EventDetailsOwnerFragment {
+        fun newInstance(event: EventWrapper): EventDetailsOwnerFragment {
             val fragment = EventDetailsOwnerFragment()
             val args = Bundle()
             args.putParcelable(ARG_EVENT, event)

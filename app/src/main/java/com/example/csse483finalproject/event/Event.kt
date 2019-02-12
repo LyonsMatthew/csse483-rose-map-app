@@ -3,9 +3,16 @@ package com.example.csse483finalproject.event
 import android.os.Parcel
 import android.os.Parcelable
 import com.example.csse483finalproject.group.GroupSpec
+import com.example.csse483finalproject.group.MT
+import com.example.csse483finalproject.group.MemberType
+import com.example.csse483finalproject.group.UserWrapper
+import com.google.firebase.firestore.DocumentSnapshot
 import java.util.*
 
-data class Event(var eventName:String, var eventLocation:Location, var eventDescription:String, var eventStart: Calendar, var eventEnd: Calendar, var eventOwners: GroupSpec, var eventViewers: GroupSpec, val id: Long ) :Parcelable {
+data class Event(var eventName:String = "", var eventLocation:Location = Location(),
+                 var eventDescription:String = "", var eventStart: Calendar = Calendar.getInstance(), var eventEnd: Calendar = Calendar.getInstance(),
+                 var eventOwners: GroupSpec = GroupSpec(), var eventViewers: GroupSpec = GroupSpec(),
+                 var id: String = "" ) :Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readParcelable(Location::class.java.classLoader)!!,
@@ -14,7 +21,7 @@ data class Event(var eventName:String, var eventLocation:Location, var eventDesc
         parcel.readSerializable() as Calendar,
         parcel.readParcelable(GroupSpec::class.java.classLoader)!!,
         parcel.readParcelable(GroupSpec::class.java.classLoader)!!,
-        parcel.readLong()
+        parcel.readString()!!
     ) {
     }
 
@@ -26,7 +33,19 @@ data class Event(var eventName:String, var eventLocation:Location, var eventDesc
         parcel.writeSerializable(eventEnd)
         parcel.writeParcelable(eventOwners, flags)
         parcel.writeParcelable(eventViewers, flags)
-        parcel.writeLong(id)
+        parcel.writeString(id)
+    }
+
+    fun getAccessLevel(u: UserWrapper): MemberType {
+        if(eventOwners.containsUser(u)){
+            return MemberType(MT.OWNER)
+        }
+        if(eventViewers.containsUser(u)){
+            return MemberType(MT.VIEWER)
+        }
+        else{
+            return MemberType(MT.NEITHER)
+        }
     }
 
     override fun describeContents(): Int {
@@ -40,6 +59,12 @@ data class Event(var eventName:String, var eventLocation:Location, var eventDesc
 
         override fun newArray(size: Int): Array<Event?> {
             return arrayOfNulls(size)
+        }
+
+        fun fromSnapshot(snapshot: DocumentSnapshot): Event{
+            val event=snapshot.toObject(Event::class.java)!!
+            event.id = snapshot.id
+            return event
         }
     }
 }

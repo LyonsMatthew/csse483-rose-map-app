@@ -1,12 +1,12 @@
 package com.example.csse483finalproject.group
 
-import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.csse483finalproject.R
 
 class UserViewHolder : RecyclerView.ViewHolder, AdapterView.OnItemSelectedListener {
@@ -18,7 +18,7 @@ class UserViewHolder : RecyclerView.ViewHolder, AdapterView.OnItemSelectedListen
     }
 
 
-    lateinit var user:User
+    lateinit var user:UserWrapper
     var mtcCallback: UserAdapter.mtcInterface?=null
     var cardView: CardView = itemView.findViewById(R.id.userCardView)
     val userName: TextView = itemView.findViewById(R.id.userName)
@@ -29,9 +29,9 @@ class UserViewHolder : RecyclerView.ViewHolder, AdapterView.OnItemSelectedListen
         this.mtcCallback = mtcCallback
     }
 
-    fun bind(user: User) {
+    fun bind(user: UserWrapper) {
         this.user=user
-        userName.text = user.displayName
+        userName.text = user.getDisplayName()
         if(mtcCallback!=null){
             val spinner: Spinner = itemView.findViewById(R.id.mt_spinner)
             val enableSpinner = mtcCallback!!.isMemberTypeChangable(user)

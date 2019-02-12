@@ -16,17 +16,17 @@ class EventDetailsFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_eventdetail, container, false)
         unpackBundle(view)
-        view.event_title.text = event.eventName
-        view.dtext.text = event.eventDescription
-        view.loctext.text = event.eventLocation.locString()
-        view.tdtext.text = getString(R.string.date_seperator,event.eventStart.time.toLocaleString(), event.eventEnd.time.toLocaleString())
+        view.event_title.text = event.getEventName()
+        view.dtext.text = event.getEventDescription()
+        view.loctext.text = event.getEventLocation().locString()
+        view.tdtext.text = getString(R.string.date_seperator,event.getEventStart().time.toLocaleString(), event.getEventEnd().time.toLocaleString())
         return view
     }
-    lateinit var event:Event
+    lateinit var event:EventWrapper
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        event = arguments!!.getParcelable<Event>(EventDetailsFragment.ARG_EVENT)!!
+        event = arguments!!.getParcelable<EventWrapper>(EventDetailsFragment.ARG_EVENT)!!
     }
 
     private fun unpackBundle(view: View) {
@@ -44,7 +44,7 @@ class EventDetailsFragment : Fragment() {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        fun newInstance(event: Event): EventDetailsFragment {
+        fun newInstance(event: EventWrapper): EventDetailsFragment {
             val fragment = EventDetailsFragment()
             val args = Bundle()
             args.putParcelable(ARG_EVENT, event)

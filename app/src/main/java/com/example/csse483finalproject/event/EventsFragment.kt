@@ -2,23 +2,23 @@ package com.example.csse483finalproject.event
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.csse483finalproject.R
 import kotlinx.android.synthetic.main.fragment_events.view.*
 
 class EventsFragment : Fragment(), EventAdapter.EventListListener {
 
     lateinit var adapter: EventAdapter
-    lateinit var events: ArrayList<Event>
+    lateinit var events: ArrayList<EventWrapper>
     lateinit var listener: EventAdapter.EventListListener
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        events = arguments!!.getParcelableArrayList<Event>(ARG_EVENTS)!!
+        events = arguments!!.getParcelableArrayList<EventWrapper>(ARG_EVENTS)!!
     }
 
     override fun onAttach(context: Context) {
@@ -50,7 +50,7 @@ class EventsFragment : Fragment(), EventAdapter.EventListListener {
         //use this to pass arguments if necessary
     }
 
-    override fun onEventClicked(e: Event){
+    override fun onEventClicked(e: EventWrapper){
         listener.onEventClicked(e)
     }
 
@@ -65,7 +65,7 @@ class EventsFragment : Fragment(), EventAdapter.EventListListener {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        fun newInstance(events: ArrayList<Event>): EventsFragment {
+        fun newInstance(events: ArrayList<EventWrapper>): EventsFragment {
             val fragment = EventsFragment()
             val args = Bundle()
             args.putParcelableArrayList(ARG_EVENTS, events)

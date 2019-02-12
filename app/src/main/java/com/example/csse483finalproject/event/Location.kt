@@ -2,8 +2,9 @@ package com.example.csse483finalproject.event
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.firebase.firestore.DocumentSnapshot
 
-data class Location(var roomId:String?, var isRoom: Boolean, var lat:Float, var long:Float, var locName:String ) : Parcelable {
+data class Location(var roomId:String? = "", var isRoom: Boolean = false, var lat:Float = 0F, var long:Float = 0F, var locName:String = "" ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readByte() != 0.toByte(),
@@ -41,6 +42,11 @@ data class Location(var roomId:String?, var isRoom: Boolean, var lat:Float, var 
 
         override fun newArray(size: Int): Array<Location?> {
             return arrayOfNulls(size)
+        }
+
+        fun fromSnapshot(snapshot: DocumentSnapshot): Location{
+            val location=snapshot.toObject(Location::class.java)!!
+            return location
         }
     }
 }

@@ -2,10 +2,11 @@ package com.example.csse483finalproject.group
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.firebase.firestore.DocumentSnapshot
 
-data class GroupWithMembershipType(var group: Group, var membertype: MemberType ) :Parcelable {
+data class GroupWithMembershipType(var group: GroupWrapper = GroupWrapper(), var membertype: MemberType = MemberType()) :Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readParcelable<Group>(Group::class.java.classLoader),
+        parcel.readParcelable<GroupWrapper>(GroupWrapper::class.java.classLoader),
         parcel.readParcelable<MemberType>(MemberType::class.java.classLoader)
     ) {
     }
@@ -19,13 +20,18 @@ data class GroupWithMembershipType(var group: Group, var membertype: MemberType 
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Group> {
-        override fun createFromParcel(parcel: Parcel): Group {
-            return Group(parcel)
+    companion object CREATOR : Parcelable.Creator<GroupWithMembershipType> {
+        override fun createFromParcel(parcel: Parcel): GroupWithMembershipType {
+            return GroupWithMembershipType(parcel)
         }
 
-        override fun newArray(size: Int): Array<Group?> {
+        override fun newArray(size: Int): Array<GroupWithMembershipType?> {
             return arrayOfNulls(size)
+        }
+
+        fun fromSnapshot(snapshot: DocumentSnapshot): GroupWithMembershipType{
+            val gwmt=snapshot.toObject(GroupWithMembershipType::class.java)!!
+            return gwmt
         }
     }
 }

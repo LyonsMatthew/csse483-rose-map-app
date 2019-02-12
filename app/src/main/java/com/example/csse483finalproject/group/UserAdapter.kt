@@ -1,15 +1,15 @@
 package com.example.csse483finalproject.group
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.csse483finalproject.R
 
 class UserAdapter(var context: Context, val deleteCallback:DeletableUserInterface?=null, val mtcCallback:mtcInterface?=null) : RecyclerView.Adapter<UserViewHolder>() {
-    private val users = ArrayList<User>()
+    private val users = ArrayList<UserWrapper>()
 
     override fun onCreateViewHolder(parent: ViewGroup, index: Int): UserViewHolder {
         lateinit var view: View
@@ -30,14 +30,14 @@ class UserAdapter(var context: Context, val deleteCallback:DeletableUserInterfac
 
     override fun getItemCount() = users.size
 
-    fun add(user: User) {
+    fun add(user: UserWrapper) {
         users.add(0, user)
         notifyItemInserted(0)
     }
 
-    fun delete(user: User) {
+    fun delete(user: UserWrapper) {
         for (i in 0 until users.size){
-            if (users[i].id == user.id){
+            if (users[i].getId() == user.getId()){
                 users.removeAt(i)
                 notifyItemRemoved(i)
             }
@@ -46,13 +46,13 @@ class UserAdapter(var context: Context, val deleteCallback:DeletableUserInterfac
     }
 
     interface DeletableUserInterface{
-        fun onDelete(u: User)
+        fun onDelete(u: UserWrapper)
     }
 
     interface mtcInterface{
-        fun onMemberTypeChange(u: User, t: MemberType)
-        fun isMemberTypeChangable(u: User):Boolean
-        fun getCurrentMt(u:User):MemberType
+        fun onMemberTypeChange(u: UserWrapper, t: MemberType)
+        fun isMemberTypeChangable(u: UserWrapper):Boolean
+        fun getCurrentMt(u:UserWrapper):MemberType
     }
 
     inner class SwipeCallback() : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {

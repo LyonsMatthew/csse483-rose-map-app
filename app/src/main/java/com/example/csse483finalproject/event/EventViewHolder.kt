@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.csse483finalproject.R
 
 class EventViewHolder : RecyclerView.ViewHolder {
-    var event:Event? = null
+    var event:EventWrapper? = null
     val eventTitle: TextView = itemView.findViewById(R.id.eventName)
     lateinit var eventLocation: TextView
     lateinit var eventDate: TextView
@@ -26,16 +26,16 @@ class EventViewHolder : RecyclerView.ViewHolder {
         }
     }
 
-    fun bind(event: Event) {
+    fun bind(event: EventWrapper) {
         this.event=event
-        eventTitle.text = event.eventName
+        eventTitle.text = event.getEventName()
         //TODO: Better implementation for the below
         if(!isMinimal) {
-            eventLocation.text = event.eventLocation.locString()
+            eventLocation.text = event.getEventLocation().locString()
             val monthStrings = adapter.context.resources.getStringArray(R.array.month_abbrev)
-            eventDate.text = monthStrings[event.eventStart.time.month] + " " + event.eventStart.time.date.toString()
+            eventDate.text = monthStrings[event.getEventStart().time.month] + " " + event.getEventStart().time.date.toString()
             eventTime.text =
-                event.eventStart.time.hours.toString() + ":" + event.eventStart.time.minutes.toString() + " to " + event.eventEnd.time.hours.toString() + ":" + event.eventEnd.time.minutes.toString()
+                event.getEventStart().time.hours.toString() + ":" + event.getEventStart().time.minutes.toString() + " to " + event.getEventEnd().time.hours.toString() + ":" + event.getEventEnd().time.minutes.toString()
         }
         cardView.setOnClickListener {
             adapter.eventCallback.onEventClicked(event)

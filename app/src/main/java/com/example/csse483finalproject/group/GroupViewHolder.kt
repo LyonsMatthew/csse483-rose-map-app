@@ -1,9 +1,9 @@
 package com.example.csse483finalproject.group
 
-import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.csse483finalproject.R
 
 class GroupViewHolder : RecyclerView.ViewHolder {
@@ -19,7 +19,7 @@ class GroupViewHolder : RecyclerView.ViewHolder {
 
     fun bind(group: GroupWithMembershipType) {
         this.group=group
-        groupName.text = group.group.groupName
+        groupName.text = group.group.getGroupName()
         groupMemberType.text = adapter.context.resources.getStringArray(R.array.membertypes)[mtToInt(group.membertype.mt)]
         cardView.setOnClickListener {
             adapter.parentFragment.onGroupClicked(group)
