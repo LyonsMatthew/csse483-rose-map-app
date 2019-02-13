@@ -3,9 +3,13 @@ package com.example.csse483finalproject.group
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
+import com.example.csse483finalproject.AnnotatedString
 import com.example.csse483finalproject.Constants
 import com.example.csse483finalproject.event.EventWrapper
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
+import java.util.*
+import kotlin.collections.ArrayList
 
 data class GroupWrapper(var groupId: String = "") : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -16,39 +20,80 @@ data class GroupWrapper(var groupId: String = "") : Parcelable {
         parcel.writeString(groupId)
     }
 
-    fun getMembers(mt: MemberType): ArrayList<UserWrapper>{
+    fun wGetMembers(mt: MemberType): ArrayList<UserWrapper>{
         return myGroup().getMembers(mt)
     }
 
-    fun getEvents(): ArrayList<EventWrapper>{ //TODO: Remove and implement properly
+    fun wGetEvents(): ArrayList<EventWrapper>{ //TODO: Remove and implement properly
         return myGroup().getEvents()
     }
 
-    fun setMemberType(u:UserWrapper, mt: MemberType){
+    fun wSetMemberType(u:UserWrapper, mt: MemberType){
         return myGroup().setMemberType(u,mt)
     }
 
-    fun getMemberType(u:UserWrapper):MemberType{
+    fun wGetMemberType(u:UserWrapper):MemberType{
         return myGroup().getMemberType(u)
     }
 
-    fun getGroupName(): String{
+    fun wGetGroupName(): String{
         return myGroup().groupName
     }
 
-    fun getGroupOwners(): MemberSpec{
+    fun wGetGroupOwners(): MemberSpec{
         return myGroup().groupOwners
     }
 
-    fun getGroupViewers(): MemberSpec{
+    fun wGetGroupViewers(): MemberSpec{
         return myGroup().groupViewers
     }
 
-    fun getIsSingleUse(): Boolean{
-        return myGroup().isSingleUse
+    fun wGetIsSingleUser(): Boolean{
+        return myGroup().isSingleUser
     }
 
-    fun getId(): String{
+    fun wGetIsHidden(): Boolean{
+        return myGroup().isHidden
+    }
+
+    fun wSetGroupName(gn:String){
+        myGroup().groupName=gn
+    }
+
+    fun wSetGroupOwners(go:MemberSpec){
+        myGroup().groupOwners = go
+    }
+
+    fun wSetGroupViewers(gv:MemberSpec){
+        myGroup().groupViewers = gv
+    }
+
+    fun wSetIsSingleUser(isu: Boolean) {
+        myGroup().isSingleUser = isu
+    }
+
+    fun wSetIsHidden(ih:Boolean){
+        myGroup().isHidden = ih
+    }
+
+    fun saveToCloud(){
+        groupsRef.document(groupId).set(myGroup()).addOnSuccessListener {
+            if (hmog_temp.containsKey(groupId)){
+                hmog_temp.remove(groupId)
+            }
+        }
+    }
+
+    fun delete() {
+        if (hmog.containsKey(groupId)) {
+            groupsRef.document(groupId).delete()
+        }
+        if (hmog_temp.containsKey(groupId)) {
+            hmog_temp.remove(groupId)
+        }
+    }
+
+    fun wGetId(): String{
         return myGroup().id
     }
 
@@ -61,13 +106,21 @@ data class GroupWrapper(var groupId: String = "") : Parcelable {
             return hmog.get(groupId)!!
         }
         else{
-            Log.d(Constants.TAG, "Group not found!")
-            return Group()
+            if(hmog_temp.containsKey(groupId)){
+                return hmog_temp.get(groupId)!!
+            }
+            else {
+                Log.d(Constants.TAG, "Group not found!")
+                return Group()
+            }
         }
     }
 
     companion object CREATOR : Parcelable.Creator<GroupWrapper> {
         var hmog = HashMap<String,Group>()
+        var hmog_temp = HashMap<String,Group>()
+
+        lateinit var groupsRef: CollectionReference
 
         fun setupGroups(gl:ArrayList<Group>){
             hmog = HashMap<String,Group>()
@@ -75,6 +128,17 @@ data class GroupWrapper(var groupId: String = "") : Parcelable {
                 hmog.put(g.id,g)
             }
         }
+
+        fun getGroupSelectorArray(): ArrayList<AnnotatedString>{
+            var ssa = ArrayList<AnnotatedString>()
+            for ((id,group) in hmog){
+                if(!group.isHidden){
+                    ssa.add(AnnotatedString(group.groupName,id))
+                }
+            }
+            return ssa
+        }
+
         override fun createFromParcel(parcel: Parcel): GroupWrapper {
             return GroupWrapper(parcel)
         }
@@ -90,6 +154,12 @@ data class GroupWrapper(var groupId: String = "") : Parcelable {
 
         fun fromGroup(g: Group) : GroupWrapper{
             return GroupWrapper(g.id)
+        }
+
+        fun newTempGroup():GroupWrapper{
+            val grpId = Random().nextLong().toString()
+            GroupWrapper.hmog_temp.put(grpId, Group())
+            return GroupWrapper(grpId)
         }
     }
 }

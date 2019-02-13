@@ -4,16 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.csse483finalproject.AnnotatedString
 import com.example.csse483finalproject.R
+import com.example.csse483finalproject.group.*
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import kotlinx.android.synthetic.main.fragment_eventdetails_owner.view.*
+import kotlinx.android.synthetic.main.groupeditor.view.*
 import java.util.*
 
 
+class EventDetailsOwnerFragment : Fragment(), DTGAdapter.dtgInterface {
+    override fun onMemberTypeChange(dtg: DualTypeGroup, t: MemberType) {
+        dtg.gwmt.membertype=t
+    }
 
-class EventDetailsOwnerFragment : Fragment() {
+    override fun onPermissionTypeChange(dtg: DualTypeGroup, t: MemberType) {
+        dtg.perm = t
+    }
+
+    override fun onDelete(dtg: DualTypeGroup) {
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,17 +41,83 @@ class EventDetailsOwnerFragment : Fragment() {
         updateView(view)
         view.stdtext.setOnClickListener{
             DatePickerDialog.newInstance(sDateSetListener,
-                event.getEventStart().get(Calendar.YEAR),
-                event.getEventStart().get(Calendar.MONTH),
-                event.getEventStart().get(Calendar.DAY_OF_MONTH))
+                event.wGetEventStart().get(Calendar.YEAR),
+                event.wGetEventStart().get(Calendar.MONTH),
+                event.wGetEventStart().get(Calendar.DAY_OF_MONTH))
                 .show(getFragmentManager(), "Datepickerdialog");
         }
         view.etdtext.setOnClickListener{
             DatePickerDialog.newInstance(eDateSetListener,
-                event.getEventEnd().get(Calendar.YEAR),
-                event.getEventEnd().get(Calendar.MONTH),
-                event.getEventEnd().get(Calendar.DAY_OF_MONTH))
+                event.wGetEventEnd().get(Calendar.YEAR),
+                event.wGetEventEnd().get(Calendar.MONTH),
+                event.wGetEventEnd().get(Calendar.DAY_OF_MONTH))
                 .show(getFragmentManager(), "Datepickerdialog");
+        }
+        view.titleview.setOnClickListener {
+            val builder = AlertDialog.Builder(view.context)
+            builder.setTitle(getString(R.string.edit_eventname))
+            val titleEditText = EditText(view.context)
+            titleEditText.setText(event.wGetEventName())
+            builder.setView(titleEditText)
+            builder.setPositiveButton(android.R.string.ok) { _, _ ->
+                event.wSetEventName(titleEditText.text.toString())
+                updateDatesAndTitle()
+            }
+            builder.show()
+        }
+        view.grptext.setOnClickListener {
+            val builder = AlertDialog.Builder(view.context)
+            builder.setTitle(getString(R.string.addgroups))
+            val eventEditorView = layoutInflater.inflate(R.layout.groupeditor, container, false)
+            builder.setView(eventEditorView)
+            val ssa = GroupWrapper.getGroupSelectorArray()
+            var ga = DTGAdapter(eventEditorView.context,this)
+            eventEditorView.group_actv.setAdapter(ArrayAdapter<AnnotatedString>(eventEditorView.context, android.R.layout.select_dialog_item, ssa))
+            eventEditorView.addbutton.setOnClickListener {
+                for (annotatedString in ssa){
+                    if (annotatedString.string == eventEditorView.group_actv.text.toString()){
+                        ga.add(DualTypeGroup(GroupWithMembershipType(GroupWrapper(annotatedString.id),
+                            MemberType(MT.OWNER)
+                        ),
+                            MemberType(MT.VIEWER)))
+                    }
+                }
+            }
+            eventEditorView.groupSelRecycler.setAdapter(ga)
+            eventEditorView.groupSelRecycler.layoutManager = LinearLayoutManager(this.context)
+            for (gwmt in event.wGetEventOwners().groups){
+                ga.add(DualTypeGroup(gwmt, MemberType(MT.OWNER)))
+            }
+            for (gwmt in event.wGetEventViewers().groups){
+                ga.add(DualTypeGroup(gwmt,MemberType(MT.VIEWER)))
+            }
+            builder.setPositiveButton(android.R.string.ok) { _, _ ->
+                event.wGetEventViewers().groups.clear()
+                event.wGetEventOwners().groups.clear()
+                for (dtg in ga.dtgs){
+                    event.wSetGroupAccessLevel(dtg.gwmt,dtg.perm)
+                }
+            }
+            ItemTouchHelper(ga.SwipeCallback()).attachToRecyclerView(eventEditorView.groupSelRecycler)
+            builder.show()
+        }
+        val search = view.loctext
+        search.threshold = 1
+        search.setAdapter(ArrayAdapter<String>(view.context, android.R.layout.select_dialog_item, EventWrapper.locationAutoCompleteList))
+        search.setOnItemClickListener { parent, view, position, id ->
+            var locstring = search.text.toString()
+            event.wSetEventLocation(Location("",false,0F,0F,locstring)) //Todo: Better locations
+        }
+        view.savebutton.setOnClickListener {
+            var locstring = search.text.toString()
+            event.wSetEventLocation(Location("",false,0F,0F,locstring))
+            event.wSetEventDescription(view.dtext.text.toString())
+            event.saveToCloud()
+            //Todo: Return to previous fragment
+        }
+        view.delbutton.setOnClickListener {
+            event.delete()
+            //Todo: Return to previous fragment
         }
         return view
     }
@@ -47,47 +130,60 @@ class EventDetailsOwnerFragment : Fragment() {
         else{
             myView=this.view!!
         }
-        myView.event_title.text = event.getEventName()
-        myView.dtext.setText(event.getEventDescription())
-        myView.loctext.setText(event.getEventLocation().locString())
-        myView.stdtext.setText(event.getEventStart().time.toLocaleString())
-        myView.etdtext.setText(event.getEventEnd().time.toLocaleString())
+        myView.event_title.text = event.wGetEventName()
+        myView.dtext.setText(event.wGetEventDescription())
+        myView.loctext.setText(event.wGetEventLocation().locString())
+        myView.stdtext.setText(event.wGetEventStart().time.toLocaleString())
+        myView.etdtext.setText(event.wGetEventEnd().time.toLocaleString())
+    }
+
+    fun updateDatesAndTitle(v: View? = null){
+        lateinit var myView:View
+        if(v != null){
+            myView=v
+        }
+        else{
+            myView=this.view!!
+        }
+        myView.event_title.text = event.wGetEventName()
+        myView.stdtext.setText(event.wGetEventStart().time.toLocaleString())
+        myView.etdtext.setText(event.wGetEventEnd().time.toLocaleString())
     }
 
     val sDateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-        event.getEventStart().set(Calendar.YEAR,year)
-        event.getEventStart().set(Calendar.MONTH,monthOfYear)
-        event.getEventStart().set(Calendar.DAY_OF_MONTH,dayOfMonth)
+        event.wGetEventStart().set(Calendar.YEAR,year)
+        event.wGetEventStart().set(Calendar.MONTH,monthOfYear)
+        event.wGetEventStart().set(Calendar.DAY_OF_MONTH,dayOfMonth)
         TimePickerDialog.newInstance(sTimeSetListener,
-            event.getEventStart().get(Calendar.HOUR_OF_DAY),
-            event.getEventStart().get(Calendar.MINUTE),false)
+            event.wGetEventStart().get(Calendar.HOUR_OF_DAY),
+            event.wGetEventStart().get(Calendar.MINUTE),false)
             .show(getFragmentManager(), "Timepickerdialog");
     }
 
     val sTimeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute, _ ->
-        event.getEventStart().set(Calendar.HOUR_OF_DAY,hour)
-        event.getEventStart().set(Calendar.MINUTE,minute)
-        event.getEventStart().set(Calendar.SECOND,0)
-        event.getEventStart().set(Calendar.MILLISECOND,0)
-        updateView()
+        event.wGetEventStart().set(Calendar.HOUR_OF_DAY,hour)
+        event.wGetEventStart().set(Calendar.MINUTE,minute)
+        event.wGetEventStart().set(Calendar.SECOND,0)
+        event.wGetEventStart().set(Calendar.MILLISECOND,0)
+        updateDatesAndTitle()
     }
 
     val eDateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-        event.getEventEnd().set(Calendar.YEAR,year)
-        event.getEventEnd().set(Calendar.MONTH,monthOfYear)
-        event.getEventEnd().set(Calendar.DAY_OF_MONTH,dayOfMonth)
+        event.wGetEventEnd().set(Calendar.YEAR,year)
+        event.wGetEventEnd().set(Calendar.MONTH,monthOfYear)
+        event.wGetEventEnd().set(Calendar.DAY_OF_MONTH,dayOfMonth)
         TimePickerDialog.newInstance(eTimeSetListener,
-            event.getEventEnd().get(Calendar.HOUR_OF_DAY),
-            event.getEventEnd().get(Calendar.MINUTE),false)
+            event.wGetEventEnd().get(Calendar.HOUR_OF_DAY),
+            event.wGetEventEnd().get(Calendar.MINUTE),false)
             .show(getFragmentManager(), "Timepickerdialog");
     }
 
     val eTimeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute, _ ->
-        event.getEventEnd().set(Calendar.HOUR_OF_DAY,hour)
-        event.getEventEnd().set(Calendar.MINUTE,minute)
-        event.getEventEnd().set(Calendar.SECOND,0)
-        event.getEventEnd().set(Calendar.MILLISECOND,0)
-        updateView()
+        event.wGetEventEnd().set(Calendar.HOUR_OF_DAY,hour)
+        event.wGetEventEnd().set(Calendar.MINUTE,minute)
+        event.wGetEventEnd().set(Calendar.SECOND,0)
+        event.wGetEventEnd().set(Calendar.MILLISECOND,0)
+        updateDatesAndTitle()
     }
 
     lateinit var event:EventWrapper

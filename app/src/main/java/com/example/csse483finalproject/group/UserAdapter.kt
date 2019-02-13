@@ -36,11 +36,15 @@ class UserAdapter(var context: Context, val deleteCallback:DeletableUserInterfac
     }
 
     fun delete(user: UserWrapper) {
+        var rindex = -1
         for (i in 0 until users.size){
-            if (users[i].getId() == user.getId()){
-                users.removeAt(i)
-                notifyItemRemoved(i)
+            if (users[i].wGetId() == user.wGetId()){
+                rindex = i
             }
+        }
+        if(rindex>=0) {
+            users.removeAt(rindex)
+            notifyItemRemoved(rindex)
         }
         deleteCallback!!.onDelete(user)
     }

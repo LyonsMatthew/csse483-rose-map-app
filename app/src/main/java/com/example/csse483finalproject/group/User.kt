@@ -3,21 +3,25 @@ package com.example.csse483finalproject.group
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Exclude
 
-data class User(var id: String = "", var username: String = "", var displayName:String = "", var locationShareGroup: GroupWrapper = GroupWrapper()) :Parcelable {
+data class User(var username: String = "", var displayName:String = "", var locationShareGroup: GroupWrapper = GroupWrapper(), var singleUserGroup:GroupWrapper = GroupWrapper()) :Parcelable {
+    @get:Exclude var id=""
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
+        parcel.readParcelable(GroupWrapper::class.java.classLoader),
         parcel.readParcelable(GroupWrapper::class.java.classLoader)
     ) {
+        id=parcel.readString()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
         parcel.writeString(username)
         parcel.writeString(displayName)
         parcel.writeParcelable(locationShareGroup, flags)
+        parcel.writeParcelable(singleUserGroup, flags)
+        parcel.writeString(id)
     }
 
     override fun describeContents(): Int {

@@ -29,8 +29,24 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     EventAdapter.EventListListener, GroupsFragment.GroupListListener,
     MapFragment.MapDataHolder{
+    override fun onCreateGroup() {
+        var createdGroup = GroupWrapper.newTempGroup()
+        createdGroup.wSetGroupName("Untitled Group")
+        createdGroup.wSetMemberType(currentUser, MemberType(MT.OWNER))
+        createdGroup.wSetIsHidden(false)
+        createdGroup.wSetIsSingleUser(false)
+        onGroupClicked(createdGroup)
+    }
+
+    override fun onCreateEvent() {
+        var createdEvent = EventWrapper.newTempEvent()
+        createdEvent.wSetEventName("Untitled Event")
+        createdEvent.wSetGroupAccessLevel(GroupWithMembershipType(currentUser.wGetSingleUserGroup(),MemberType(MT.OWNER)),MemberType(MT.OWNER))
+        onEventClicked(createdEvent)
+    }
+
     override fun onGroupClicked(g: GroupWrapper) {
-        if(g.getGroupOwners().containsUser(currentUser)){
+        if(g.wGetGroupOwners().containsUser(currentUser)){
             val currentFragment = supportFragmentManager.beginTransaction()
             currentFragment.replace(R.id.container, GroupDetailOwnerFragment.newInstance(g))
             currentFragment.commit()
@@ -44,7 +60,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onEventClicked(e: EventWrapper) {
         val currentFragment = supportFragmentManager.beginTransaction()
-        if (e.getEventOwners().containsUser(currentUser)){
+        Log.d(Constants.TAG,"WGEO"+e.wGetEventOwners().toString())
+        if (e.wGetEventOwners().containsUser(currentUser)){
             currentFragment.replace(R.id.container, EventDetailsOwnerFragment.newInstance(e))
         }
         else {
@@ -65,7 +82,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val masterGroupsList = ArrayList<Group>()
     val masterUsersList = ArrayList<User>()
     var annotatedMasterGroupsList = ArrayList<GroupWithMembershipType>()
-    var currentUser = UserWrapper.fromUser(User()) // Todo: Add test users to database
+    var currentUser = UserWrapper.fromUser(User())
+    var autoCompleteList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,12 +106,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Constants.ACTIONBAR_HEIGHT = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics) + 60
         }
         loadAllMapData()
-        val autoCompleteList: ArrayList<String> = ArrayList<String>()
+        autoCompleteList = ArrayList<String>()
         for (filename in mapDataMap.keys) {
             for (room in mapDataMap[filename]!!.roomMap.keys) {
                 autoCompleteList.add(room + " : " + mapDataMap[filename]!!.name)
             }
         }
+        EventWrapper.locationAutoCompleteList = autoCompleteList
         search = findViewById(R.id.autoCompleteTextView)
         search.threshold = 1
         search.setAdapter(ArrayAdapter<String>(this, android.R.layout.select_dialog_item, autoCompleteList))
@@ -126,20 +145,52 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .getInstance()
             .collection("users")
 
+
         usersRef.addSnapshotListener { querySnapshot, e ->
             if (e != null) {
                 Log.w(Constants.TAG, "listen error", e)
                 return@addSnapshotListener
             }
-            processGroupSnapshotChanges(querySnapshot!!)
+            processUserSnapshotChanges(querySnapshot!!)
         }
 
+        GroupWrapper.groupsRef=groupsRef
+        EventWrapper.eventsRef=eventsRef
+        //createUser("crenshch@rose-hulman.edu", "Connor Crenshaw")
+        //createUser("tuser1@rose-hulman.edu", "Test User 1")
+        //createUser("tuser2@rose-hulman.edu", "Test User 2")
         setFragmentToStartup()
     }
 
+    fun createUser(username:String,displayName:String){
+        usersRef.add(User(username,displayName)).addOnSuccessListener {
+            var newUserRef = it
+            it.get().addOnSuccessListener {
+                var newUser = User.fromSnapshot(it)
+                var uw = UserWrapper.fromUser(newUser)
+                var ua = ArrayList<UserWrapper>()
+                ua.add(uw)
+                var userGroup = Group(displayName, MemberSpec(ua),MemberSpec(),true,false) //Create single-person group
+                groupsRef.add(userGroup).addOnSuccessListener {
+                    it.get().addOnSuccessListener {
+                        newUser.singleUserGroup = GroupWrapper.fromGroup(Group.fromSnapshot(it))
+                        newUserRef.set(newUser)
+                    }
+                }
+                var lsGroup = Group(username+".locshare", MemberSpec(),MemberSpec(),false,true) //Create location share group
+                groupsRef.add(lsGroup).addOnSuccessListener {
+                    it.get().addOnSuccessListener {
+                        newUser.locationShareGroup = GroupWrapper.fromGroup(Group.fromSnapshot(it))
+                        newUserRef.set(newUser)
+                    }
+                }
+            }
+        }
+    }
+
     fun onUserLoaded(){
-        nav_view.getHeaderView(0).user_displayname.text = currentUser.getDisplayName()
-        nav_view.getHeaderView(0).user_email.text = currentUser.getUsername()
+        nav_view.getHeaderView(0).user_displayname.text = currentUser.wGetDisplayName()
+        nav_view.getHeaderView(0).user_email.text = currentUser.wGetUsername()
         updateMyEventsList()
         updateAnnotatedMasterGroups()
         setFragmentToStartup()
@@ -175,12 +226,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
         }
+        EventWrapper.setupEvents(masterEventsList)
         updateMyEventsList()
     }
     fun updateMyEventsList(){
         myEventsList.clear()
         for(e in masterEventsList){
-            if (e.getAccessLevel(currentUser).mt != MT.NEITHER){
+            if (e.getUserAccessLevel(currentUser).mt != MT.NEITHER){
                 myEventsList.add(EventWrapper.fromEvent(e))
             }
         }
@@ -217,6 +269,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
         }
+        GroupWrapper.setupGroups(masterGroupsList)
         updateAnnotatedMasterGroups()
     }
     fun updateAnnotatedMasterGroups(){
@@ -234,6 +287,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 DocumentChange.Type.ADDED -> {
                     Log.d(Constants.TAG, "Adding $user")
                     masterUsersList.add(0, user)
+                    if(user.username == "crenshch@rose-hulman.edu"){
+                        currentUser= UserWrapper.fromUser(user)
+                        onUserLoaded()
+                    }
                 }
                 DocumentChange.Type.REMOVED -> {
                     Log.d(Constants.TAG, "Removing $user")
@@ -255,6 +312,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
         }
+        UserWrapper.setupUsers(masterUsersList)
     }
 
     override fun onBackPressed() {
@@ -322,8 +380,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun setFragmentToGroups() {
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, GroupsFragment.newInstance(annotatedMasterGroupsList))
+        currentFragment.replace(R.id.container, GroupsFragment.newInstance(filterAMGL(annotatedMasterGroupsList,false,false)))
         currentFragment.commit()
+    }
+
+    private fun filterAMGL(amgl: ArrayList<GroupWithMembershipType>, includeSingleMember: Boolean, includeHidden: Boolean): ArrayList<GroupWithMembershipType> {
+        val out = ArrayList<GroupWithMembershipType>()
+        Log.d(Constants.TAG, amgl.toString())
+        for (gwmt in amgl){
+            if (gwmt.membertype.mt!=MT.NEITHER && (includeSingleMember||!gwmt.group.wGetIsSingleUser()) && (includeHidden||!gwmt.group.wGetIsHidden())){
+                out.add(gwmt)
+                Log.d(Constants.TAG, gwmt.toString())
+            }
+        }
+        return out
     }
 
     fun setFragmentToSettings() {
@@ -346,9 +416,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun setFragmentToLocationShare() {
         val currentFragment = supportFragmentManager.beginTransaction()
-        currentFragment.replace(R.id.container, LocationShareFragment.newInstance(currentUser.getLocationShareGroup().getMembers(
-            MemberType(MT.BOTH)
-        )))
+        currentFragment.replace(R.id.container, LocationShareFragment.newInstance(currentUser.wGetLocationShareGroup()))
         currentFragment.commit()
     }
 

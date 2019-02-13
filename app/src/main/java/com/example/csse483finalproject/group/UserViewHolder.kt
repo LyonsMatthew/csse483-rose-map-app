@@ -31,7 +31,7 @@ class UserViewHolder : RecyclerView.ViewHolder, AdapterView.OnItemSelectedListen
 
     fun bind(user: UserWrapper) {
         this.user=user
-        userName.text = user.getDisplayName()
+        userName.text = user.wGetDisplayName()
         if(mtcCallback!=null){
             val spinner: Spinner = itemView.findViewById(R.id.mt_spinner)
             val enableSpinner = mtcCallback!!.isMemberTypeChangable(user)

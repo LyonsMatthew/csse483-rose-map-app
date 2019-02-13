@@ -36,12 +36,15 @@ class GroupsFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_groups, container, false)
         unpackBundle(view)
-        adapter = GroupAdapter(this.context!!,this)
+        adapter = GroupAdapter(this.context!!,context!!.resources.getStringArray(R.array.membertypes),this)
         view.recycler_view.layoutManager = LinearLayoutManager(this.context)
         view.recycler_view.setHasFixedSize(false)
         view.recycler_view.adapter = adapter
         for (i in 0 until groups.size){
             adapter.add(groups[i])
+        }
+        view.fab.setOnClickListener {
+            listener.onCreateGroup()
         }
         return view
     }
@@ -56,6 +59,7 @@ class GroupsFragment : Fragment() {
 
     interface GroupListListener {
         fun onGroupClicked(g: GroupWrapper)
+        fun onCreateGroup()
     }
 
     companion object {

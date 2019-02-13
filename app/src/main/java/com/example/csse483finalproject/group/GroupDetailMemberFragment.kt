@@ -13,12 +13,16 @@ import com.example.csse483finalproject.event.EventWrapper
 import kotlinx.android.synthetic.main.fragment_groupdetail_member.view.*
 
 class GroupDetailMemberFragment : Fragment(), UserAdapter.mtcInterface, EventAdapter.EventListListener {
+    override fun onCreateEvent() {
+        listener.onCreateEvent()
+    }
+
     override fun onEventClicked(e: EventWrapper) {
         listener.onEventClicked(e)
     }
 
     override fun onMemberTypeChange(u: UserWrapper, mt: MemberType) {
-        group.setMemberType(u,mt)
+        group.wSetMemberType(u,mt)
     }
 
     override fun isMemberTypeChangable(u: UserWrapper): Boolean {
@@ -26,7 +30,7 @@ class GroupDetailMemberFragment : Fragment(), UserAdapter.mtcInterface, EventAda
     }
 
     override fun getCurrentMt(u: UserWrapper): MemberType {
-        return group.getMemberType(u)
+        return group.wGetMemberType(u)
     }
 
     lateinit var memberAdapter: UserAdapter
@@ -53,12 +57,12 @@ class GroupDetailMemberFragment : Fragment(), UserAdapter.mtcInterface, EventAda
         view.event_recycler_view.layoutManager = LinearLayoutManager(this.context)
         view.event_recycler_view.setHasFixedSize(false)
         view.event_recycler_view.adapter = eventAdapter
-        view.group_title.text = group.getGroupName()
-        val users = group.getMembers(MemberType(MT.BOTH))
+        view.group_title.text = group.wGetGroupName()
+        val users = group.wGetMembers(MemberType(MT.BOTH))
         for (i in 0 until users.size){
             memberAdapter.add(users[i])
         }
-        val events = group.getEvents()
+        val events = group.wGetEvents()
         for (i in 0 until users.size){
             eventAdapter.add(events[i])
         }

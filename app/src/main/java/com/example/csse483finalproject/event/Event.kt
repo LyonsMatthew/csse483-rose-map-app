@@ -2,17 +2,17 @@ package com.example.csse483finalproject.event
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.example.csse483finalproject.group.GroupSpec
-import com.example.csse483finalproject.group.MT
-import com.example.csse483finalproject.group.MemberType
-import com.example.csse483finalproject.group.UserWrapper
+import android.util.Log
+import com.example.csse483finalproject.Constants
+import com.example.csse483finalproject.group.*
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Exclude
 import java.util.*
 
 data class Event(var eventName:String = "", var eventLocation:Location = Location(),
                  var eventDescription:String = "", var eventStart: Calendar = Calendar.getInstance(), var eventEnd: Calendar = Calendar.getInstance(),
-                 var eventOwners: GroupSpec = GroupSpec(), var eventViewers: GroupSpec = GroupSpec(),
-                 var id: String = "" ) :Parcelable {
+                 var eventOwners: GroupSpec = GroupSpec(), var eventViewers: GroupSpec = GroupSpec()) :Parcelable {
+    @get:Exclude var id=""
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readParcelable(Location::class.java.classLoader)!!,
@@ -20,9 +20,9 @@ data class Event(var eventName:String = "", var eventLocation:Location = Locatio
         parcel.readSerializable() as Calendar,
         parcel.readSerializable() as Calendar,
         parcel.readParcelable(GroupSpec::class.java.classLoader)!!,
-        parcel.readParcelable(GroupSpec::class.java.classLoader)!!,
-        parcel.readString()!!
+        parcel.readParcelable(GroupSpec::class.java.classLoader)!!
     ) {
+        id=parcel.readString()!!
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -36,7 +36,7 @@ data class Event(var eventName:String = "", var eventLocation:Location = Locatio
         parcel.writeString(id)
     }
 
-    fun getAccessLevel(u: UserWrapper): MemberType {
+    fun getUserAccessLevel(u: UserWrapper): MemberType {
         if(eventOwners.containsUser(u)){
             return MemberType(MT.OWNER)
         }
@@ -46,6 +46,58 @@ data class Event(var eventName:String = "", var eventLocation:Location = Locatio
         else{
             return MemberType(MT.NEITHER)
         }
+    }
+
+    fun getGroupAccessLevel(gwmt: GroupWithMembershipType): MemberType {
+        if(eventOwners.containsGroup(gwmt)){
+            return MemberType(MT.OWNER)
+        }
+        if(eventViewers.containsGroup(gwmt)){
+            return MemberType(MT.VIEWER)
+        }
+        else{
+            return MemberType(MT.NEITHER)
+        }
+    }
+
+    fun setGroupAccessLevel(gwmt: GroupWithMembershipType, al:MemberType) {
+        if(eventOwners.containsGroup(gwmt)){
+            if(al.mt == MT.OWNER) {
+                return
+            }
+            if(al.mt == MT.VIEWER) {
+                eventOwners.removeGroup(gwmt)
+                eventViewers.addGroup(gwmt)
+                return
+            }
+            if (al.mt == MT.NEITHER) {
+                eventOwners.removeGroup(gwmt)
+                return
+            }
+        }
+        if(eventViewers.containsGroup(gwmt)){
+            if(al.mt == MT.OWNER) {
+                eventOwners.addGroup(gwmt)
+                eventViewers.removeGroup(gwmt)
+                return
+            }
+            if(al.mt == MT.VIEWER) {
+                return
+            }
+            if (al.mt == MT.NEITHER) {
+                eventViewers.removeGroup(gwmt)
+                return
+            }
+        }
+        if(al.mt==MT.OWNER){
+            eventOwners.addGroup(gwmt)
+            return
+        }
+        if(al.mt==MT.VIEWER){
+            eventViewers.addGroup(gwmt)
+            return
+        }
+        Log.d(Constants.TAG, "Failed setting group access level")
     }
 
     override fun describeContents(): Int {

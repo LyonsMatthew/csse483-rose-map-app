@@ -53,8 +53,10 @@
     <AutoCompleteTextView
             app:layout_constraintTop_toBottomOf="@id/titleview"
             app:layout_constraintLeft_toRightOf="@id/loctitle"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="8dp"
             android:text="$location"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
 
             android:id="@+id/loctext"/>
@@ -128,8 +130,8 @@
             android:id="@+id/etdtext"/>
 
     <TextView
-            app:layout_constraintTop_toTopOf="@id/datetext"
-            app:layout_constraintBottom_toBottomOf="@id/datetext"
+            app:layout_constraintTop_toTopOf="@id/grptext"
+            app:layout_constraintBottom_toBottomOf="@id/grptext"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="8dp"
             android:text="Access: "
@@ -140,15 +142,15 @@
             android:layout_marginTop="6dp"
             android:id="@+id/datetitle"/>
 
-    <AutoCompleteTextView
-            android:inputType="text"
+    <Button
+
             app:layout_constraintTop_toBottomOf="@id/etdtext"
             app:layout_constraintLeft_toRightOf="@id/datetitle"
-            android:text="$groups"
+            android:text="Edit Permissions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:id="@+id/datetext"/>
+            android:id="@+id/grptext"/>
 
     <TextView
             app:layout_constraintTop_toBottomOf="@id/datetitle"

@@ -28,14 +28,14 @@ class EventViewHolder : RecyclerView.ViewHolder {
 
     fun bind(event: EventWrapper) {
         this.event=event
-        eventTitle.text = event.getEventName()
+        eventTitle.text = event.wGetEventName()
         //TODO: Better implementation for the below
         if(!isMinimal) {
-            eventLocation.text = event.getEventLocation().locString()
+            eventLocation.text = event.wGetEventLocation().locString()
             val monthStrings = adapter.context.resources.getStringArray(R.array.month_abbrev)
-            eventDate.text = monthStrings[event.getEventStart().time.month] + " " + event.getEventStart().time.date.toString()
+            eventDate.text = monthStrings[event.wGetEventStart().time.month] + " " + event.wGetEventStart().time.date.toString()
             eventTime.text =
-                event.getEventStart().time.hours.toString() + ":" + event.getEventStart().time.minutes.toString() + " to " + event.getEventEnd().time.hours.toString() + ":" + event.getEventEnd().time.minutes.toString()
+                event.wGetEventStart().time.hours.toString() + ":" + event.wGetEventStart().time.minutes.toString() + " to " + event.wGetEventEnd().time.hours.toString() + ":" + event.wGetEventEnd().time.minutes.toString()
         }
         cardView.setOnClickListener {
             adapter.eventCallback.onEventClicked(event)

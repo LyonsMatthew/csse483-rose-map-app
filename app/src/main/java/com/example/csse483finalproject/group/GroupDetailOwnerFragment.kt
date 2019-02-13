@@ -2,26 +2,32 @@ package com.example.csse483finalproject.group
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.csse483finalproject.Constants
 import com.example.csse483finalproject.R
 import com.example.csse483finalproject.event.EventAdapter
 import com.example.csse483finalproject.event.EventWrapper
 import kotlinx.android.synthetic.main.fragment_groupdetail_owner.view.*
 
 class GroupDetailOwnerFragment : Fragment(), UserAdapter.mtcInterface, UserAdapter.DeletableUserInterface, EventAdapter.EventListListener {
+    override fun onCreateEvent() {
+        listener.onCreateEvent()
+    }
+
     override fun onEventClicked(e: EventWrapper) {
         listener.onEventClicked(e)
     }
 
     override fun onMemberTypeChange(u: UserWrapper, mt: MemberType) {
-        group.setMemberType(u,mt)
+        group.wSetMemberType(u,mt)
     }
 
     override fun isMemberTypeChangable(u: UserWrapper): Boolean {
@@ -29,11 +35,11 @@ class GroupDetailOwnerFragment : Fragment(), UserAdapter.mtcInterface, UserAdapt
     }
 
     override fun getCurrentMt(u: UserWrapper): MemberType {
-        return group.getMemberType(u)
+        return group.wGetMemberType(u)
     }
 
     override fun onDelete(u: UserWrapper) {
-        Log.d(Constants.TAG,"TODO: Userdel "+u.toString())
+        group.wSetMemberType(u, MemberType(MT.NEITHER))
     }
 
     lateinit var memberAdapter: UserAdapter
@@ -60,18 +66,68 @@ class GroupDetailOwnerFragment : Fragment(), UserAdapter.mtcInterface, UserAdapt
         view.event_recycler_view.layoutManager = LinearLayoutManager(this.context)
         view.event_recycler_view.setHasFixedSize(false)
         view.event_recycler_view.adapter = eventAdapter
-        view.group_title.text = group.getGroupName()
+        view.titleview.setOnClickListener {
+            val builder = AlertDialog.Builder(view.context)
+            builder.setTitle(getString(R.string.edit_groupname))
+            val titleEditText = EditText(view.context)
+            titleEditText.setText(group.wGetGroupName())
+            builder.setView(titleEditText)
+            builder.setPositiveButton(android.R.string.ok) { _, _ ->
+                group.wSetGroupName(titleEditText.text.toString())
+                updateView()
+            }
+            builder.show()
+        }
+        view.addmemberbutton.setOnClickListener {
+            val builder = AlertDialog.Builder(view.context)
+            builder.setTitle(getString(R.string.addmember))
+            val memberAddText = AutoCompleteTextView(view.context)
+            memberAddText.setText("")
+            memberAddText.setHint(getString(R.string.person_prompt))
+            memberAddText.setAdapter(ArrayAdapter<String>(view.context, android.R.layout.select_dialog_item, UserWrapper.autoCompleteList()))
+            builder.setView(memberAddText)
+            builder.setPositiveButton(android.R.string.ok) { _, _ ->
+                var user = UserWrapper.fromDisplayName(memberAddText.text.toString())
+                if (user.wGetDisplayName()!="" && group.wGetMemberType(user)==MemberType(MT.NEITHER)){
+                    group.wSetMemberType(user, MemberType(MT.VIEWER))
+                    memberAdapter.add(user)
+                }
+                updateView()
+            }
+            builder.show()
+        }
+        view.savebutton.setOnClickListener {
+            group.saveToCloud()
+            //Todo: Go back
+        }
+        view.delbutton.setOnClickListener {
+            group.delete()
+            //Todo: Go back
+        }
         ItemTouchHelper(memberAdapter.SwipeCallback()).attachToRecyclerView(view.member_recycler_view)
-        val users = group.getMembers(MemberType(MT.BOTH))
+        val users = group.wGetMembers(MemberType(MT.BOTH))
         for (i in 0 until users.size){
             memberAdapter.add(users[i])
         }
-        val events = group.getEvents()
-        for (i in 0 until users.size){
+        val events = group.wGetEvents()
+        for (i in 0 until events.size){
             eventAdapter.add(events[i])
         }
+        updateView(view)
         return view
     }
+
+    fun updateView(v: View? = null){
+        lateinit var myView:View
+        if(v != null){
+            myView=v
+        }
+        else{
+            myView=this.view!!
+        }
+        myView.group_title.text = group.wGetGroupName()
+    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

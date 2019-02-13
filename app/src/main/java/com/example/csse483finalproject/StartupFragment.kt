@@ -19,8 +19,8 @@ class StartupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_startup, container, false)
-        if(user.getDisplayName()!=""){
-            view.statusText.text = getString(R.string.loginText, user.getUsername())
+        if(user.wGetDisplayName()!=""){
+            view.statusText.text = getString(R.string.loginText, user.wGetUsername())
         }
         unpackBundle(view)
         return view

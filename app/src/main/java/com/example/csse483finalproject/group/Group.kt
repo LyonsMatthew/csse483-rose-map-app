@@ -2,26 +2,33 @@ package com.example.csse483finalproject.group
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.util.Log
-import com.example.csse483finalproject.Constants
 import com.example.csse483finalproject.event.EventWrapper
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Exclude
 
 data class Group(var groupName: String = "", var groupOwners: MemberSpec = MemberSpec(),
-                 var groupViewers: MemberSpec = MemberSpec(), var isSingleUse: Boolean = true, var id: String = "" ) :Parcelable {
+                 var groupViewers: MemberSpec = MemberSpec(), var isSingleUser: Boolean = true, var isHidden:Boolean=true) :Parcelable {
+    @get:Exclude var id=""
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readParcelable(MemberSpec::class.java.classLoader),
         parcel.readParcelable(MemberSpec::class.java.classLoader),
         parcel.readInt()>0,
-        parcel.readString()
+        parcel.readInt()>0
     ) {
+        id=parcel.readString()
     }
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(groupName)
         parcel.writeParcelable(groupOwners, flags)
         parcel.writeParcelable(groupViewers, flags)
-        if(isSingleUse) {
+        if(isSingleUser) {
+            parcel.writeInt(1)
+        }
+        else {
+            parcel.writeInt(0)
+        }
+        if(isHidden) {
             parcel.writeInt(1)
         }
         else {
@@ -48,15 +55,51 @@ data class Group(var groupName: String = "", var groupOwners: MemberSpec = Membe
     fun getEvents(): ArrayList<EventWrapper>{ //TODO: Remove and implement properly
         val resultantEvents = ArrayList<EventWrapper>()
         for (event in EventWrapper.hmoe.values){
-            if(event.eventOwners.containsGroup(GroupWrapper.fromGroup(this), MemberType(MT.BOTH))){
+            if(event.eventOwners.containsGroup(GroupWithMembershipType(GroupWrapper.fromGroup(this), MemberType(MT.BOTH)))){
                 resultantEvents.add(EventWrapper.fromEvent(event))
             }
         }
         return resultantEvents
     }
 
-    fun setMemberType(u:UserWrapper, mt: MemberType){
-        Log.d(Constants.TAG, "TODO: SetMemberType "+mt.mt.toString())
+    fun setMemberType(u: UserWrapper, mt: MemberType) {
+        if(groupOwners.containsUser(u)){
+            if(mt.mt == MT.OWNER) {
+                return
+            }
+            if(mt.mt == MT.VIEWER) {
+                groupOwners.removeUser(u)
+                groupViewers.addUser(u)
+                return
+            }
+            if (mt.mt == MT.NEITHER) {
+                groupOwners.removeUser(u)
+                return
+            }
+        }
+        if(groupViewers.containsUser(u)){
+            if(mt.mt == MT.OWNER) {
+                groupOwners.addUser(u)
+                groupViewers.removeUser(u)
+                return
+            }
+            if(mt.mt == MT.VIEWER) {
+                return
+            }
+            if (mt.mt == MT.NEITHER) {
+                groupViewers.removeUser(u)
+                return
+            }
+        }
+        if(mt.mt==MT.OWNER){
+            groupOwners.addUser(u)
+            return
+        }
+        if(mt.mt==MT.VIEWER){
+            groupViewers.addUser(u)
+            return
+        }
+        return
     }
 
     fun getMemberType(u:UserWrapper):MemberType{

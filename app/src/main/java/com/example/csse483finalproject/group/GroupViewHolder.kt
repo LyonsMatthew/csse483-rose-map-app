@@ -19,10 +19,12 @@ class GroupViewHolder : RecyclerView.ViewHolder {
 
     fun bind(group: GroupWithMembershipType) {
         this.group=group
-        groupName.text = group.group.getGroupName()
-        groupMemberType.text = adapter.context.resources.getStringArray(R.array.membertypes)[mtToInt(group.membertype.mt)]
-        cardView.setOnClickListener {
-            adapter.parentFragment.onGroupClicked(group)
+        groupName.text = group.group.wGetGroupName()
+        groupMemberType.text = adapter.mtypes[mtToInt(group.membertype.mt)]
+        if(adapter.parentFragment!=null) {
+            cardView.setOnClickListener {
+                adapter.parentFragment!!.onGroupClicked(group)
+            }
         }
     }
 }

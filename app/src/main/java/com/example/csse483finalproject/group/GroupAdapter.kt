@@ -1,12 +1,12 @@
 package com.example.csse483finalproject.group
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.example.csse483finalproject.R
 
-class GroupAdapter(var context: Context, var parentFragment: GroupsFragment) : RecyclerView.Adapter<GroupViewHolder>() {
+class GroupAdapter(var context: Context, var mtypes:Array<String>, var parentFragment: GroupsFragment?) : RecyclerView.Adapter<GroupViewHolder>() {
     private val groups = ArrayList<GroupWithMembershipType>()
 
     override fun onCreateViewHolder(parent: ViewGroup, index: Int): GroupViewHolder {

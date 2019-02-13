@@ -27,6 +27,20 @@ data class MemberSpec(var members:ArrayList<UserWrapper> = ArrayList<UserWrapper
         return false
     }
 
+    fun addUser(u:UserWrapper){
+        if(!containsUser(u)) {
+            members.add(u)
+        }
+    }
+
+    fun removeUser(u:UserWrapper){
+        for (tu in members){
+            if (tu.wGetId()==u.wGetId()){
+                members.remove(tu)
+            }
+        }
+    }
+
     companion object CREATOR : Parcelable.Creator<MemberSpec> {
         override fun createFromParcel(parcel: Parcel): MemberSpec {
             return MemberSpec(parcel)

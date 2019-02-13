@@ -19,7 +19,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_settings, container, false)
-        view.accountName.text = getString(R.string.loginText, user.getUsername())
+        view.accountName.text = getString(R.string.loginText, user.wGetUsername())
         unpackBundle(view)
         return view
     }

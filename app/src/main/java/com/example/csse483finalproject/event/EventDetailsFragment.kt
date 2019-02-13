@@ -16,10 +16,10 @@ class EventDetailsFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_eventdetail, container, false)
         unpackBundle(view)
-        view.event_title.text = event.getEventName()
-        view.dtext.text = event.getEventDescription()
-        view.loctext.text = event.getEventLocation().locString()
-        view.tdtext.text = getString(R.string.date_seperator,event.getEventStart().time.toLocaleString(), event.getEventEnd().time.toLocaleString())
+        view.event_title.text = event.wGetEventName()
+        view.dtext.text = event.wGetEventDescription()
+        view.loctext.text = event.wGetEventLocation().locString()
+        view.tdtext.text = getString(R.string.date_seperator,event.wGetEventStart().time.toLocaleString(), event.wGetEventEnd().time.toLocaleString())
         return view
     }
     lateinit var event:EventWrapper

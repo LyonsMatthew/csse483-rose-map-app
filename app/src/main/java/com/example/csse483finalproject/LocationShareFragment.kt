@@ -1,27 +1,27 @@
 package com.example.csse483finalproject.group
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.csse483finalproject.Constants
 import com.example.csse483finalproject.R
-import kotlinx.android.synthetic.main.fragment_groups.view.*
+import kotlinx.android.synthetic.main.fragment_locshare.view.*
 
 class LocationShareFragment : Fragment(), UserAdapter.DeletableUserInterface {
     override fun onDelete(u: UserWrapper) {
-        Log.d(Constants.TAG,"Userdel "+u.toString())
+        lsg.wSetMemberType(u,MemberType(MT.NEITHER))
+        lsg.saveToCloud()
     }
 
     lateinit var adapter: UserAdapter
-    lateinit var users: ArrayList<UserWrapper>
+    lateinit var lsg: GroupWrapper
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        users = arguments!!.getParcelableArrayList<UserWrapper>(ARG_USERS)!!
+        lsg = arguments!!.getParcelable(ARG_USERS)!!
     }
 
     override fun onCreateView(
@@ -35,8 +35,17 @@ class LocationShareFragment : Fragment(), UserAdapter.DeletableUserInterface {
         view.recycler_view.setHasFixedSize(false)
         view.recycler_view.adapter = adapter
         ItemTouchHelper(adapter.SwipeCallback()).attachToRecyclerView(view.recycler_view)
-        for (i in 0 until users.size){
-            adapter.add(users[i])
+        for (uw in lsg.wGetMembers(MemberType(MT.BOTH))){
+            adapter.add(uw)
+        }
+        view.actv_person.setAdapter(ArrayAdapter<String>(view.context, android.R.layout.select_dialog_item, UserWrapper.autoCompleteList()))
+        view.addbutton.setOnClickListener {
+            val uw = UserWrapper.fromDisplayName(view.actv_person.text.toString())
+            if(uw.wGetDisplayName()!=""){
+                lsg.wSetMemberType(uw,MemberType(MT.VIEWER))
+                lsg.saveToCloud()
+                adapter.add(uw)
+            }
         }
         return view
     }
@@ -56,10 +65,10 @@ class LocationShareFragment : Fragment(), UserAdapter.DeletableUserInterface {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        fun newInstance(users: ArrayList<UserWrapper>): LocationShareFragment {
+        fun newInstance(lsg: GroupWrapper): LocationShareFragment {
             val fragment = LocationShareFragment()
             val args = Bundle()
-            args.putParcelableArrayList(ARG_USERS, users)
+            args.putParcelable(ARG_USERS, lsg)
             fragment.arguments = args
             return fragment
         }

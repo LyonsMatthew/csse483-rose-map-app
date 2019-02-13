@@ -35,29 +35,42 @@ data class GroupSpec(var groups:ArrayList<GroupWithMembershipType> = ArrayList<G
 
     fun containsUser(u: UserWrapper) : Boolean{
         for (g in groups){
-            var groupUsers = g.group.getMembers(g.membertype)
+            var groupUsers = g.group.wGetMembers(g.membertype)
             for(tu in groupUsers){
-                if (u.getId() == tu.getId()){
+                if (u.wGetId() == tu.wGetId()){
                     return true
                 }
             }
         }
         return false
     }
-    fun containsGroup(g: GroupWrapper, mt: MemberType) : Boolean{
+
+    fun containsGroup(gwmt: GroupWithMembershipType) : Boolean{
         for (tg in groups){
-            if(mt.mt==MT.BOTH){
-                if (tg.group.getId() == g.getId()){
+            if(gwmt.membertype.mt==MT.BOTH){
+                if (tg.group.wGetId() == gwmt.group.wGetId()){
                     return true
                 }
             }
-            if(mt.mt==tg.membertype.mt){
-                if (tg.group.getId() == g.getId()){
+            if(gwmt.membertype.mt==tg.membertype.mt){
+                if (tg.group.wGetId() == gwmt.group.wGetId()){
                     return true
                 }
             }
 
         }
         return false
+    }
+
+    fun removeGroup(g: GroupWithMembershipType){
+        for(tg in groups) {
+            if ((g.group.wGetId() == tg.group.wGetId())&&(g.membertype.mt==tg.membertype.mt)) {
+                groups.remove(tg)
+            }
+        }
+    }
+
+    fun addGroup(g:GroupWithMembershipType){
+        groups.add(g)
     }
 }

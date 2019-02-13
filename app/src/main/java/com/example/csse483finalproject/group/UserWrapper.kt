@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
 import com.example.csse483finalproject.Constants
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 
 data class UserWrapper(var userId: String = "") : Parcelable {
@@ -20,20 +21,24 @@ data class UserWrapper(var userId: String = "") : Parcelable {
         return 0
     }
 
-    fun getUsername(): String{
+    fun wGetUsername(): String{
         return myUser().username
     }
 
-    fun getId(): String{
+    fun wGetId(): String{
         return myUser().id
     }
 
-    fun getDisplayName(): String{
+    fun wGetDisplayName(): String{
         return myUser().displayName
     }
 
-    fun getLocationShareGroup(): GroupWrapper{
+    fun wGetLocationShareGroup(): GroupWrapper{
         return myUser().locationShareGroup
+    }
+
+    fun wGetSingleUserGroup(): GroupWrapper{
+        return myUser().singleUserGroup
     }
 
     fun myUser(): User {
@@ -49,11 +54,30 @@ data class UserWrapper(var userId: String = "") : Parcelable {
     companion object CREATOR : Parcelable.Creator<UserWrapper> {
         var hmou = HashMap<String,User>()
 
-        fun setupEvents(ul:ArrayList<User>){
+        lateinit var usersRef: CollectionReference
+
+        fun setupUsers(ul:ArrayList<User>){
             hmou = HashMap<String,User>()
             for (u in ul){
                 hmou.put(u.id,u)
             }
+        }
+
+        fun autoCompleteList():ArrayList<String>{
+            var acl = ArrayList<String>()
+            for (user in hmou.values){
+                acl.add(user.displayName)
+            }
+            return acl
+        }
+
+        fun fromDisplayName(dn:String):UserWrapper{
+            for ((k,v) in hmou){
+                if (v.displayName == dn){
+                    return UserWrapper(k)
+                }
+            }
+            return UserWrapper() //Todo: Somthing more useful here
         }
 
         override fun createFromParcel(parcel: Parcel): UserWrapper {

@@ -43,6 +43,9 @@ class EventsFragment : Fragment(), EventAdapter.EventListListener {
         for (i in 0 until events.size){
             adapter.add(events[i])
         }
+        view.fab.setOnClickListener {
+            listener.onCreateEvent()
+        }
         return view
     }
 
@@ -52,6 +55,10 @@ class EventsFragment : Fragment(), EventAdapter.EventListListener {
 
     override fun onEventClicked(e: EventWrapper){
         listener.onEventClicked(e)
+    }
+
+    override fun onCreateEvent() {
+        listener.onCreateEvent()
     }
 
     companion object {

@@ -39,6 +39,13 @@
     <string name="saveevent">Save Event</string>
     <string name="add_person">Add Person</string>
     <string name="accountLoading">Loading account data...</string>
+    <string name="edit_eventname">Edit event name</string>
+    <string name="addgroups">Add groups</string>
+    <string name="edit_groupname">Edit group name</string>
+    <string name="delete_group">Delete Group</string>
+    <string name="save_group">Save Group</string>
+    <string name="groupname_prompt">Enter a group name...</string>
+    <string name="person_prompt">Add User</string>
     <string-array name="month_abbrev">
         <item>Jan</item>
         <item>Feb</item>
@@ -57,6 +64,10 @@
     <string-array name="membertypes">
         <item>Owner</item>
         <item>Member</item>
+    </string-array>
+    <string-array name="editview">
+        <item>Edit</item>
+        <item>View</item>
     </string-array>
 
 </resources>
