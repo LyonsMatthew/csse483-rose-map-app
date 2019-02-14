@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Switch
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ class LocationShareFragment : Fragment(), UserAdapter.DeletableUserInterface {
         lsg.saveToCloud()
     }
 
+    var switch: Switch? = null
     lateinit var adapter: UserAdapter
     lateinit var lsg: GroupWrapper
     override fun onCreate(savedInstanceState: Bundle?){
@@ -37,6 +39,16 @@ class LocationShareFragment : Fragment(), UserAdapter.DeletableUserInterface {
         ItemTouchHelper(adapter.SwipeCallback()).attachToRecyclerView(view.recycler_view)
         for (uw in lsg.wGetMembers(MemberType(MT.BOTH))){
             adapter.add(uw)
+        }
+        switch = view.locswitch
+        switch!!.setOnClickListener { _ ->
+            val uw = UserWrapper.fromDisplayName(view.actv_person.text.toString())
+            if (switch!!.isChecked) {
+                uw.wSetLocShare(1)
+            } else {
+                uw.wSetLocShare(0)
+            }
+            uw.saveToCloud()
         }
         view.actv_person.setAdapter(ArrayAdapter<String>(view.context, android.R.layout.select_dialog_item, UserWrapper.autoCompleteList()))
         view.addbutton.setOnClickListener {

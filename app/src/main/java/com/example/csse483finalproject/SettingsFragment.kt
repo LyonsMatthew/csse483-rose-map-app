@@ -21,6 +21,9 @@ class SettingsFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_settings, container, false)
         view.accountName.text = getString(R.string.loginText, user.wGetUsername())
         unpackBundle(view)
+        view.signout.setOnClickListener {
+            (activity as MainActivity).logout()
+        }
         return view
     }
 

@@ -46,6 +46,8 @@
     <string name="save_group">Save Group</string>
     <string name="groupname_prompt">Enter a group name...</string>
     <string name="person_prompt">Add User</string>
+    <string name="create_event">Create Event</string>
+    <string name="cancel">Cancel</string>
     <string-array name="month_abbrev">
         <item>Jan</item>
         <item>Feb</item>

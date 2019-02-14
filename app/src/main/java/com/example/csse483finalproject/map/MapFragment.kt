@@ -211,6 +211,10 @@ class MapFragment : Fragment() {
     private fun showDialog(name: String) {
         val builder = AlertDialog.Builder(context!!)
         builder.setMessage(name)
+        builder.setPositiveButton(R.string.create_event) { _, _ ->
+            mapDataHolder!!.makeEvent(name)
+        }
+        builder.setNegativeButton(R.string.cancel, null)
         builder.create().show()
     }
 
@@ -264,5 +268,6 @@ class MapFragment : Fragment() {
     interface MapDataHolder {
         fun getMapData(filename: String) : MapData
         fun goToMap(filename: String)
+        fun makeEvent(room: String)
     }
 }

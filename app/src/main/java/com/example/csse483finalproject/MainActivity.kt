@@ -15,6 +15,7 @@ import com.example.csse483finalproject.group.*
 import com.example.csse483finalproject.map.MapFragment
 import com.example.csse483finalproject.map.data.MapData
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,10 +26,14 @@ import kotlinx.android.synthetic.main.nav_header_main.view.*
 import java.io.InputStream
 import java.util.*
 import kotlin.collections.ArrayList
+import android.widget.Toast
+import edu.rosehulman.rosefire.Rosefire
+import android.content.Intent
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     EventAdapter.EventListListener, GroupsFragment.GroupListListener,
-    MapFragment.MapDataHolder{
+    MapFragment.MapDataHolder, SplashFragment.OnLoginButtonPressedListener {
     override fun onCreateGroup() {
         var createdGroup = GroupWrapper.newTempGroup()
         createdGroup.wSetGroupName("Untitled Group")
@@ -45,28 +50,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         onEventClicked(createdEvent)
     }
 
+    fun onCreateEvent(locString: String) {
+        var createdEvent = EventWrapper.newTempEvent()
+        createdEvent.wSetEventLocation(Location("",false,0F,0F, locString))
+        createdEvent.wSetEventName("Untitled Event")
+        createdEvent.wSetGroupAccessLevel(GroupWithMembershipType(currentUser.wGetSingleUserGroup(),MemberType(MT.OWNER)),MemberType(MT.OWNER))
+        onEventClicked(createdEvent)
+    }
+
     override fun onGroupClicked(g: GroupWrapper) {
         if(g.wGetGroupOwners().containsUser(currentUser)){
             val currentFragment = supportFragmentManager.beginTransaction()
             currentFragment.replace(R.id.container, GroupDetailOwnerFragment.newInstance(g))
+            currentFragment.addToBackStack("groupdetail")
             currentFragment.commit()
         }
         else{
             val currentFragment = supportFragmentManager.beginTransaction()
             currentFragment.replace(R.id.container, GroupDetailMemberFragment.newInstance(g))
+            currentFragment.addToBackStack("groupdetail")
             currentFragment.commit()
         }
     }
 
     override fun onEventClicked(e: EventWrapper) {
+        val filename = searchForRoom(e.wGetEventLocation().locName)
         val currentFragment = supportFragmentManager.beginTransaction()
         Log.d(Constants.TAG,"WGEO"+e.wGetEventOwners().toString())
         if (e.wGetEventOwners().containsUser(currentUser)){
-            currentFragment.replace(R.id.container, EventDetailsOwnerFragment.newInstance(e))
+            currentFragment.replace(R.id.container, EventDetailsOwnerFragment.newInstance(e, filename))
         }
         else {
-            currentFragment.replace(R.id.container, EventDetailsFragment.newInstance(e))
+            currentFragment.replace(R.id.container, EventDetailsFragment.newInstance(e, filename))
         }
+        currentFragment.addToBackStack("eventdetail")
         currentFragment.commit()
     }
 
@@ -84,6 +101,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     var annotatedMasterGroupsList = ArrayList<GroupWithMembershipType>()
     var currentUser = UserWrapper.fromUser(User())
     var autoCompleteList = ArrayList<String>()
+
+    val auth = FirebaseAuth.getInstance()
+    lateinit var authListener: FirebaseAuth.AuthStateListener
+    var uid = ""
+    val REGISTRY_TOKEN = "25c8beb5-40ad-49d4-9135-bfd1d67dc38a"
+    val RC_ROSEFIRE_LOGIN = 1001
+    var username = ""
+    var name = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -154,20 +179,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             processUserSnapshotChanges(querySnapshot!!)
         }
 
+        initializeAuthListener()
+        auth.addAuthStateListener(authListener)
+
         GroupWrapper.groupsRef=groupsRef
         EventWrapper.eventsRef=eventsRef
         //createUser("crenshch@rose-hulman.edu", "Connor Crenshaw")
         //createUser("tuser1@rose-hulman.edu", "Test User 1")
         //createUser("tuser2@rose-hulman.edu", "Test User 2")
-        setFragmentToStartup()
+        setFragmentToSplash()
     }
 
     fun createUser(username:String,displayName:String){
+        Log.d(Constants.TAG, username + " " + displayName)
         usersRef.add(User(username,displayName)).addOnSuccessListener {
             var newUserRef = it
             it.get().addOnSuccessListener {
                 var newUser = User.fromSnapshot(it)
                 var uw = UserWrapper.fromUser(newUser)
+                uw.wSetUsername(username)
+                uw.wSetDisplayName(name)
+                uw.saveToCloud()
                 var ua = ArrayList<UserWrapper>()
                 ua.add(uw)
                 var userGroup = Group(displayName, MemberSpec(ua),MemberSpec(),true,false) //Create single-person group
@@ -238,7 +270,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-
     private fun processGroupSnapshotChanges(querySnapshot: QuerySnapshot) {
         // Snapshots has documents and documentChanges which are flagged by type,
         // so we can handle C,U,D differently.
@@ -287,10 +318,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 DocumentChange.Type.ADDED -> {
                     Log.d(Constants.TAG, "Adding $user")
                     masterUsersList.add(0, user)
-                    if(user.username == "crenshch@rose-hulman.edu"){
-                        currentUser= UserWrapper.fromUser(user)
-                        onUserLoaded()
-                    }
+                    currentUser= UserWrapper.fromUser(user)
                 }
                 DocumentChange.Type.REMOVED -> {
                     Log.d(Constants.TAG, "Removing $user")
@@ -335,7 +363,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_search -> {
-                searchForRoom()
+                val map = searchForRoom(search.editableText.toString())
+                if (map != "") setFragmentToMap(map)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -369,18 +398,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun setFragmentToStartup() {
         val currentFragment = supportFragmentManager.beginTransaction()
         currentFragment.replace(R.id.container, StartupFragment.newInstance(currentUser))
+        currentFragment.addToBackStack("startup")
         currentFragment.commit()
     }
 
     fun setFragmentToEvents() {
         val currentFragment = supportFragmentManager.beginTransaction()
         currentFragment.replace(R.id.container, EventsFragment.newInstance(myEventsList))
+        currentFragment.addToBackStack("events")
         currentFragment.commit()
     }
 
     fun setFragmentToGroups() {
         val currentFragment = supportFragmentManager.beginTransaction()
         currentFragment.replace(R.id.container, GroupsFragment.newInstance(filterAMGL(annotatedMasterGroupsList,false,false)))
+        currentFragment.addToBackStack("groups")
+        currentFragment.commit()
+    }
+
+    fun setFragmentToSplash() {
+        val currentFragment = supportFragmentManager.beginTransaction()
+        currentFragment.replace(R.id.container, SplashFragment())
         currentFragment.commit()
     }
 
@@ -399,6 +437,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun setFragmentToSettings() {
         val currentFragment = supportFragmentManager.beginTransaction()
         currentFragment.replace(R.id.container, SettingsFragment.newInstance(currentUser))
+        currentFragment.addToBackStack("settings")
         currentFragment.commit()
     }
 
@@ -410,25 +449,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         newFragment.arguments = bundle
         val currentFragment = supportFragmentManager.beginTransaction()
         currentFragment.replace(R.id.container, newFragment)
-        currentFragment.addToBackStack("campus")
+        currentFragment.addToBackStack("map")
         currentFragment.commit()
     }
 
     fun setFragmentToLocationShare() {
         val currentFragment = supportFragmentManager.beginTransaction()
         currentFragment.replace(R.id.container, LocationShareFragment.newInstance(currentUser.wGetLocationShareGroup()))
+        currentFragment.addToBackStack("locshare")
         currentFragment.commit()
     }
 
-    fun searchForRoom() {
-        if (!search.text.toString().contains(" : ")) return
-        var name = search.text.toString().split(" : ")[1]
+    fun setFragmentToPrevious() {
+        supportFragmentManager.popBackStackImmediate()
+    }
+
+    fun searchForRoom(text: String) : String {
+        if (!text.contains(" : ")) return ""
+        var name = text.split(" : ")[1]
 //        Log.d(Constants.TAG, room)
         for (filename in mapDataMap.keys) {
             if (mapDataMap[filename]!!.name == name) {
-                setFragmentToMap(filename)
+                return filename
             }
         }
+        return ""
     }
 
     fun loadAllMapData() {
@@ -512,5 +557,80 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun goToMap(filename: String) {
         setFragmentToMap(filename)
+    }
+
+    override fun makeEvent(room: String) {
+        var locString = ""
+        for (filename in mapDataMap.keys) {
+            for (r in mapDataMap[filename]!!.roomMap.keys) {
+                if (room == r) {
+                    locString = room + " : " + mapDataMap[filename]!!.name
+                }
+            }
+        }
+        onCreateEvent(locString)
+    }
+
+    override fun onEventEditEnd() {
+        setFragmentToEvents()
+    }
+
+    override fun onMapClick(filename: String) {
+        setFragmentToMap(filename)
+    }
+
+    //authentication time let's go
+    fun initializeAuthListener() {
+        authListener = FirebaseAuth.AuthStateListener {
+            val user = auth.currentUser
+            if (user != null) {
+                uid = user.uid
+                onUserLoaded()
+            } else {
+                setFragmentToSplash()
+            }
+        }
+    }
+
+    fun onRosefireLogin() {
+        val signInIntent = Rosefire.getSignInIntent(this, REGISTRY_TOKEN)
+        startActivityForResult(signInIntent, RC_ROSEFIRE_LOGIN)
+    }
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == RC_ROSEFIRE_LOGIN) {
+            val result = Rosefire.getSignInResultFromIntent(data)
+            username = result.email
+            name = result.name
+            createUser(username, name)
+
+            if (!result.isSuccessful) {
+                // The user cancelled the login
+            }
+            auth.signInWithCustomToken(result.token)
+                .addOnCompleteListener(this) { task ->
+                    Log.d(Constants.TAG, "signInWithCustomToken:onComplete:" + task.isSuccessful)
+
+                    // If sign in fails, display a message to the user. If sign in succeeds
+                    // you should use an AuthStateListener to handle the logic for
+                    // signed in user and a signed out user.
+                    if (!task.isSuccessful) {
+                        Log.w(Constants.TAG, "signInWithCustomToken", task.exception)
+                        Toast.makeText(
+                            this@MainActivity, "Authentication failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+        }
+    }
+
+
+    override fun onLoginButtonPressed() {
+        onRosefireLogin()
+    }
+
+    fun logout() {
+        auth.signOut()
     }
 }

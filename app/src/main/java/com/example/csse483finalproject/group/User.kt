@@ -5,12 +5,17 @@ import android.os.Parcelable
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Exclude
 
-data class User(var username: String = "", var displayName:String = "", var locationShareGroup: GroupWrapper = GroupWrapper(), var singleUserGroup:GroupWrapper = GroupWrapper()) :Parcelable {
+data class User(var username: String = "", var displayName:String = "",
+                var locationShareGroup: GroupWrapper = GroupWrapper(),
+                var locShare: Int = 0,
+                var singleUserGroup:GroupWrapper = GroupWrapper()) :Parcelable
+                {
     @get:Exclude var id=""
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
         parcel.readParcelable(GroupWrapper::class.java.classLoader),
+        parcel.readInt(),
         parcel.readParcelable(GroupWrapper::class.java.classLoader)
     ) {
         id=parcel.readString()
@@ -21,6 +26,7 @@ data class User(var username: String = "", var displayName:String = "", var loca
         parcel.writeString(displayName)
         parcel.writeParcelable(locationShareGroup, flags)
         parcel.writeParcelable(singleUserGroup, flags)
+        parcel.writeInt(locShare)
         parcel.writeString(id)
     }
 

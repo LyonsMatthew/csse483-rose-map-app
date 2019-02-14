@@ -37,5 +37,7 @@ class EventAdapter(var context: Context, var eventCallback: EventListListener, v
     interface EventListListener {
         fun onEventClicked(e: EventWrapper)
         fun onCreateEvent()
+        fun onEventEditEnd()
+        fun onMapClick(filename: String)
     }
 }

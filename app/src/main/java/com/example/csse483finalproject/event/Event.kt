@@ -10,15 +10,15 @@ import com.google.firebase.firestore.Exclude
 import java.util.*
 
 data class Event(var eventName:String = "", var eventLocation:Location = Location(),
-                 var eventDescription:String = "", var eventStart: Calendar = Calendar.getInstance(), var eventEnd: Calendar = Calendar.getInstance(),
+                 var eventDescription:String = "", var eventStart: Long = System.currentTimeMillis(), var eventEnd: Long = System.currentTimeMillis(),
                  var eventOwners: GroupSpec = GroupSpec(), var eventViewers: GroupSpec = GroupSpec()) :Parcelable {
     @get:Exclude var id=""
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readParcelable(Location::class.java.classLoader)!!,
         parcel.readString()!!,
-        parcel.readSerializable() as Calendar,
-        parcel.readSerializable() as Calendar,
+        parcel.readLong(),
+        parcel.readLong(),
         parcel.readParcelable(GroupSpec::class.java.classLoader)!!,
         parcel.readParcelable(GroupSpec::class.java.classLoader)!!
     ) {
@@ -29,8 +29,8 @@ data class Event(var eventName:String = "", var eventLocation:Location = Locatio
         parcel.writeString(eventName)
         parcel.writeParcelable(eventLocation, flags)
         parcel.writeString(eventDescription)
-        parcel.writeSerializable(eventStart)
-        parcel.writeSerializable(eventEnd)
+        parcel.writeLong(eventStart)
+        parcel.writeLong(eventEnd)
         parcel.writeParcelable(eventOwners, flags)
         parcel.writeParcelable(eventViewers, flags)
         parcel.writeString(id)

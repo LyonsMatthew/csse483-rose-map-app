@@ -78,6 +78,14 @@ class GroupDetailMemberFragment : Fragment(), UserAdapter.mtcInterface, EventAda
         }
     }
 
+    override fun onEventEditEnd() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onMapClick(filename: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private fun unpackBundle(view: View) {
         //use this to pass arguments if necessary
     }

@@ -52,6 +52,14 @@ class GroupDetailOwnerFragment : Fragment(), UserAdapter.mtcInterface, UserAdapt
         group = arguments!!.getParcelable(ARG_GROUP)!!
     }
 
+    override fun onEventEditEnd() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onMapClick(filename: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

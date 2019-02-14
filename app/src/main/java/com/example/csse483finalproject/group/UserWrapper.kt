@@ -10,8 +10,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 data class UserWrapper(var userId: String = "") : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(userId)
@@ -25,6 +24,10 @@ data class UserWrapper(var userId: String = "") : Parcelable {
         return myUser().username
     }
 
+    fun wSetUsername(username: String) {
+        myUser().username = username
+    }
+
     fun wGetId(): String{
         return myUser().id
     }
@@ -33,12 +36,24 @@ data class UserWrapper(var userId: String = "") : Parcelable {
         return myUser().displayName
     }
 
+    fun wSetDisplayName(name: String) {
+        myUser().displayName = name
+    }
+
     fun wGetLocationShareGroup(): GroupWrapper{
         return myUser().locationShareGroup
     }
 
+    fun wSetLocShare(locShare: Int) {
+        myUser().locShare = locShare
+    }
+
     fun wGetSingleUserGroup(): GroupWrapper{
         return myUser().singleUserGroup
+    }
+
+    fun saveToCloud(){
+//        usersRef.document(userId).set(myUser())
     }
 
     fun myUser(): User {

@@ -192,15 +192,14 @@
 
             android:id="@+id/mtitle"/>
 
-    <FrameLayout
+    <ImageView
             app:layout_constraintTop_toBottomOf="@id/mtitle"
             app:layout_constraintBottom_toTopOf="@id/delbutton"
             android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_below="@id/appBar">
-        <include layout="@layout/fragment_map"/>
-    </FrameLayout>
+            android:layout_below="@id/appBar"
+            android:id="@+id/eventmapowner"/>
 
     <Button
             android:layout_margin="8dp"

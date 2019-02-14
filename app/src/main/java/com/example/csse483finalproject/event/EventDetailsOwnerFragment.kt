@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.csse483finalproject.AnnotatedString
+import com.example.csse483finalproject.MainActivity
 import com.example.csse483finalproject.R
 import com.example.csse483finalproject.group.*
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
@@ -21,6 +23,11 @@ import java.util.*
 
 
 class EventDetailsOwnerFragment : Fragment(), DTGAdapter.dtgInterface {
+
+    var listener: EventAdapter.EventListListener? = null
+    var map_image: ImageView? = null
+    var filename = ""
+
     override fun onMemberTypeChange(dtg: DualTypeGroup, t: MemberType) {
         dtg.gwmt.membertype=t
     }
@@ -44,14 +51,14 @@ class EventDetailsOwnerFragment : Fragment(), DTGAdapter.dtgInterface {
                 event.wGetEventStart().get(Calendar.YEAR),
                 event.wGetEventStart().get(Calendar.MONTH),
                 event.wGetEventStart().get(Calendar.DAY_OF_MONTH))
-                .show(getFragmentManager(), "Datepickerdialog");
+                .show(getFragmentManager(), "Datepickerdialog")
         }
         view.etdtext.setOnClickListener{
             DatePickerDialog.newInstance(eDateSetListener,
                 event.wGetEventEnd().get(Calendar.YEAR),
                 event.wGetEventEnd().get(Calendar.MONTH),
                 event.wGetEventEnd().get(Calendar.DAY_OF_MONTH))
-                .show(getFragmentManager(), "Datepickerdialog");
+                .show(getFragmentManager(), "Datepickerdialog")
         }
         view.titleview.setOnClickListener {
             val builder = AlertDialog.Builder(view.context)
@@ -101,23 +108,35 @@ class EventDetailsOwnerFragment : Fragment(), DTGAdapter.dtgInterface {
             ItemTouchHelper(ga.SwipeCallback()).attachToRecyclerView(eventEditorView.groupSelRecycler)
             builder.show()
         }
+        listener = activity!! as EventAdapter.EventListListener
+        filename = arguments!!.getString("filename")
+        map_image = view.eventmapowner
+        map_image!!.setImageResource(activity!!.resources.getIdentifier(filename,
+            "drawable", context!!.packageName))
+        map_image!!.setOnClickListener { _ ->
+            listener!!.onMapClick(filename)
+        }
         val search = view.loctext
         search.threshold = 1
         search.setAdapter(ArrayAdapter<String>(view.context, android.R.layout.select_dialog_item, EventWrapper.locationAutoCompleteList))
         search.setOnItemClickListener { parent, view, position, id ->
             var locstring = search.text.toString()
+            val mainActivity: MainActivity = listener!! as MainActivity
             event.wSetEventLocation(Location("",false,0F,0F,locstring)) //Todo: Better locations
+            filename = mainActivity.searchForRoom(locstring)
+            map_image!!.setImageResource(mainActivity.resources.getIdentifier(filename,
+                "drawable", context!!.packageName))
         }
         view.savebutton.setOnClickListener {
             var locstring = search.text.toString()
             event.wSetEventLocation(Location("",false,0F,0F,locstring))
             event.wSetEventDescription(view.dtext.text.toString())
             event.saveToCloud()
-            //Todo: Return to previous fragment
+            (listener!! as MainActivity).setFragmentToPrevious()
         }
         view.delbutton.setOnClickListener {
             event.delete()
-            //Todo: Return to previous fragment
+            (listener!! as MainActivity).setFragmentToPrevious()
         }
         return view
     }
@@ -148,16 +167,21 @@ class EventDetailsOwnerFragment : Fragment(), DTGAdapter.dtgInterface {
         myView.event_title.text = event.wGetEventName()
         myView.stdtext.setText(event.wGetEventStart().time.toLocaleString())
         myView.etdtext.setText(event.wGetEventEnd().time.toLocaleString())
+        event.wSetEventStart(event.wGetEventStart())
+        event.wSetEventEnd(event.wGetEventEnd())
     }
 
     val sDateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
         event.wGetEventStart().set(Calendar.YEAR,year)
         event.wGetEventStart().set(Calendar.MONTH,monthOfYear)
         event.wGetEventStart().set(Calendar.DAY_OF_MONTH,dayOfMonth)
+        event.wGetEventEnd().set(Calendar.YEAR,year)
+        event.wGetEventEnd().set(Calendar.MONTH,monthOfYear)
+        event.wGetEventEnd().set(Calendar.DAY_OF_MONTH,dayOfMonth)
         TimePickerDialog.newInstance(sTimeSetListener,
             event.wGetEventStart().get(Calendar.HOUR_OF_DAY),
             event.wGetEventStart().get(Calendar.MINUTE),false)
-            .show(getFragmentManager(), "Timepickerdialog");
+            .show(getFragmentManager(), "Timepickerdialog")
     }
 
     val sTimeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute, _ ->
@@ -165,6 +189,10 @@ class EventDetailsOwnerFragment : Fragment(), DTGAdapter.dtgInterface {
         event.wGetEventStart().set(Calendar.MINUTE,minute)
         event.wGetEventStart().set(Calendar.SECOND,0)
         event.wGetEventStart().set(Calendar.MILLISECOND,0)
+        event.wGetEventEnd().set(Calendar.HOUR_OF_DAY,hour)
+        event.wGetEventEnd().set(Calendar.MINUTE,minute)
+        event.wGetEventEnd().set(Calendar.SECOND,0)
+        event.wGetEventEnd().set(Calendar.MILLISECOND,0)
         updateDatesAndTitle()
     }
 
@@ -175,7 +203,7 @@ class EventDetailsOwnerFragment : Fragment(), DTGAdapter.dtgInterface {
         TimePickerDialog.newInstance(eTimeSetListener,
             event.wGetEventEnd().get(Calendar.HOUR_OF_DAY),
             event.wGetEventEnd().get(Calendar.MINUTE),false)
-            .show(getFragmentManager(), "Timepickerdialog");
+            .show(getFragmentManager(), "Timepickerdialog")
     }
 
     val eTimeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute, _ ->
@@ -208,10 +236,11 @@ class EventDetailsOwnerFragment : Fragment(), DTGAdapter.dtgInterface {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        fun newInstance(event: EventWrapper): EventDetailsOwnerFragment {
+        fun newInstance(event: EventWrapper, filename: String): EventDetailsOwnerFragment {
             val fragment = EventDetailsOwnerFragment()
             val args = Bundle()
             args.putParcelable(ARG_EVENT, event)
+            args.putString("filename", filename)
             fragment.arguments = args
             return fragment
         }

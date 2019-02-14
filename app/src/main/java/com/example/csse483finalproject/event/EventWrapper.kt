@@ -16,7 +16,13 @@ import kotlin.collections.ArrayList
 data class EventWrapper(var eventId: String = "" ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!
-    ) {
+    )
+    val endCalendar = Calendar.getInstance()
+    val startCalendar = Calendar.getInstance()
+
+    init {
+        endCalendar.time = Date(myEvent().eventEnd)
+        startCalendar.time = Date(myEvent().eventStart)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -51,11 +57,11 @@ data class EventWrapper(var eventId: String = "" ) : Parcelable {
     }
 
     fun wGetEventStart(): Calendar{
-        return myEvent().eventStart
+        return startCalendar
     }
 
     fun wGetEventEnd(): Calendar{
-        return myEvent().eventEnd
+        return endCalendar
     }
 
     fun wGetEventOwners(): GroupSpec{
@@ -83,11 +89,11 @@ data class EventWrapper(var eventId: String = "" ) : Parcelable {
     }
 
     fun wSetEventStart(es: Calendar){
-        myEvent().eventStart = es
+        myEvent().eventStart = es.timeInMillis
     }
 
     fun wSetEventEnd(ee: Calendar){
-        myEvent().eventEnd=ee
+        myEvent().eventEnd=ee.timeInMillis
     }
 
     fun wSetEventOwners(eo: GroupSpec){
@@ -130,6 +136,7 @@ data class EventWrapper(var eventId: String = "" ) : Parcelable {
             }
         }
     }
+
     companion object CREATOR : Parcelable.Creator<EventWrapper> {
         var hmoe = HashMap<String,Event>()
         var hmoe_temp = HashMap<String,Event>()
